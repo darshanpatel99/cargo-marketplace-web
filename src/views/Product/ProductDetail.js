@@ -27,20 +27,7 @@ import { Carousel } from 'react-responsive-carousel';
 
 const useStyles = makeStyles(styles);
 
-const images = [
-  {
-    original: 'https://picsum.photos/id/1018/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1018/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1015/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1015/250/150/',
-  },
-  {
-    original: 'https://picsum.photos/id/1019/1000/600/',
-    thumbnail: 'https://picsum.photos/id/1019/250/150/',
-  },
-];
+
 
 export default function Components(props) {
   const classes = useStyles();
@@ -57,29 +44,32 @@ export default function Components(props) {
         }}
         {...rest}
       />
-      <Parallax >
+      
         <div className={classes.container}>
 
-        <Carousel>
-                <div>
-                    <img src="https://picsum.photos/id/1018/1000/600/" />
-                    <p className="legend">Legend 1</p>
-                </div>
-                <div>
-                    <img src="https://picsum.photos/id/1015/1000/600/" />
-                    <p className="legend">Legend 2</p>
-                </div>
-                <div>
-                    <img src="https://picsum.photos/id/1015/1000/600/" />
-                    <p className="legend">Legend 3</p>
-                </div>
-            </Carousel>
-
-
+            <Grid container spacing={6} className={classNames(classes.productDetailsContainer)}>
+                <Grid item spacing={6} xs={6} >
+                    <Carousel autoPlay xs={6} >
+                            <div>
+                                <img src="https://picsum.photos/id/1018/1000/600/" />
+                                <p className="legend">Legend 1</p>
+                            </div>
+                            <div>
+                                <img src="https://picsum.photos/id/1015/1000/600/" />
+                                <p className="legend">Legend 2</p>
+                            </div>
+                            <div>
+                                <img src="https://picsum.photos/id/1015/1000/600/" />
+                                <p className="legend">Legend 3</p>
+                            </div>
+                        </Carousel>
+                </Grid>
+                <Grid item spacing={6}>
+                    <h1> This is a test...</h1>
+                </Grid>
+            </Grid>
         </div>
-      </Parallax>
 
-      
       <Footer />
     </div>
   );
