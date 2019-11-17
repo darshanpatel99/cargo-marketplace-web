@@ -13,6 +13,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 
 // @material-ui/icons
 import { Apps, CloudDownload } from "@material-ui/icons";
+import AndroidOutlinedIcon from '@material-ui/icons/AndroidOutlined';
+import AppleIcon from '@material-ui/icons/Apple';
+import AddAPhotoIcon from '@material-ui/icons/AddAPhoto';
 
 // core components
 import CustomDropdown from "components/CustomDropdown/CustomDropdown.js";
@@ -56,7 +59,8 @@ export default function HeaderLinks(props) {
           target="_blank"
           className={classes.navLink}
         >
-          <CloudDownload className={classes.icons} /> Download App
+          <AndroidOutlinedIcon className={classes.icons} />
+          <AppleIcon className={classes.icons} /> Download App
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
@@ -65,7 +69,20 @@ export default function HeaderLinks(props) {
           target="_blank"
           className={classes.navLink}
         >
+        <AddAPhotoIcon className={classes.icons}/>
          Sell
+        </Button>
+      </ListItem>
+      <ListItem className={classes.listItem}>
+        <Button
+          color="primary"
+          target="_blank"
+          round
+
+          //className={classes.navLinkRounded}
+        >
+
+         Login
         </Button>
       </ListItem>
 
