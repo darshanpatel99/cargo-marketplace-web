@@ -18,6 +18,7 @@ const componentsStyle = {
     margin: "10px 0 0"
   },
   main: {
+    textAlign: 'center',
     background: "#FFFFFF",
     position: "relative",
     zIndex: "3"
@@ -33,6 +34,9 @@ const componentsStyle = {
   },
   textCenter: {
     textAlign: "center"
+  },
+  mainContainerGrid: {
+    justifyContent: "center"
   }
 };
 
