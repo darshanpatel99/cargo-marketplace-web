@@ -18,8 +18,7 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
-import SectionNavbars from "./Sections/SectionNavbars.js";
-
+import SectionProductCard from "./Sections/SectionProductCard.js";
 import styles from "assets/jss/material-kit-react/views/components.js";
 
 const useStyles = makeStyles(styles);
@@ -74,11 +73,21 @@ export default function Components(props) {
         </div>
       </Parallax>
 
+       
+
       <div className={classNames(classes.main, classes.mainRaised)}>
+<<<<<<< HEAD
         <SectionNavbars />
       </div>
 
 
+=======
+        <SectionProductCard title="First Item" description="item description" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap" />   
+        <SectionProductCard title="Second Item" description="item description" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap" />   
+        <SectionProductCard title="Third Item" description="item description" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap" />           
+      </div>
+      
+>>>>>>> upstream/master
       <Footer />
     </div>
   );
