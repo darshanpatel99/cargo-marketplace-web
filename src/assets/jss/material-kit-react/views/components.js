@@ -37,7 +37,16 @@ const componentsStyle = {
   },
   mainContainerGrid: {
     justifyContent: "center"
+  },
+
+
+
+
+  //product details styles
+  productDetailsContainer: {
+    marginTop: "10%",
   }
+
 };
 
 export default componentsStyle;
