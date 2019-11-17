@@ -5,6 +5,9 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+
+import Search from "@material-ui/icons/Search";
+
 import Grid from '@material-ui/core/Grid';
 
 // @material-ui/icons
@@ -15,6 +18,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
+import CustomInput from "components/CustomInput/CustomInput.js";
 
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -30,9 +34,28 @@ export default function Components(props) {
     <div>
       <Header
         brand="CarGo"
-        rightLinks={<HeaderLinks />}
+        rightLinks={
+        <HeaderLinks />}
         fixed
         color="transparent"
+        centerLinks= {<div> <CustomInput
+            white
+            inputRootCustomClasses={classes.inputRootCustomClasses}
+            formControlProps={{
+              className: classes.formControl
+            }}
+            inputProps={{
+              placeholder: "Search",
+              inputProps: {
+                "aria-label": "Search",
+                className: classes.searchInput
+              }
+            }}
+          />
+          <Button justIcon round color="white">
+            <Search className={classes.searchIcon} />
+          </Button>
+          </div>}
         changeColorOnScroll={{
           height: 400,
           color: "white"
@@ -58,13 +81,13 @@ export default function Components(props) {
       <div className={classNames(classes.main, classes.mainRaised)}>
       <Grid container spacing={3} className={classNames(classes.mainContainerGrid)}>
         <Grid item spacing={3}>
-          <SectionProductCard xs={3} title="First Item" description="item description" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap" />   
+          <SectionProductCard xs={3} title="First Item" description="item description" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap" />
         </Grid>
         <Grid item spacing={3}>
-          <SectionProductCard xs={3} title="Second Item" description="item description" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap" />   
+          <SectionProductCard xs={3} title="Second Item" description="item description" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap" />
         </Grid>
         <Grid item spacing={3}>
-          <SectionProductCard xs={3} title="Third Item" description="item description" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap" />           
+          <SectionProductCard xs={3} title="Third Item" description="item description" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap" />
         </Grid>
         <Grid item spacing={3}>
           <SectionProductCard xs={3} title="Third Item" description="item description" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap" />
