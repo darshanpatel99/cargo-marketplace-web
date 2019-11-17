@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import Button from "components/CustomButtons/Button.js";
+import { Link } from "react-router-dom";
+
 
 import imagesStyles from "assets/jss/material-kit-react/imagesStyles.js";
 
@@ -30,7 +32,9 @@ export default function Cards(props) {
     <CardBody>
     <h4 className={classes.cardTitle}>{props.title}</h4>
     <p>{props.description}</p>
+    <Link to='/product'>
       <Button color="primary">Buy</Button>
+    </Link>
       <Button color="primary">Chat</Button>
     </CardBody>
   </Card>

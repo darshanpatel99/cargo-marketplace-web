@@ -7,13 +7,15 @@ import "assets/scss/material-kit-react.scss?v=1.8.0";
 
 // pages for this product
 import HomePage from "views/Home/Home.js";
+import ProductPage from "views/Product/ProductDetail.js";
 
 var hist = createBrowserHistory();
 
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
-      <Route path="/" component={HomePage} />
+      <Route exact path="/" component={HomePage} />
+      <Route path="/product" component={ProductPage} />
     </Switch>
   </Router>,
   document.getElementById("root")
