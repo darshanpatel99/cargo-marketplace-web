@@ -15,7 +15,6 @@ import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "assets/jss/material-kit-react/components/headerStyle.js";
-
 const useStyles = makeStyles(styles);
 
 export default function Header(props) {
@@ -53,7 +52,7 @@ export default function Header(props) {
         .classList.remove(classes[changeColorOnScroll.color]);
     }
   };
-  const { color, rightLinks, leftLinks, brand, fixed, absolute } = props;
+  const { color, rightLinks,centerLinks, leftLinks, brand, fixed, absolute } = props;
   const appBarClasses = classNames({
     [classes.appBar]: true,
     [classes[color]]: color,
@@ -74,6 +73,9 @@ export default function Header(props) {
             brandComponent
           )}
         </div>
+        <Hidden smDown implementation="css">
+        {centerLinks}
+        </Hidden>
         <Hidden smDown implementation="css">
           {rightLinks}
         </Hidden>
@@ -99,6 +101,7 @@ export default function Header(props) {
         >
           <div className={classes.appResponsive}>
             {leftLinks}
+            {centerLinks}
             {rightLinks}
           </div>
         </Drawer>
@@ -124,6 +127,7 @@ Header.propTypes = {
     "dark"
   ]),
   rightLinks: PropTypes.node,
+  centerLinks:PropTypes.node,
   leftLinks: PropTypes.node,
   brand: PropTypes.string,
   fixed: PropTypes.bool,

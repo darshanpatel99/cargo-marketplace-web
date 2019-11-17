@@ -38,7 +38,7 @@ const navbarsStyle = theme => ({
   searchIcon: {
     width: "20px",
     height: "20px",
-    color: "inherit"
+    color: "inherit",
   },
   ...headerLinksStyle(theme),
   img: {
