@@ -5,6 +5,7 @@ import classNames from "classnames";
 import { Link } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+import Search from "@material-ui/icons/Search";
 // @material-ui/icons
 // core components
 import Header from "components/Header/Header.js";
@@ -13,6 +14,7 @@ import GridContainer from "components/Grid/GridContainer.js";
 import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import Parallax from "components/Parallax/Parallax.js";
+import CustomInput from "components/CustomInput/CustomInput.js";
 
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -29,9 +31,28 @@ export default function Components(props) {
     <div>
       <Header
         brand="CarGo"
-        rightLinks={<HeaderLinks />}
+        rightLinks={
+        <HeaderLinks />}
         fixed
         color="transparent"
+        centerLinks= {<div> <CustomInput
+            white
+            inputRootCustomClasses={classes.inputRootCustomClasses}
+            formControlProps={{
+              className: classes.formControl
+            }}
+            inputProps={{
+              placeholder: "Search",
+              inputProps: {
+                "aria-label": "Search",
+                className: classes.searchInput
+              }
+            }}
+          />
+          <Button justIcon round color="white">
+            <Search className={classes.searchIcon} />
+          </Button>
+          </div>}
         changeColorOnScroll={{
           height: 400,
           color: "white"
@@ -54,10 +75,10 @@ export default function Components(props) {
       </Parallax>
 
       <div className={classNames(classes.main, classes.mainRaised)}>
-        <SectionNavbars />       
+        <SectionNavbars />
       </div>
 
-      
+
       <Footer />
     </div>
   );
