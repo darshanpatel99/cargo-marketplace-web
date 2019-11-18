@@ -33,7 +33,7 @@ export default function Components(props) {
   return (
     <div>
       <Header
-        brand="CarGo"
+        //brand="CarGo"
         rightLinks={
         <HeaderLinks />}
         fixed
@@ -67,7 +67,7 @@ export default function Components(props) {
           <GridContainer>
             <GridItem>
               <div className={classes.brand}>
-                <h1 className={classes.title}>Why CarGo Marketplace?</h1>
+                <h2 className={classes.title}>Why CarGo Marketplace? </h2>
                 {/* <h3 className={classes.subtitle}>
                   Because every second matters! Think about it, HOW MUCH IS YOUR TIME WORTH?? We believe that your time is too valuable to deal with the headaches of trying to buy and sell with strangers online, so let CarGo handle it!
                 </h3> */}
