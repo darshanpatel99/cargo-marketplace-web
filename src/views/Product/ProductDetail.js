@@ -11,10 +11,7 @@ import Grid from '@material-ui/core/Grid';
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
-import Parallax from "components/Parallax/Parallax.js";
 
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -48,8 +45,8 @@ export default function Components(props) {
         <div className={classes.container}>
 
             <Grid container spacing={6} className={classNames(classes.productDetailsContainer)}>
-                <Grid item spacing={6} xs={6} >
-                    <Carousel autoPlay xs={6} >
+                <Grid item xs={6} >
+                    <Carousel autoPlay>
                             <div>
                                 <img src="https://picsum.photos/id/1018/1000/600/" />
                                 <p className="legend">Legend 1</p>
@@ -64,8 +61,12 @@ export default function Components(props) {
                             </div>
                         </Carousel>
                 </Grid>
-                <Grid item spacing={6}>
-                    <h1> This is a test...</h1>
+                <Grid item xs={6}>
+                    <h1>Lorem ipsum dolor sit amet, consectetur. </h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc finibus risus vel lectus accumsan porttitor sit amet ac turpis. Morbi tincidunt suscipit ante a porta. Suspendisse aliquet ante ac aliquet bibendum. Proin tristique dui et arcu molestie, eget commodo diam vestibulum. Nulla laoreet nibh at justo malesuada, nec placerat nulla rhoncus. Morbi egestas fermentum nisl ut fringilla. Ut tortor felis, tempus eu nisl nec, suscipit viverra velit.</p>
+
+                    <Button xs={6} color="primary">Buy</Button>
+                    <Button xs={6} color="primary">Chat</Button>
                 </Grid>
             </Grid>
         </div>
