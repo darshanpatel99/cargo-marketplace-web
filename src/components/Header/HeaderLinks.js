@@ -74,16 +74,15 @@ export default function HeaderLinks(props) {
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
-        <Button
-          color="primary"
-          target="_blank"
-          round
 
-          //className={classes.navLinkRounded}
-        >
-
-         Login
-        </Button>
+        <Link to={"/signin"} className={classes.link}>
+          <Button
+            color="primary"
+            target="_blank"
+            round
+          > Login
+          </Button>
+        </Link>
       </ListItem>
 
     </List>
