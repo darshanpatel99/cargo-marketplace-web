@@ -133,9 +133,9 @@ export default function Components(props) {
             <GridItem>
               <div className={classes.brand}>
                 <h1 className={classes.title}>Why CarGo Marketplace?</h1>
-                <h3 className={classes.subtitle}>
+                {/* <h3 className={classes.subtitle}>
                   Because every second matters! Think about it, HOW MUCH IS YOUR TIME WORTH?? We believe that your time is too valuable to deal with the headaches of trying to buy and sell with strangers online, so let CarGo handle it!
-                </h3>
+                </h3> */}
               </div>
             </GridItem>
           </GridContainer>
@@ -157,7 +157,7 @@ export default function Components(props) {
         <Grid item spacing={3}>
           <SectionProductCard xs={3} title="Third Item" description="item description" src="https://images.unsplash.com/photo-1517303650219-83c8b1788c4c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=bd4c162d27ea317ff8c67255e955e3c8&auto=format&fit=crop&w=2691&q=80" alt="Card image cap" />
         </Grid>
-        <Link to={"/product"} className={classes.link}>
+        <Link to={"/checkout"} className={classes.link}>
           <Button color="primary" size="lg" simple>
             Load More
           </Button>
