@@ -11,6 +11,8 @@ import ProductPage from "views/Product/ProductDetail.js";
 import CheckoutPage from "views/Checkout/Checkout.js";
 import SignIn from 'views/Authentication/SignIn.js';
 import Signup from 'views/Authentication/Signup.js';
+import PostProduct from 'views/PostProduct/PostProductMain.js';
+
 var hist = createBrowserHistory();
 
 ReactDOM.render(
@@ -21,6 +23,7 @@ ReactDOM.render(
       <Route path="/checkout" component={CheckoutPage} />
       <Route path="/signin" component={SignIn} />
       <Route path="/signup" component={Signup} />
+      <Route path="/Post" component={PostProduct} />
     </Switch>
   </Router>,
   document.getElementById("root")

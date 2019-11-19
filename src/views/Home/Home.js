@@ -94,7 +94,13 @@ export default function Components(props) {
         </Grid>
         <Link to={"/checkout"} className={classes.link}>
           <Button color="primary" size="lg" simple>
-            View Checkoout Page
+            View Checkout Page
+          </Button>
+        </Link>
+
+        <Link to={"/Post"} className={classes.link}>
+          <Button color="primary" size="lg" simple>
+            View Post Product Page
           </Button>
         </Link>
 
