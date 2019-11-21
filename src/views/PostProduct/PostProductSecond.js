@@ -4,39 +4,203 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Switch from '@material-ui/core/Switch';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Chip from '@material-ui/core/Chip';
+import Input from '@material-ui/core/Input';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormLabel from '@material-ui/core/FormLabel';
 
-export default function PaymentForm() {
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+
+const names = [
+  'Morning 7am to 12pm',
+  'Afternoon 12pm to 5pm',
+  'Evening 5pm to 10pm'
+];
+
+function getStyles(name, availabilty, theme) {
+  return {
+    fontWeight:
+    availabilty.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+
+export default function PostProductSecond() {
+
+  const classes = useStyles();
+  const theme = useTheme();
+  const [state, setState] = React.useState({ checkedA: false});
+  const [availabilty, setAvailability] = React.useState([]);
+  const [vehicle, setVehicle] = React.useState('truck');
+
+  const handleVehicleChange = event => {
+    setVehicle(event.target.value);
+  };
+
+  const handleChange = name => event =>  {
+    setState({ ...state, [name]: event.target.checked });
+  };
+
+  const handleChangeAvailability = event => {
+    setAvailability(event.target.value);
+  };
+
+  const displayDeliveryPrice = () => {
+    if (state.checkedA) {
+        return <TextField
+                    id="standard-number"
+                    label="Number"
+                    type="number"
+                    className={classes.priceField}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                    margin="normal"
+                  />
+    } else {
+        return null
+    }
+}
+
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
+      {/* <Typography variant="h6" gutterBottom>
         Payment method
-      </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={6}>
-          <TextField required id="cardName" label="Name on card" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField required id="cardNumber" label="Card number" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={6}>
-          <TextField required id="expDate" label="Expiry date" fullWidth />
-        </Grid>
-        <Grid item xs={12} md={6}>
+      </Typography> */}
+      <Grid container spacing={1}>
+        <Grid item xs={12}>
           <TextField
-            required
-            id="cvv"
-            label="CVV"
-            helperText="Last three digits on signature strip"
+            id="outlined-multiline-static"
+            label="Description"
+            multiline
+            rows="4"
+            //defaultValue="Default Value"
+            className={classes.textField}
+            margin="normal"
+            variant="outlined"
             fullWidth
+            required
           />
         </Grid>
+      
         <Grid item xs={12}>
           <FormControlLabel
-            control={<Checkbox color="secondary" name="saveCard" value="yes" />}
-            label="Remember credit card details for next time"
+            label="Do you want to deliver ?"
+            labelPlacement="start"
+            control={
+              <Switch
+                checked={state.checkedA}
+                onChange={handleChange('checkedA')}
+                value="checkedB"
+                color="primary"
+              />
+            }
           />
+
+          <Grid container>
+          <Grid item xs={12} sm={6} >
+          <h6>{state.checkedA ? 'How much for delivery ?': 'CarGo will take care of delivery!'}</h6>
+          </Grid>
+          <Grid item xs={12} sm={6} >
+            {displayDeliveryPrice()}
+          </Grid>
+          </Grid>
+
         </Grid>
+
+        <Grid item xs={12} >
+        <FormControl className={classes.formControl}>
+          <InputLabel id="demo-mutiple-chip-label">Delivery/Pickup Availability</InputLabel>
+          <Select
+            labelId="demo-mutiple-chip-label"
+            id="demo-mutiple-chip"
+            multiple
+            value={availabilty}
+            onChange={handleChangeAvailability}
+            input={<Input id="select-multiple-chip" />}
+            renderValue={selected => (
+              <div className={classes.chips}>
+                {selected.map(value => (
+                  <Chip key={value} label={value} className={classes.chip} />
+                ))}
+              </div>
+            )}
+            MenuProps={MenuProps}
+          >
+            {names.map(name => (
+              <MenuItem key={name} value={name} style={getStyles(name, availabilty, theme)}>
+                {name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        </Grid>
+              
+        <Grid item xs={12} >
+        <FormControl component="fieldset" className={classes.formVehicleControl}>
+          <FormLabel component="legend">Does item fit in?</FormLabel>
+          <RadioGroup defaultValue="truck" aria-label="vehicle" name="vehicle" value={vehicle} onChange={handleVehicleChange}>
+            <FormControlLabel value="truck" control={<Radio />} label="Truck" />
+            <FormControlLabel value="car" control={<Radio />} label="Car" />
+          </RadioGroup>
+        </FormControl>
+        </Grid>
+
       </Grid>
     </React.Fragment>
   );
 }
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: '100%',
+  },
+  priceField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
+  formControl: {
+    margin: theme.spacing(1),
+    width: '100%',
+  },
+  chips: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  chip: {
+    margin: 2,
+  },
+  noLabel: {
+    marginTop: theme.spacing(3),
+  },
+  formVehicleControl: {
+    margin: theme.spacing(3),
+  },
+}));

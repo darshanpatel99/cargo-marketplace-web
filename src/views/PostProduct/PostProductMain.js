@@ -10,8 +10,8 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import Review from './PostProductFirst';
-import AddressForm from './PostProductSecond';
+import PostProductFirst from './PostProductFirst';
+import PostProductSecond from './PostProductSecond';
 
 function Copyright() {
   return (
@@ -51,7 +51,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   stepper: {
-    padding: theme.spacing(3, 0, 5),
+    padding: theme.spacing(3, 15, 5),
   },
   buttons: {
     display: 'flex',
@@ -63,14 +63,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const steps = ['Review your order', 'Shipping address'];
+const steps = [' ', ' '];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-        return <Review />;   
+        return <PostProductFirst />;   
     case 1:
-        return <AddressForm />;
+        return <PostProductSecond />;
     default:
       throw new Error('Unknown step');
   }
@@ -101,7 +101,7 @@ export default function Checkout() {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            Post Ad
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map(label => (
