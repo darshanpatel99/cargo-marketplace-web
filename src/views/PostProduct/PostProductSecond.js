@@ -164,6 +164,18 @@ export default function PostProductSecond() {
         </FormControl>
         </Grid>
 
+        <Grid item xs={12} >
+        <TextField
+            id="outlined-multiline-static"
+            label="Pickup Address"
+            className={classes.textField}
+            margin="normal"
+            variant="outlined"
+            fullWidth
+            required
+          />
+        </Grid>
+
       </Grid>
     </React.Fragment>
   );
@@ -202,5 +214,6 @@ const useStyles = makeStyles(theme => ({
   },
   formVehicleControl: {
     margin: theme.spacing(3),
+    width: '100%',
   },
 }));

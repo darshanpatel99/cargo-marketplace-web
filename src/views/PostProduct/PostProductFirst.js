@@ -10,9 +10,14 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Dropzone from "./Dropzone";
 import ImageList from "./ImageList";
+import Button from '@material-ui/core/Button';
 
 
 
@@ -21,10 +26,17 @@ export default function PostProductFirst() {
   const [images, setImages] = useState([]);
   const [category, setCategory] = React.useState('');
   const [condition, setCondition] = React.useState('');
-
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
+  const [open, setOpen] = React.useState(false);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleChangeCategory = event => {
     setCategory(event.target.value);
   };
@@ -137,14 +149,51 @@ export default function PostProductFirst() {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            
-            id="dimension"
-            name="dimension"
-            label="Dimension [Height, Width, Depth (in inches)]"
-            fullWidth
-            
-          />
+        <div className={classes.dimension}>
+          <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+            Dimensions
+          </Button>
+          <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title">Dimensions</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+              Make sure your item is measured correctly (this is important as otherwise we can run into fit issues upon delivery).
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Height (in inches)"
+                type="number"
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Width (in inches)"
+                type="number"
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Depth (in inches)"
+                type="number"
+                fullWidth
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose} color="primary">
+                Reset
+              </Button>
+              <Button onClick={handleClose} color="primary">
+                Ok
+              </Button>
+            </DialogActions>
+          </Dialog>
+        </div>
         </Grid>
       </Grid>
     </React.Fragment>
@@ -162,5 +211,8 @@ const useStyles = makeStyles(theme => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2),
+  },
+  dimension:{
+    width:'100%',
   },
 }));
