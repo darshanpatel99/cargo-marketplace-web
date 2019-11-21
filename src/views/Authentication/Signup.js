@@ -1,4 +1,4 @@
-import React from 'react';
+import React,  {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,9 +13,60 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { Link } from "react-router-dom";
+import { signupNewUser } from "../../actions";
+import { connect } from "react-redux";
+import { withStyles } from "@material-ui/styles";
+
+
+
+
+import firebase from '../../Firebase/firebase.js';
+
+import HeaderLinks from "../../components/Header/HeaderLinks.js";
+import Header from "../../components/Header/Header";
+
+
+//firebase signup create user account
+
+
+
+//this function creates a new account and sends verification email
+
+
+
+function ifUserAlreadyExists(){
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+          var displayName = user.displayName;
+          var email = user.email;
+          var emailVerified = user.emailVerified;
+          var photoURL = user.photoURL;
+          var isAnonymous = user.isAnonymous;
+          var uid = user.uid;
+          var providerData = user.providerData;
+          alert("current user -- > " + displayName);
+          // ...
+        } else {
+          // User is signed out.
+          // ...
+        }
+      });
+}
+
+
+
+// handleEmailChange = ({ target }) => {
+//   this.setState({ email: target.value });
+// };
+
+
+
 
 
 function Copyright() {
+    // createANewAccount("akulas1996@gmail.com","Obvious Sachin","TEst124","https://picsum.photos/id/499/200/200");
+    //ifUserAlreadyExists();
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
@@ -53,10 +104,38 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SignUp() {
+function SignUp(props){
   const classes = useStyles();
+  const { ...rest } = props;
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  
+
+
+  const handleSignup = () => {
+    //firebase.auth().createUserWithEmailAndPassword("tttt@gmail.com", "password");
+
+    const { dispatch } = props;
+    //const { firstName, lastName, email, password } = this.state;
+    dispatch(signupNewUser(firstName, email, password));
+  };
 
   return (
+    <div>
+    <Header
+        brand="CarGo"
+        rightLinks={<HeaderLinks />}
+        fixed
+        changeColorOnScroll={{
+        height: 400,
+        color: "white"
+        }}
+        {...rest}
+    />
+    <div className={classes.container}>
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -66,7 +145,7 @@ export default function SignUp() {
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -78,6 +157,8 @@ export default function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={firstName}
+                onChange={e => setFirstName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -89,6 +170,8 @@ export default function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                value={lastName}
+                onChange={e => setLastName(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -100,6 +183,8 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -112,6 +197,8 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
               />
             </Grid>
             {/* <Grid item xs={12}>
@@ -127,6 +214,7 @@ export default function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={() => handleSignup()}
           >
             Sign Up
           </Button>
@@ -143,5 +231,19 @@ export default function SignUp() {
         <Copyright />
       </Box>
     </Container>
+    </div>
+    </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    isLoggingIn: state.auth.isLoggingIn,
+    loginError: state.auth.loginError,
+    isAuthenticated: state.auth.isAuthenticated,
+    isResetEmailSent: state.auth.isResetEmailSent
+    
+  };
+}
+
+export default (connect(mapStateToProps)(SignUp));

@@ -24,11 +24,21 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import SectionProductCard from "./Sections/SectionProductCard.js";
 import styles from "assets/jss/material-kit-react/views/components.js";
+import { connect } from "react-redux";
+import {logoutUser} from '../../actions'
+
+
 
 const useStyles = makeStyles(styles);
 
-export default function Components(props) {
+function Components(props) {
+
   const classes = useStyles();
+
+  const handleLogout = () => {
+    const { dispatch } = props;
+    dispatch(logoutUser());
+  }
   const { ...rest } = props;
   return (
     <div>
@@ -52,6 +62,13 @@ export default function Components(props) {
               }
             }}
           />
+          <Button
+            color="primary"
+            target="_blank"
+            round
+            onClick = {handleLogout}
+          > Logout
+          </Button>
           <Button justIcon round color="white">
             <Search className={classes.searchIcon} />
           </Button>
@@ -105,3 +122,11 @@ export default function Components(props) {
     </div>
   );
 }
+function mapStateToProps(state) {
+  return {
+    isLoggingOut: state.auth.isLoggingOut,
+    logoutError: state.auth.logoutError
+  };
+}
+
+export default connect(mapStateToProps)(Components);
