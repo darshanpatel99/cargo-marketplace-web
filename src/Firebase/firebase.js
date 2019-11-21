@@ -31,7 +31,10 @@ var devConfig = {
 
 
 //We have to initialize firebase before doing anything with it
-firebase.initializeApp(devConfig);
+//firebase.initializeApp(devConfig);
+export const myFirebase = firebase.initializeApp(devConfig);
+const baseDb = myFirebase.firestore();
+export const db = baseDb;
 
 console.log('Firebase initialized');
 

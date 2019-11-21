@@ -24,14 +24,27 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import SectionProductCard from "./Sections/SectionProductCard.js";
 import styles from "assets/jss/material-kit-react/views/components.js";
+import { connect } from "react-redux";
+import {logoutUser} from '../../actions'
+
+
 import ProductsGrid from "views/Home/ProductsGrid.js"
 
 //importing firebase
 import firebase from "../../Firebase/firebase";
 const useStyles = makeStyles(styles);
 
-export default function Components(props) {
+function Components(props) {
+
   const classes = useStyles();
+
+  const handleLogout = () => {
+    const { dispatch } = props;
+    dispatch(logoutUser());
+  }
+  const [isLoading, setIsLoading] = useState(true);   //react hook for loading
+  const [items, setItems] = useState([]) //react hook fot the list of items
+  const firebaseProductsRef = firebase.firestore().collection('Products').where('Status', '==', 'active');
 
   //useEffect==>component did mount
   useEffect(()=>{
@@ -75,6 +88,13 @@ export default function Components(props) {
               }
             }}
           />
+          <Button
+            color="primary"
+            target="_blank"
+            round
+            onClick = {handleLogout}
+          > Logout
+          </Button>
           <Button justIcon round color="white">
             <Search className={classes.searchIcon} />
           </Button>
@@ -107,3 +127,11 @@ export default function Components(props) {
   );
 
 }
+function mapStateToProps(state) {
+  return {
+    isLoggingOut: state.auth.isLoggingOut,
+    logoutError: state.auth.logoutError
+  };
+}
+
+export default connect(mapStateToProps)(Components);
