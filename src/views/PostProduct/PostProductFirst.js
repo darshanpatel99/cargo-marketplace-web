@@ -1,4 +1,4 @@
-import React, { useCallback, useState   } from 'react';
+import React, { useCallback, useState, Fragment   } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -15,11 +15,20 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import Dropzone from "./Dropzone";
-import ImageList from "./ImageList";
 import Button from '@material-ui/core/Button';
+import 'react-dropzone-uploader/dist/styles.css'
+import Dropzone from 'react-dropzone-uploader';//https://react-dropzone-uploader.js.org/docs/quick-start
 
 
+const fileStatuses = [
+  'UploadFailed',
+  'Initial',
+  'Selected',
+  'Uploading',
+  'Uploaded',
+  'RemoveFailed',
+  'Removing'
+];
 
 export default function PostProductFirst() {
   const classes = useStyles();
@@ -29,7 +38,11 @@ export default function PostProductFirst() {
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   const [open, setOpen] = React.useState(false);
+  const [files, setFiles] = React.useState([]);
+  const [events, setEvents] = React.useState([]);
+  const [filePreviews, setFilePreviews] = React.useState({});
 
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -44,32 +57,39 @@ export default function PostProductFirst() {
     setCondition(event.target.value);
   };
 
-  const onDrop = useCallback(acceptedFiles => {
-    // Loop through accepted files
-    acceptedFiles.map(file => {
-      // Initialize FileReader browser API
-      const reader = new FileReader();
-      // onload callback gets called after the reader reads the file data
-      reader.onload = function(e) {
-        // add the image into the state. Since FileReader reading process is asynchronous, its better to get the latest snapshot state (i.e., prevState) and update it. 
-        setImages(prevState => [
-          ...prevState,
-          { src: e.target.result }
-        ]);
-      };
-      // Read the file as Data URL (since we accept only images)
-      reader.readAsDataURL(file);
-      return file;
-    });
-  }, []);
+  const MyUploader = () => {
+    // specify upload params and url for your files
+    const getUploadParams = ({ meta }) => { return { url: ' ' } }
+    
+    // called every time a file's `status` changes
+    const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
+    
+    // receives array of files that are done uploading when submit button is clicked
+    const handleSubmit = (files, allFiles) => {
+      console.log(files.map(f => f.meta))
+      allFiles.forEach(f => f.remove())
+    }
+  
+    return (
+      <Dropzone
+        getUploadParams={getUploadParams}
+        onChangeStatus={handleChangeStatus}
+        onSubmit={handleSubmit}
+        
+        inputContent="Images"
+        accept="image/*"
+      />
+    )
+  }
+  
 
   return (
     <React.Fragment>
+
       <Grid container spacing={2}>
 
-         <Grid item xs={12}>
-          <Dropzone onDrop={onDrop} accept={"image/*"} />
-          <ImageList images={images} className={classes.appBar}/>
+        <Grid item xs={12} container>
+          <MyUploader />
         </Grid> 
 
         <Grid item xs={12} sm={6}>
