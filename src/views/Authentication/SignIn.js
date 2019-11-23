@@ -68,9 +68,15 @@ class SignIn extends Component {
   };
 
   render() {
-    const { classes, loginError, isAuthenticated, isResetEmailSent } = this.props;
+    const { classes, loginError, isAuthenticated, isResetEmailSent, location } = this.props;
+    var prevLocation='';
+    if(location.state == undefined){
+        prevLocation = '/'
+    } else {
+        prevLocation = location.state.from.pathname
+    }
     if (isAuthenticated) {
-      return <Redirect to="/" />;
+      return <Redirect to={prevLocation} />;
     } else {
       return (
         <Container component="main" maxWidth="xs">
@@ -170,8 +176,9 @@ function mapStateToProps(state) {
     isLoggingIn: state.auth.isLoggingIn,
     loginError: state.auth.loginError,
     isAuthenticated: state.auth.isAuthenticated,
-    isResetEmailSent: state.auth.isResetEmailSent
-    
+    isResetEmailSent: state.auth.isResetEmailSent,
+    user: state.auth.user,
+    //pathName: state.from.pathname
   };
 }
 

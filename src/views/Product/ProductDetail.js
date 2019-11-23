@@ -6,6 +6,10 @@ import { Link } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
+
+
 
 // @material-ui/icons
 // core components
@@ -67,17 +71,41 @@ export default function Components(props) {
                       
                         </Carousel>
                 </Grid>
+
                 <Grid item xs={6}>
                     <h1>{item.Name}</h1>
                      <p>{item.Description}</p>
 
-                    <Button xs={6} color="primary">Buy</Button>
+                    <Link to ="/checkout">
+                      <Button xs={6} color="primary">Buy</Button>
+                    </Link>
                     <Button xs={6} color="primary">Chat</Button>
                 </Grid>
             </Grid>
         </div>
 
       <Footer />
+
+
+      {isOpen && (
+          <Lightbox
+            mainSrc={images[photoIndex]}
+            nextSrc={images[(photoIndex + 1) % images.length]}
+            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+            onCloseRequest={() => this.setState({ isOpen: false })}
+            onMovePrevRequest={() =>
+              this.setState({
+                photoIndex: (photoIndex + images.length - 1) % images.length
+              })
+            }
+            onMoveNextRequest={() =>
+              this.setState({
+                photoIndex: (photoIndex + 1) % images.length
+              })
+            }
+          />
+        )}
+
     </div>
   );
       }

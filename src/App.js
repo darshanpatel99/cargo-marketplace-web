@@ -14,6 +14,7 @@ import ProductPage from "views/Product/ProductDetail.js";
 import SignIn from 'views/Authentication/SignIn.js';
 import Signup from 'views/Authentication/Signup.js';
 import ProtectedRoute from './components/ProtectedRoute'
+import Checkout from './views/Checkout/Checkout'
 
 
 
@@ -24,17 +25,16 @@ const { isAuthenticated, isVerifying } = props;
 
 
       <Switch>
-      <ProtectedRoute
+      <Route
           exact
           path="/"
           component={HomePage}
-          isAuthenticated={isAuthenticated}
-          isVerifying={isVerifying}
         />
         {/* <Route exact path="/" component={HomePage} /> */}
-        <Route path="/product" component={ProductPage} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
+        <Route path="/product" component={ProductPage} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={Signup} />
+        <ProtectedRoute path="/checkout" component= {Checkout} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
       </Switch>
   );
 }
