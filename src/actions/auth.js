@@ -125,21 +125,6 @@ const requestLogin = () => {
   export const signupNewUser = (name, email, password) => dispatch => {
   //export const signupNewUser = (name, email, password) => dispatch => {
     
-    // firebase.auth().createUserWithEmailAndPassword(email, password)
-    // .then( () => {
-    //   alert('success')
-    //   //alert(user);
-    // })
-    // .catch(function(error) {
-    //   // Handle Errors here.
-    //   var errorCode = error.code;
-    //   var errorMessage = error.message;
-    //   alert(email)
-    //   alert(errorCode + "error")
-    //   alert(errorMessage)
-    //   // ...
-    // });
-
     dispatch(verifyRequest());
     //evt.preventDefault();
     //alert(`Submitting Name ${firstName}`)
@@ -148,15 +133,16 @@ const requestLogin = () => {
     // for (var i = 0; i < arguments.length; i++) {
     //     arguments[i] = arguments[i] ? arguments[i] : null;
     // }
+    var firstName = name;
+    var fireEmail = email;
+    var firePassword = password;
 
-    
-    firebase.auth().createUserWithEmailAndPassword(email, password)
+    firebase.auth().createUserWithEmailAndPassword(fireEmail, firePassword)
     .then(user => {
       alert(user)
+      dispatch(signupSuccess(user))
     })
     .then(function () {
-      alert('hello ' + name +" "+ email +" "+ password) 
-
         user = firebase.auth().currentUser;
         user.sendEmailVerification();
         alert(JSON.stringify(user))
