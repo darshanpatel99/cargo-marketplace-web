@@ -21,7 +21,7 @@ import SectionProductCard from "./Sections/SectionProductCard.js";
 import styles from "assets/jss/material-kit-react/views/components.js";
 
 //importing React-Spinners
-import {BeatLoader} from 'react-spinners'
+import {BeatLoader} from 'react-spinners';
 
 //importing firebase
 import firebase from "../../Firebase/firebase";

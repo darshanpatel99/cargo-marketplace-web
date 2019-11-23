@@ -16,6 +16,7 @@ import Button from "components/CustomButtons/Button.js";
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import styles from "assets/jss/material-kit-react/views/components.js";
+import {BeatLoader} from 'react-spinners';
 
 //custom components from dependecies
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -30,9 +31,11 @@ export default function Components(props) {
   const classes = useStyles();
   //states for the product detail screen
   const [item, setItem] = useState(props.item);
-  cosnt [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const urls = item.Pictures; // varaible to store all the pcitures of that product
   
   const { ...rest } = props;
+  if(isLoading==false){
   return (
     <div>
       <Header
@@ -51,23 +54,22 @@ export default function Components(props) {
             <Grid container spacing={6} className={classNames(classes.productDetailsContainer)}>
                 <Grid item xs={6} >
                     <Carousel autoPlay>
-                            <div>
-                                <img src={} />
-                                <p className="legend">Legend 1</p>
-                            </div>
-                            <div>
-                                <img src="https://picsum.photos/id/1015/1000/600/" />
-                                <p className="legend">Legend 2</p>
-                            </div>
-                            <div>
-                                <img src="https://picsum.photos/id/1015/1000/600/" />
-                                <p className="legend">Legend 3</p>
-                            </div>
+                            {
+                              urls.map((url, k)=>{
+                                return(
+                                  <div>
+                                    <img src={url} />
+                                    <p className="legend">Legend 1</p>
+                                  </div>
+                                );
+                              })
+                            }
+                      
                         </Carousel>
                 </Grid>
                 <Grid item xs={6}>
-                    <h1>Lorem ipsum dolor sit amet, consectetur. </h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc finibus risus vel lectus accumsan porttitor sit amet ac turpis. Morbi tincidunt suscipit ante a porta. Suspendisse aliquet ante ac aliquet bibendum. Proin tristique dui et arcu molestie, eget commodo diam vestibulum. Nulla laoreet nibh at justo malesuada, nec placerat nulla rhoncus. Morbi egestas fermentum nisl ut fringilla. Ut tortor felis, tempus eu nisl nec, suscipit viverra velit.</p>
+                    <h1>{item.Name}</h1>
+                     <p>{item.Description}</p>
 
                     <Button xs={6} color="primary">Buy</Button>
                     <Button xs={6} color="primary">Chat</Button>
@@ -78,4 +80,33 @@ export default function Components(props) {
       <Footer />
     </div>
   );
+      }
+  
+  return(
+      <div>
+
+      <Header
+        brand="CarGo"
+        rightLinks={<HeaderLinks />}
+        fixed
+        changeColorOnScroll={{
+          height: 400,
+          color: "white"
+        }}
+        {...rest}
+      />
+      
+        <div className={classes.container}>
+            <BeatLoader
+            sizeUnit={"px"}
+            size={30}
+            color={'#123abc'}
+            loading={isLoading}
+          />     
+        </div>
+
+      <Footer />
+    </div>
+      );
+      
 }
