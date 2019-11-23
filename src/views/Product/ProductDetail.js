@@ -6,6 +6,10 @@ import { Link } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
+import Lightbox from "react-image-lightbox";
+import "react-image-lightbox/style.css";
+
+
 
 // @material-ui/icons
 // core components
@@ -29,6 +33,14 @@ const useStyles = makeStyles(styles);
 export default function Components(props) {
   const classes = useStyles();
   const { ...rest } = props;
+
+
+  const images = [
+    "https://picsum.photos/id/1018/1000/600/",
+    "https://picsum.photos/id/1015/1000/600/",
+    "https://picsum.photos/id/1015/1000/600/",
+  ];
+
   return (
     <div>
       <Header
@@ -48,30 +60,54 @@ export default function Components(props) {
                 <Grid item xs={6} >
                     <Carousel autoPlay>
                             <div>
-                                <img src="https://picsum.photos/id/1018/1000/600/" />
+                                <img src={images[0]} />
                                 <p className="legend">Legend 1</p>
                             </div>
                             <div>
-                                <img src="https://picsum.photos/id/1015/1000/600/" />
+                                <img src={images[1]} />
                                 <p className="legend">Legend 2</p>
                             </div>
                             <div>
-                                <img src="https://picsum.photos/id/1015/1000/600/" />
+                                <img src={images[2]} />
                                 <p className="legend">Legend 3</p>
                             </div>
                         </Carousel>
                 </Grid>
+
                 <Grid item xs={6}>
                     <h1>Lorem ipsum dolor sit amet, consectetur. </h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc finibus risus vel lectus accumsan porttitor sit amet ac turpis. Morbi tincidunt suscipit ante a porta. Suspendisse aliquet ante ac aliquet bibendum. Proin tristique dui et arcu molestie, eget commodo diam vestibulum. Nulla laoreet nibh at justo malesuada, nec placerat nulla rhoncus. Morbi egestas fermentum nisl ut fringilla. Ut tortor felis, tempus eu nisl nec, suscipit viverra velit.</p>
 
-                    <Button xs={6} color="primary">Buy</Button>
+                    <Link to ="/checkout">
+                      <Button xs={6} color="primary">Buy</Button>
+                    </Link>
                     <Button xs={6} color="primary">Chat</Button>
                 </Grid>
             </Grid>
         </div>
 
       <Footer />
+
+
+      {isOpen && (
+          <Lightbox
+            mainSrc={images[photoIndex]}
+            nextSrc={images[(photoIndex + 1) % images.length]}
+            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+            onCloseRequest={() => this.setState({ isOpen: false })}
+            onMovePrevRequest={() =>
+              this.setState({
+                photoIndex: (photoIndex + images.length - 1) % images.length
+              })
+            }
+            onMoveNextRequest={() =>
+              this.setState({
+                photoIndex: (photoIndex + 1) % images.length
+              })
+            }
+          />
+        )}
+
     </div>
   );
 }

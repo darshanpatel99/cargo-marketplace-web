@@ -58,7 +58,8 @@ import {
           ...state,
           isLoggingIn: false,
           isAuthenticated: false,
-          isSignupSuccess: true
+          isSignupSuccess: true,
+          user: action.user
         }
       case LOGOUT_REQUEST:
         return {

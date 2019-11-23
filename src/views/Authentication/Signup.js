@@ -12,10 +12,11 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { signupNewUser } from "../../actions";
 import { connect } from "react-redux";
 import { withStyles } from "@material-ui/styles";
+import Signin from './SignIn'
 
 
 
@@ -112,18 +113,26 @@ function SignUp(props){
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [redirect, setRedirect] = useState(false);
   
 
 
   const handleSignup = () => {
-    //firebase.auth().createUserWithEmailAndPassword("tttt@gmail.com", "password");
-
     const { dispatch } = props;
     //const { firstName, lastName, email, password } = this.state;
     dispatch(signupNewUser(firstName, email, password));
-  };
+    setRedirect(true);
 
+  };
+  //firebase.auth().createUserWithEmailAndPassword("dddddd@gmail.com", "sweetpassword")
+
+  if(redirect){
+    return (
+     <Redirect to="/signin" />
+    );
+   } else {
   return (
+    
     <div>
     <Header
         brand="CarGo"
@@ -233,7 +242,11 @@ function SignUp(props){
     </Container>
     </div>
     </div>
+
+
   );
+          }
+
 }
 
 function mapStateToProps(state) {
@@ -241,7 +254,8 @@ function mapStateToProps(state) {
     isLoggingIn: state.auth.isLoggingIn,
     loginError: state.auth.loginError,
     isAuthenticated: state.auth.isAuthenticated,
-    isResetEmailSent: state.auth.isResetEmailSent
+    isResetEmailSent: state.auth.isResetEmailSent,
+    user: state.auth.user
     
   };
 }
