@@ -95,7 +95,7 @@ export default function ProductsGrid(props){
                items.map((item, k)=>{
                 return(
               <Grid item spacing={3}>
-                 <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" />
+                 <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" item={item}/>
               </Grid>
                );
 

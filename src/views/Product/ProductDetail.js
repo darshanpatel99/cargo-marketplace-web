@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react components for routing our app without refresh
@@ -28,6 +28,10 @@ const useStyles = makeStyles(styles);
 
 export default function Components(props) {
   const classes = useStyles();
+  //states for the product detail screen
+  const [item, setItem] = useState(props.item);
+  cosnt [isLoading, setIsLoading] = useState(true);
+  
   const { ...rest } = props;
   return (
     <div>
@@ -48,7 +52,7 @@ export default function Components(props) {
                 <Grid item xs={6} >
                     <Carousel autoPlay>
                             <div>
-                                <img src="https://picsum.photos/id/1018/1000/600/" />
+                                <img src={} />
                                 <p className="legend">Legend 1</p>
                             </div>
                             <div>

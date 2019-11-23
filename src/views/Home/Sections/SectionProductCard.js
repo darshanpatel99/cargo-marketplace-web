@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // material-ui components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -21,6 +21,9 @@ const useStyles = makeStyles(styles);
 
 export default function Cards(props) {
   const classes = useStyles();
+  //creating the states to get the props
+  const[item, setItem] = useState(props.item); //empty json array
+  setItem(props.item);//setting the props we got from the
   return (
     <Card style={{width: "20rem"}}>
     <img
@@ -32,8 +35,8 @@ export default function Cards(props) {
     <CardBody>
     <h4 className={classes.cardTitle}>{props.title}</h4>
     <p>{props.description}</p>
-    <Link to='/product'>
-      <Button color="primary">Buy</Button>
+    <Link to={'/product', item=item} >
+      <Button color="primary">Buy</Button>, 
     </Link>
       <Button color="primary">Chat</Button>
     </CardBody>
