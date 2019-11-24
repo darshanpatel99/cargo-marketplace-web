@@ -35,7 +35,6 @@ export default function Components(props) {
   const classes = useStyles();
   const [item, setItem] = useState(JSON.parse(props.location.state));
   const [isLoading, setIsLoading] = useState(true);
-  alert(item.Name);
 
   const urls = item.Pictures; // varaible to store all the pcitures of that product
      //useEffect==>component did mount
