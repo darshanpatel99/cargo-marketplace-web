@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
-import Lightbox from "react-image-lightbox";
+//import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
 
@@ -33,108 +33,118 @@ const useStyles = makeStyles(styles);
 
 export default function Components(props) {
   const classes = useStyles();
-  //states for the product detail screen
-  const [item, setItem] = useState(props.item);
+  const [item, setItem] = useState(JSON.parse(props.location.state));
   const [isLoading, setIsLoading] = useState(true);
+  alert(item.Name);
+
   const urls = item.Pictures; // varaible to store all the pcitures of that product
+     //useEffect==>component did mount
+     useEffect(()=>{
+      //creating the listener that will listen to the new changes to the product collection
+      console.log('useEffect in product detail screen');
+      setIsLoading(false);
+
+    }, []);
+
   
   const { ...rest } = props;
   if(isLoading==false){
-  return (
-    <div>
-      <Header
-        brand="CarGo"
-        rightLinks={<HeaderLinks />}
-        fixed
-        changeColorOnScroll={{
-          height: 400,
-          color: "white"
-        }}
-        {...rest}
-      />
-      
-        <div className={classes.container}>
-
-            <Grid container spacing={6} className={classNames(classes.productDetailsContainer)}>
-                <Grid item xs={6} >
-                    <Carousel autoPlay>
-                            {
-                              urls.map((url, k)=>{
-                                return(
-                                  <div>
-                                    <img src={url} />
-                                    <p className="legend">Legend 1</p>
-                                  </div>
-                                );
-                              })
-                            }
-                      
-                        </Carousel>
-                </Grid>
-
-                <Grid item xs={6}>
-                    <h1>{item.Name}</h1>
-                     <p>{item.Description}</p>
-
-                    <Link to ="/checkout">
-                      <Button xs={6} color="primary">Buy</Button>
-                    </Link>
-                    <Button xs={6} color="primary">Chat</Button>
-                </Grid>
-            </Grid>
-        </div>
-
-      <Footer />
-
-
-      {isOpen && (
-          <Lightbox
-            mainSrc={images[photoIndex]}
-            nextSrc={images[(photoIndex + 1) % images.length]}
-            prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-            onCloseRequest={() => this.setState({ isOpen: false })}
-            onMovePrevRequest={() =>
-              this.setState({
-                photoIndex: (photoIndex + images.length - 1) % images.length
-              })
-            }
-            onMoveNextRequest={() =>
-              this.setState({
-                photoIndex: (photoIndex + 1) % images.length
-              })
-            }
+      return (
+        <div>
+          <Header
+            brand="CarGo"
+            rightLinks={<HeaderLinks />}
+            fixed
+            changeColorOnScroll={{
+              height: 400,
+              color: "white"
+            }}
+            {...rest}
           />
-        )}
+          
+            <div className={classes.container}>
 
-    </div>
-  );
+                <Grid container spacing={6} className={classNames(classes.productDetailsContainer)}>
+                    <Grid item xs={6} >
+                        <Carousel autoPlay>
+                                {
+                                  urls.map((url, k)=>{
+                                    return(
+                                      <div>
+                                        <img src={url} />
+                                        <p className="legend">Legend 1</p>
+                                      </div>
+                                    );
+                                  })
+                                }
+                          
+                            </Carousel>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <h1>{item.Name}</h1>
+                        <p>{item.Description}</p>
+
+                        <Link to ="/checkout">
+                          <Button xs={6} color="primary">Buy</Button>
+                        </Link>
+                        <Button xs={6} color="primary">Chat</Button>
+                    </Grid>
+                </Grid>
+            </div>
+
+          <Footer />
+
+    {/* 
+          {isOpen && (
+              <Lightbox
+                mainSrc={images[photoIndex]}
+                nextSrc={images[(photoIndex + 1) % images.length]}
+                prevSrc={images[(photoIndex + images.length - 1) % images.length]}
+                onCloseRequest={() => this.setState({ isOpen: false })}
+                onMovePrevRequest={() =>
+                  this.setState({
+                    photoIndex: (photoIndex + images.length - 1) % images.length
+                  })
+                }
+                onMoveNextRequest={() =>
+                  this.setState({
+                    photoIndex: (photoIndex + 1) % images.length
+                  })
+                }
+              />
+            )} */}
+
+        </div>
+      );
       }
   
-  return(
-      <div>
+        return(
+          
+            <div>
 
-      <Header
-        brand="CarGo"
-        rightLinks={<HeaderLinks />}
-        fixed
-        changeColorOnScroll={{
-          height: 400,
-          color: "white"
-        }}
-        {...rest}
-      />
-      
-        <div className={classes.container}>
-            <BeatLoader
-            sizeUnit={"px"}
-            size={30}
-            color={'#123abc'}
-            loading={isLoading}
-          />     
-        </div>
+            <Header
+              brand="CarGo"
+              rightLinks={<HeaderLinks />}
+              fixed
+              changeColorOnScroll={{
+                height: 400,
+                color: "white"
+              }}
+              {...rest}
+            />
+            
+              <div className={classNames(classes.main)}>}
+                  <BeatLoader
+                  sizeUnit={"px"}
+                  size={30}
+                  color={'#123abc'}
+                  loading={isLoading}
+                />     
+              </div>
 
-      <Footer />
-    </div>
-      );
+            <Footer />
+          </div>
+            );
       
 }

@@ -68,7 +68,7 @@ export default function ProductsGrid(props){
          });
 
          setItems(products)
-          setIsLoading(false);
+         setIsLoading(false);
          //alert(products[0].Name);
          //Function Ends
      }
@@ -87,7 +87,7 @@ export default function ProductsGrid(props){
                items.map((item, k)=>{
                 return(
               <Grid item spacing={3}>
-                 <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" item={item}/>
+                 <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
               </Grid>
                );
 

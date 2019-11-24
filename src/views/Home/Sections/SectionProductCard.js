@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 // material-ui components
 import { makeStyles } from "@material-ui/core/styles";
 // core components
@@ -6,6 +6,7 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import Button from "components/CustomButtons/Button.js";
 import { Link } from "react-router-dom";
+import safeStringify from "safe-json-stringify";
 
 
 import imagesStyles from "assets/jss/material-kit-react/imagesStyles.js";
@@ -21,9 +22,18 @@ const useStyles = makeStyles(styles);
 
 export default function Cards(props) {
   const classes = useStyles();
+
   //creating the states to get the props
-  const[item, setItem] = useState(props.item); //empty json array
-  setItem(props.item);//setting the props we got from the
+  const[item, setItem] = useState(props.product); //empty json array
+  
+   //useEffect==>component did mount
+   useEffect(()=>{
+    //creating the listener that will listen to the new changes to the product collection
+    console.log('useEffect');
+
+  }, []);
+
+  //return the card component
   return (
     <Card style={{width: "20rem"}}>
     <img
@@ -35,7 +45,7 @@ export default function Cards(props) {
     <CardBody>
     <h4 className={classes.cardTitle}>{props.title}</h4>
     <p>{props.description}</p>
-    <Link to={'/product', item=item} >
+    <Link to={{pathname:'/product', state:safeStringify(item)}} >
       <Button color="primary">Buy</Button>, 
     </Link>
       <Button color="primary">Chat</Button>
