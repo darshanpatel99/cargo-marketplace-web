@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react components for routing our app without refresh
@@ -36,10 +36,14 @@ export default function Components(props) {
 
 
   const images = [
+    "https://picsum.photos/id/1015/1000/600/",
     "https://picsum.photos/id/1018/1000/600/",
     "https://picsum.photos/id/1015/1000/600/",
-    "https://picsum.photos/id/1015/1000/600/",
+
   ];
+
+  const [isOpen, setisOpen] = useState(false);
+  const [photoIndex, setPhotoIndex] = useState(0)
 
   return (
     <div>
@@ -59,15 +63,15 @@ export default function Components(props) {
             <Grid container spacing={6} className={classNames(classes.productDetailsContainer)}>
                 <Grid item xs={6} >
                     <Carousel autoPlay>
-                            <div>
+                            <div onClick={() => setisOpen(true)}>
                                 <img src={images[0]} />
                                 <p className="legend">Legend 1</p>
                             </div>
-                            <div>
+                            <div onClick={() => setisOpen(true)}>
                                 <img src={images[1]} />
                                 <p className="legend">Legend 2</p>
                             </div>
-                            <div>
+                            <div onClick={() => setisOpen(true)}>
                                 <img src={images[2]} />
                                 <p className="legend">Legend 3</p>
                             </div>
@@ -90,22 +94,20 @@ export default function Components(props) {
 
 
       {isOpen && (
+        <div>
           <Lightbox
             mainSrc={images[photoIndex]}
             nextSrc={images[(photoIndex + 1) % images.length]}
             prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-            onCloseRequest={() => this.setState({ isOpen: false })}
+            onCloseRequest={() => setisOpen(false)}
             onMovePrevRequest={() =>
-              this.setState({
-                photoIndex: (photoIndex + images.length - 1) % images.length
-              })
+              setPhotoIndex((photoIndex + images.length - 1) % images.length)
             }
             onMoveNextRequest={() =>
-              this.setState({
-                photoIndex: (photoIndex + 1) % images.length
-              })
+              setPhotoIndex((photoIndex + images.length + 1) % images.length)
             }
           />
+          </div>
         )}
 
     </div>
