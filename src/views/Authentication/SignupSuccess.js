@@ -32,6 +32,7 @@ import ProductsGrid from "views/Home/ProductsGrid.js"
 
 //importing firebase
 import firebase from "../../Firebase/firebase";
+import { Paper } from "@material-ui/core";
 const useStyles = makeStyles(styles);
 
 function Components(props) {
@@ -106,21 +107,14 @@ function Components(props) {
         {...rest}
       />
       <Parallax image={require("assets/img/back.jpg")}>
-        <div className={classes.container}>
-          <GridContainer>
-            <GridItem>
-              <div className={classes.brand}>
-                <h1 className={classes.title}>Why CarGo Marketplace?</h1>
-                <h3 className={classes.subtitle}>
-                  Because every second matters! Think about it, HOW MUCH IS YOUR TIME WORTH?? We believe that your time is too valuable to deal with the headaches of trying to buy and sell with strangers online, so let CarGo handle it!
-                </h3>
-              </div>
-            </GridItem>
-          </GridContainer>
-        </div>
 
+          <Paper>
+
+            <h2> Thanks for Signing up with Cargo Marketplace.</h2>
+
+          </Paper>
+       
       </Parallax>
-      <ProductsGrid/>
 
       <Footer />
     </div>
