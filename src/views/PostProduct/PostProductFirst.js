@@ -16,7 +16,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
-import 'react-dropzone-uploader/dist/styles.css'
+import 'react-dropzone-uploader/dist/styles.css';
 import Dropzone from 'react-dropzone-uploader';//https://react-dropzone-uploader.js.org/docs/quick-start
 
 
@@ -41,7 +41,16 @@ export default function PostProductFirst() {
   const [files, setFiles] = React.useState([]);
   const [events, setEvents] = React.useState([]);
   const [filePreviews, setFilePreviews] = React.useState({});
+  const [title, setTitle] = React.useState('');
+  const [price, setPrice] = React.useState('');
 
+  const handleChangePrice = event => {
+    setPrice(event.target.value);
+  };
+
+  const handleChangeTitle = event => {
+    setTitle(event.target.value);
+  };
   
   const handleClickOpen = () => {
     setOpen(true);
@@ -57,14 +66,15 @@ export default function PostProductFirst() {
     setCondition(event.target.value);
   };
 
-  const MyUploader = () => {
-    // specify upload params and url for your files
-    const getUploadParams = ({ meta }) => { return { url: ' ' } }
-    
-    // called every time a file's `status` changes
-    const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
-    
-    // receives array of files that are done uploading when submit button is clicked
+  const Standard = () => {
+    const getUploadParams = () => {
+      return { url: 'https://httpbin.org/post' }
+    }
+  
+    const handleChangeStatus = ({ meta }, status) => {
+      console.log(status, meta)
+    }
+  
     const handleSubmit = (files, allFiles) => {
       console.log(files.map(f => f.meta))
       allFiles.forEach(f => f.remove())
@@ -75,9 +85,7 @@ export default function PostProductFirst() {
         getUploadParams={getUploadParams}
         onChangeStatus={handleChangeStatus}
         onSubmit={handleSubmit}
-        
-        inputContent="Images"
-        accept="image/*"
+        styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
       />
     )
   }
@@ -89,7 +97,7 @@ export default function PostProductFirst() {
       <Grid container spacing={2}>
 
         <Grid item xs={12} container>
-          <MyUploader />
+          <Standard />
         </Grid> 
 
         <Grid item xs={12} sm={6}>
@@ -99,7 +107,8 @@ export default function PostProductFirst() {
             name="Title"
             label="Title"
             fullWidth
-            
+            value={title}
+            onChange={handleChangeTitle}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -109,6 +118,8 @@ export default function PostProductFirst() {
             type="number"
             label="Price"
             fullWidth
+            value={price}
+            onChange={handleChangePrice}
           />
         </Grid>
 
@@ -122,12 +133,9 @@ export default function PostProductFirst() {
               onChange={handleChangeCategory}
               className={classes.selectEmpty}
             >
-              <MenuItem value="">
-                <em>None</em>
-              </MenuItem>
-              <MenuItem value={10}>Ten</MenuItem>
-              <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>    
+              {colors.map((index) =>
+                <MenuItem value={index} />
+              )}  
             </Select>
             {/* <FormHelperText>Required</FormHelperText> */}
           </FormControl>
@@ -169,12 +177,12 @@ export default function PostProductFirst() {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-        <div className={classes.dimension}>
-          <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-            Dimensions
+        <div>
+          <Button variant="outlined" color="primary" onClick={handleClickOpen} className={classes.dimension}>
+            Add Dimensions
           </Button>
-          <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-            <DialogTitle id="form-dialog-title">Dimensions</DialogTitle>
+          <Dialog open={open}  onClose={handleClose} aria-labelledby="form-dialog-title">
+            <DialogTitle id="form-dialog-title" >Dimensions</DialogTitle>
             <DialogContent>
               <DialogContentText>
               Make sure your item is measured correctly (this is important as otherwise we can run into fit issues upon delivery).
@@ -234,5 +242,12 @@ const useStyles = makeStyles(theme => ({
   },
   dimension:{
     width:'100%',
+    textTransform: "none"
   },
 }));
+
+const colors = [
+  'Morning 7am to 12pm',
+  'Afternoon 12pm to 5pm',
+  'Evening 5pm to 10pm'
+];
