@@ -18,6 +18,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import 'react-dropzone-uploader/dist/styles.css';
 import Dropzone from 'react-dropzone-uploader';//https://react-dropzone-uploader.js.org/docs/quick-start
+import Input from '@material-ui/core/Input';
 
 
 const fileStatuses = [
@@ -126,16 +127,27 @@ export default function PostProductFirst() {
           <Grid item xs={12}>
           <FormControl required className={classes.formControl}>
             <InputLabel id="demo-simple-select-required-label">Category</InputLabel>
-            <Select
-              labelId="demo-simple-select-required-label"
-              id="demo-simple-select-required"
-              value={category}
+            <Select  native defaultValue="" input={<Input id="grouped-native-select" />}
+              // labelId="demo-simple-select-required-label"
+              // id="demo-simple-select-required"
               onChange={handleChangeCategory}
               className={classes.selectEmpty}
             >
-              {colors.map((index) =>
-                <MenuItem value={index} />
-              )}  
+              <option value="" />
+              <optgroup label="Beds">
+                {beds.map(name => (
+                    <option key={name} value={name}>
+                      {name}
+                    </option>
+                  ))}
+              </optgroup>
+              <optgroup label="Chairs">
+                {chairs.map(name => (
+                  <option key={name} value={name}>
+                    {name}
+                  </option>
+                ))}
+              </optgroup>
             </Select>
             {/* <FormHelperText>Required</FormHelperText> */}
           </FormControl>
@@ -250,4 +262,28 @@ const colors = [
   'Morning 7am to 12pm',
   'Afternoon 12pm to 5pm',
   'Evening 5pm to 10pm'
+];
+
+const beds = [
+  'Cribs',
+  'Daybeds',
+  'Full beds',
+  'Headboards',
+  'King beds',
+  'Loft & Bunk Beds',
+  'Queen beds',
+  'Twin Beds'
+];
+
+const chairs = [
+  'Accent Chairs',
+  'Armchairs',
+  'Benches',
+  'Chair and a Half',
+  'Dining Chairs',
+  'Nursing Chairs',
+  'Office Chairs',
+  'Ottomans and Footstools',
+  'Recliners',
+  'Stools'
 ];
