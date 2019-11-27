@@ -44,9 +44,24 @@ export default function PostProductFirst() {
   const [filePreviews, setFilePreviews] = React.useState({});
   const [title, setTitle] = React.useState('');
   const [price, setPrice] = React.useState('');
+  const [height, setHeight] = React.useState();
+  const [width, setWidth] = React.useState();
+  const [depth, setDepth] = React.useState();
 
   const handleChangePrice = event => {
     setPrice(event.target.value);
+  };
+
+  const handleChangeWidth = event => {
+    setWidth(event.target.value);
+  };
+
+  const handleChangeDepth = event => {
+    setDepth(event.target.value);
+  };
+
+  const handleChangeHeight = event => {
+    setHeight(event.target.value);
   };
 
   const handleChangeTitle = event => {
@@ -60,6 +75,12 @@ export default function PostProductFirst() {
   const handleClose = () => {
     setOpen(false);
   };
+  const handleCloseReset =() =>{
+    setHeight(0);
+    setWidth(0);
+    setDepth(0);
+  }
+
   const handleChangeCategory = event => {
     setCategory(event.target.value);
   };
@@ -127,13 +148,14 @@ export default function PostProductFirst() {
           <Grid item xs={12}>
           <FormControl required className={classes.formControl}>
             <InputLabel id="demo-simple-select-required-label">Category</InputLabel>
-            <Select  native defaultValue="" input={<Input id="grouped-native-select" />}
-              // labelId="demo-simple-select-required-label"
-              // id="demo-simple-select-required"
+            <Select
+              labelId="demo-simple-select-required-label"
+              id="demo-simple-select-required"
+              value={category}
               onChange={handleChangeCategory}
               className={classes.selectEmpty}
             >
-              <option value="" />
+              {/* <option value="" />
               <optgroup label="Beds">
                 {beds.map(name => (
                     <option key={name} value={name}>
@@ -147,7 +169,15 @@ export default function PostProductFirst() {
                     {name}
                   </option>
                 ))}
-              </optgroup>
+              </optgroup> */}
+
+
+
+                {Object.entries(categoryList).map( ([key, value]) => (
+                    <MenuItem key={key} value={key}>
+                      {value}
+                    </MenuItem>
+                  ))}
             </Select>
             {/* <FormHelperText>Required</FormHelperText> */}
           </FormControl>
@@ -181,9 +211,10 @@ export default function PostProductFirst() {
               <MenuItem value="">
                 <em>None</em>
               </MenuItem>
-              <MenuItem value={10}>Good</MenuItem>
-              <MenuItem value={20}>Better</MenuItem>
-              <MenuItem value={30}>Fucked-Up</MenuItem>    
+              <MenuItem value={1}>New : Product has not been unwrapped from the box</MenuItem>
+              <MenuItem value={2}>Good : Minor blemishes that most people will not notice</MenuItem>
+              <MenuItem value={3}>Satisfactory : Moderate wear and tear, but stil has many good years left</MenuItem>  
+              <MenuItem value={4}>Age-worn : Has lived a full life and has a "distressed" look with noticeable wear</MenuItem>      
             </Select>
             {/* <FormHelperText>Required</FormHelperText> */}
           </FormControl>
@@ -206,6 +237,8 @@ export default function PostProductFirst() {
                 label="Height (in inches)"
                 type="number"
                 fullWidth
+                value={height}
+                onChange={handleChangeHeight}
               />
               <TextField
                 autoFocus
@@ -214,6 +247,8 @@ export default function PostProductFirst() {
                 label="Width (in inches)"
                 type="number"
                 fullWidth
+                value={width}
+                onChange={handleChangeWidth}
               />
               <TextField
                 autoFocus
@@ -222,10 +257,12 @@ export default function PostProductFirst() {
                 label="Depth (in inches)"
                 type="number"
                 fullWidth
+                value={depth}
+                onChange={handleChangeDepth}
               />
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose} color="primary">
+              <Button onClick={handleCloseReset} color="primary">
                 Reset
               </Button>
               <Button onClick={handleClose} color="primary">
@@ -263,6 +300,16 @@ const colors = [
   'Afternoon 12pm to 5pm',
   'Evening 5pm to 10pm'
 ];
+
+const categoryList={
+  1:'Beds',
+  10:'Chairs',
+  21:'Decor',
+  26:'Lighting',
+  31:'Rugs',
+  34:'Sofas',
+  43:'Tables'
+};
 
 const beds = [
   'Cribs',
