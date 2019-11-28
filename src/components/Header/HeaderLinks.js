@@ -64,6 +64,8 @@ export default function HeaderLinks(props) {
         </Button>
       </ListItem>
       <ListItem className={classes.listItem}>
+      <Link to={"/post"} className={classes.link}>
+
         <Button
           color="transparent"
           target="_blank"
@@ -72,6 +74,7 @@ export default function HeaderLinks(props) {
         <AddAPhotoIcon className={classes.icons}/>
          Sell
         </Button>
+        </Link>
       </ListItem>
       <ListItem className={classes.listItem}>
 

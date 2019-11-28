@@ -50,7 +50,19 @@ export default function PostProductSecond() {
   const [state, setState] = React.useState({ checkedA: false});
   const [availabilty, setAvailability] = React.useState([]);
   const [vehicle, setVehicle] = React.useState('truck');
+  const [description, setDescription] = React.useState();
+  const [deliveryPrice, setDeliveryPrice] = React.useState();
+  const [pickupAddress, setPickupAddress] = React.useState();
 
+  const handleChangePickupAddress = event => {
+    setPickupAddress(event.target.value);
+  };
+  const handleChangeDeliveryPrice = event => {
+    setDeliveryPrice(event.target.value);
+  };
+  const handleChangeDescription = event => {
+    setDescription(event.target.value);
+  };
   const handleVehicleChange = event => {
     setVehicle(event.target.value);
   };
@@ -74,6 +86,8 @@ export default function PostProductSecond() {
                       shrink: true,
                     }}
                     margin="normal"
+                    value={deliveryPrice}
+                    onChange={handleChangeDeliveryPrice}
                   />
     } else {
         return null
@@ -98,6 +112,8 @@ export default function PostProductSecond() {
             variant="outlined"
             fullWidth
             required
+            value={description}
+            onChange={handleChangeDescription}
           />
         </Grid>
       
@@ -173,6 +189,8 @@ export default function PostProductSecond() {
             variant="outlined"
             fullWidth
             required
+            value={pickupAddress}
+            onChange={handleChangePickupAddress}
           />
         </Grid>
 

@@ -199,10 +199,10 @@ export default function PostProductFirst() {
         </Grid>
         
         <Grid item xs={12} sm={6} >
-        <FormControl required className={classes.formControl}>
+        <FormControl className={classes.formControl}>
           <InputLabel id="demo-simple-select-required-label">Condition</InputLabel>
             <Select
-              labelId="demo-simple-select-required-label"
+              labelId="demo-simple-select-label"
               id="demo-simple-select-required"
               value={condition}
               onChange={handleChangeCondition}
