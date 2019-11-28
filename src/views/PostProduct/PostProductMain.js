@@ -17,8 +17,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="www.cargomarketplace.com/">
+        CarGo Marketplace
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -66,6 +66,7 @@ const useStyles = makeStyles(theme => ({
 const steps = [" ", " "];
 
 function GetStepContent(step) {
+  //Hooks for post product first
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
@@ -74,6 +75,15 @@ function GetStepContent(step) {
   const [width, setWidth] = useState();
   const [depth, setDepth] = useState();
   const [brand, setBrand] = useState();
+
+  //Hooks for post product second.
+  const [deliverySwitch, setDeliverySwitch] = useState(false);
+  const [availabilty, setAvailability] = useState([]);
+  const [vehicle, setVehicle] = useState("truck");
+  const [description, setDescription] = useState();
+  const [deliveryPrice, setDeliveryPrice] = useState();
+  const [pickupAddress, setPickupAddress] = useState();
+
   switch (step) {
     case 0:
       return (
@@ -97,13 +107,30 @@ function GetStepContent(step) {
         />
       );
     case 1:
-      return <PostProductSecond />;
+      return (
+        <PostProductSecond
+          deliverySwitch={deliverySwitch}
+          setDeliverySwitch={setDeliverySwitch}
+          availabilty={availabilty}
+          setAvailability={setAvailability}
+          vehicle={vehicle}
+          setVehicle={setVehicle}
+          description={description}
+          setDescription={setDescription}
+          deliveryPrice={deliveryPrice}
+          setDeliveryPrice={setDeliveryPrice}
+          pickupAddress={pickupAddress}
+          setPickupAddress={setPickupAddress}
+        />
+      );
+
     default:
+      console.log("Default error from main post");
       throw new Error("Unknown step");
   }
 }
 
-export default function Checkout() {
+export default function PostProduct() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -139,6 +166,9 @@ export default function Checkout() {
           </Stepper>
           <React.Fragment>
             {activeStep === steps.length ? (
+              console.log("Final page")
+            ) : (
+              /* (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
                   Thank you for Posting.
@@ -149,7 +179,7 @@ export default function Checkout() {
                   shipped.
                 </Typography>
               </React.Fragment>
-            ) : (
+            ) */
               <React.Fragment>
                 {GetStepContent(activeStep)}
                 <div className={classes.buttons}>
@@ -164,7 +194,7 @@ export default function Checkout() {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? "Post Now" : "Next"}
+                    {activeStep === steps.length ? "Post Now" : "Next"}
                   </Button>
                 </div>
               </React.Fragment>

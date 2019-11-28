@@ -42,39 +42,39 @@ function getStyles(name, availabilty, theme) {
   };
 }
 
-export default function PostProductSecond() {
+export default function PostProductSecond(props) {
   const classes = useStyles();
   const theme = useTheme();
-  const [deliverySwitch, setDeliverySwitch] = React.useState(false);
-  const [availabilty, setAvailability] = React.useState([]);
-  const [vehicle, setVehicle] = React.useState("truck");
-  const [description, setDescription] = React.useState();
-  const [deliveryPrice, setDeliveryPrice] = React.useState();
-  const [pickupAddress, setPickupAddress] = React.useState();
+  // const [deliverySwitch, setDeliverySwitch] = React.useState(false);
+  // const [availabilty, setAvailability] = React.useState([]);
+  // const [vehicle, setVehicle] = React.useState("truck");
+  // const [description, setDescription] = React.useState();
+  // const [deliveryPrice, setDeliveryPrice] = React.useState();
+  // const [pickupAddress, setPickupAddress] = React.useState();
 
   const handleChangePickupAddress = event => {
-    setPickupAddress(event.target.value);
+    props.setPickupAddress(event.target.value);
   };
   const handleChangeDeliveryPrice = event => {
-    setDeliveryPrice(event.target.value);
+    props.setDeliveryPrice(event.target.value);
   };
   const handleChangeDescription = event => {
-    setDescription(event.target.value);
+    props.setDescription(event.target.value);
   };
   const handleVehicleChange = event => {
-    setVehicle(event.target.value);
+    props.setVehicle(event.target.value);
   };
 
   const handleChangeDeliverySwitch = event => {
-    setDeliverySwitch(event.target.checked);
+    props.setDeliverySwitch(event.target.checked);
   };
 
   const handleChangeAvailability = event => {
-    setAvailability(event.target.value);
+    props.setAvailability(event.target.value);
   };
 
   const displayDeliveryPrice = () => {
-    if (deliverySwitch) {
+    if (props.deliverySwitch) {
       return (
         <TextField
           id="standard-number"
@@ -85,7 +85,7 @@ export default function PostProductSecond() {
             shrink: true
           }}
           margin="normal"
-          value={deliveryPrice}
+          value={props.deliveryPrice}
           onChange={handleChangeDeliveryPrice}
         />
       );
@@ -112,7 +112,7 @@ export default function PostProductSecond() {
             variant="outlined"
             fullWidth
             required
-            value={description}
+            value={props.description}
             onChange={handleChangeDescription}
           />
         </Grid>
@@ -123,9 +123,9 @@ export default function PostProductSecond() {
             labelPlacement="start"
             control={
               <Switch
-                checked={deliverySwitch}
+                checked={props.deliverySwitch}
                 onChange={handleChangeDeliverySwitch}
-                value="checkedB"
+                value="deliverySwitch"
                 color="primary"
               />
             }
@@ -134,7 +134,7 @@ export default function PostProductSecond() {
           <Grid container>
             <Grid item xs={12} sm={6}>
               <h6>
-                {deliverySwitch
+                {props.deliverySwitch
                   ? "How much for delivery ?"
                   : "CarGo will take care of delivery!"}
               </h6>
@@ -154,7 +154,7 @@ export default function PostProductSecond() {
               labelId="demo-mutiple-chip-label"
               id="demo-mutiple-chip"
               multiple
-              value={availabilty}
+              value={props.availabilty}
               onChange={handleChangeAvailability}
               input={<Input id="select-multiple-chip" />}
               renderValue={selected => (
@@ -170,7 +170,7 @@ export default function PostProductSecond() {
                 <MenuItem
                   key={name}
                   value={name}
-                  style={getStyles(name, availabilty, theme)}
+                  style={getStyles(name, props.availabilty, theme)}
                 >
                   {name}
                 </MenuItem>
@@ -188,8 +188,8 @@ export default function PostProductSecond() {
             <RadioGroup
               defaultValue="truck"
               aria-label="vehicle"
-              name="vehicle"
-              value={vehicle}
+              name="Vehicle"
+              value={props.vehicle}
               onChange={handleVehicleChange}
             >
               <FormControlLabel
@@ -211,7 +211,7 @@ export default function PostProductSecond() {
             variant="outlined"
             fullWidth
             required
-            value={pickupAddress}
+            value={props.pickupAddress}
             onChange={handleChangePickupAddress}
           />
         </Grid>

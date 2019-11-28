@@ -32,14 +32,14 @@ const fileStatuses = [
 
 export default function PostProductFirst(props) {
   const classes = useStyles();
-  // const [images, setImages] = useState([]);
+  const [images, setImages] = useState([]);
 
   const inputLabel = React.useRef(null);
-  // const [labelWidth, setLabelWidth] = React.useState(0);
+  const [labelWidth, setLabelWidth] = React.useState(0);
   const [open, setOpen] = React.useState(false);
-  // const [files, setFiles] = React.useState([]);
-  // const [events, setEvents] = React.useState([]);
-  // const [filePreviews, setFilePreviews] = React.useState({});
+  const [files, setFiles] = React.useState([]);
+  const [events, setEvents] = React.useState([]);
+  const [filePreviews, setFilePreviews] = React.useState({});
 
   // const [title, setTitle] = React.useState("");
   // const [price, setPrice] = React.useState("");
