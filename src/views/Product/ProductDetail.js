@@ -9,8 +9,6 @@ import Grid from '@material-ui/core/Grid';
 //import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
 
-
-
 // @material-ui/icons
 // core components
 import Header from "components/Header/Header.js";
@@ -25,16 +23,16 @@ import {BeatLoader} from 'react-spinners';
 //custom components from dependecies
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
-
+import safeStringify from "safe-json-stringify";
 
 const useStyles = makeStyles(styles);
-
-
 
 export default function Components(props) {
   const classes = useStyles();
   const [item, setItem] = useState(JSON.parse(props.location.state));
   const [isLoading, setIsLoading] = useState(true);
+
+  console.log("From Product detail ==>" + JSON.stringify(item.Name));
 
   const urls = item.Pictures; // varaible to store all the pcitures of that product
      //useEffect==>component did mount
@@ -84,7 +82,7 @@ export default function Components(props) {
                         <h1>{item.Name}</h1>
                         <p>{item.Description}</p>
 
-                        <Link to ="/checkout">
+                        <Link to={{pathname:'/checkout', state:safeStringify(item)}}>
                           <Button xs={6} color="primary">Buy</Button>
                         </Link>
                         <Button xs={6} color="primary">Chat</Button>
