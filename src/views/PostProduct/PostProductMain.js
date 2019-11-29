@@ -12,6 +12,7 @@ import Link from "@material-ui/core/Link";
 import Typography from "@material-ui/core/Typography";
 import PostProductFirst from "./PostProductFirst";
 import PostProductSecond from "./PostProductSecond";
+import firebase from "../../Firebase/firebase";
 
 function Copyright() {
   return (
@@ -65,7 +66,11 @@ const useStyles = makeStyles(theme => ({
 
 const steps = [" ", " "];
 
-function GetStepContent(step) {
+export default function PostProduct() {
+
+
+  const classes = useStyles();
+  const [activeStep, setActiveStep] = React.useState(0);
   //Hooks for post product first
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -84,58 +89,102 @@ function GetStepContent(step) {
   const [deliveryPrice, setDeliveryPrice] = useState();
   const [pickupAddress, setPickupAddress] = useState();
 
-  switch (step) {
-    case 0:
-      return (
-        <PostProductFirst
-          title={title}
-          setTitle={setTitle}
-          price={price}
-          setPrice={setPrice}
-          category={category}
-          setCategory={setCategory}
-          condition={condition}
-          setCondition={setCondition}
-          height={height}
-          setHeight={setHeight}
-          width={width}
-          setWidth={setWidth}
-          depth={depth}
-          setDepth={setDepth}
-          brand={brand}
-          setBrand={setBrand}
-        />
-      );
-    case 1:
-      return (
-        <PostProductSecond
-          deliverySwitch={deliverySwitch}
-          setDeliverySwitch={setDeliverySwitch}
-          availabilty={availabilty}
-          setAvailability={setAvailability}
-          vehicle={vehicle}
-          setVehicle={setVehicle}
-          description={description}
-          setDescription={setDescription}
-          deliveryPrice={deliveryPrice}
-          setDeliveryPrice={setDeliveryPrice}
-          pickupAddress={pickupAddress}
-          setPickupAddress={setPickupAddress}
-        />
-      );
+  const GetStepContent = (step) => {
 
-    default:
-      console.log("Default error from main post");
-      throw new Error("Unknown step");
+    switch (step) {
+      case 0:
+        return (
+          <PostProductFirst
+            title={title}
+            setTitle={setTitle}
+            price={price}
+            setPrice={setPrice}
+            category={category}
+            setCategory={setCategory}
+            condition={condition}
+            setCondition={setCondition}
+            height={height}
+            setHeight={setHeight}
+            width={width}
+            setWidth={setWidth}
+            depth={depth}
+            setDepth={setDepth}
+            brand={brand}
+            setBrand={setBrand}
+          />
+        );
+      case 1:
+        return (
+          <PostProductSecond
+            deliverySwitch={deliverySwitch}
+            setDeliverySwitch={setDeliverySwitch}
+            availabilty={availabilty}
+            setAvailability={setAvailability}
+            vehicle={vehicle}
+            setVehicle={setVehicle}
+            description={description}
+            setDescription={setDescription}
+            deliveryPrice={deliveryPrice}
+            setDeliveryPrice={setDeliveryPrice}
+            pickupAddress={pickupAddress}
+            setPickupAddress={setPickupAddress}
+          />
+        );
+
+      default:
+        console.log("Default error from main post");
+        throw new Error("Unknown step");
+    }
   }
-}
 
-export default function PostProduct() {
-  const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
+  //post the product
+  const postTheProduct = () => {
+    var data = {
+      Description: { description },
+      Name: { title },
+      Price: { price },
+      //Pictures : this.state.downloadURLs,
+      //Thumbnail : this.state.thumbnail,
+      Owner: 'Darshan',
+      Flag: true,
+      FavouriteUsers: [],
+      TimeStamp: null,
+      UserClicks: [],
+      Category: { category },
+      Avability: { availabilty },
+      Status: 'active',
+      //AddressArray: this.state.addressArray,
+      //SellerAddress:this.state.completeStringAddress,
+      BuyerID: '',
+      //SellerName: this.state.sellerName,
+      BuyerName: '',
+      BuyerAddress: '',
+      DeliveryFee: '',
+      TotalFee: '',
+      BoughtStatus: 'false',
+      OrderNumber: -1,
+    }
+
+
+
+    //Fuction that adds product to the database.
+    var productCollectionReference = firebase.firestore().collection('Products');
+
+    console.log('Product Posted');
+
+    productCollectionReference.add(data);
+    alert('Inside post product function');
+
+  }
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if (activeStep === steps.length - 1) {
+      alert("Hoo ha!")
+      { postTheProduct() }
+    }
+    else {
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => {
@@ -165,21 +214,7 @@ export default function PostProduct() {
             ))}
           </Stepper>
           <React.Fragment>
-            {activeStep === steps.length ? (
-              console.log("Final page")
-            ) : (
-              /* (
-              <React.Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you for Posting.
-                </Typography>
-                <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
-                </Typography>
-              </React.Fragment>
-            ) */
+            {activeStep !== steps.length ? (
               <React.Fragment>
                 {GetStepContent(activeStep)}
                 <div className={classes.buttons}>
@@ -194,11 +229,23 @@ export default function PostProduct() {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length ? "Post Now" : "Next"}
+                    {activeStep === steps.length - 1 ? "Post Now" : "Next"}
                   </Button>
                 </div>
               </React.Fragment>
-            )}
+            ) : (
+                <React.Fragment>
+                  <Typography variant="h5" gutterBottom>
+                    Thank you for Posting.
+                </Typography>
+                  <Typography variant="subtitle1">
+                    Your order number is #2001539. We have emailed your order
+                    confirmation, and will send you an update when your order has
+                    shipped.
+                </Typography>
+                </React.Fragment>
+
+              )}
           </React.Fragment>
         </Paper>
         <Copyright />
