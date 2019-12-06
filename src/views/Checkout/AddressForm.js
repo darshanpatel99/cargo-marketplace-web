@@ -5,7 +5,28 @@ import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-export default function AddressForm() {
+export default function AddressForm(props) {
+
+  const handleChangeFirstName = event => {
+    props.setFirstName(event.target.value);
+  };
+
+  const handleChangeLastName = event => {
+    props.setLastName(event.target.value);
+  };
+
+  const handleChangeAddress = event => {
+    props.setAddress(event.target.value);
+  };
+
+  const handleChangeCity = event => {
+    props.setCity(event.target.value);
+  }; 
+
+  const handleChangeZip = event => {
+    props.setZip(event.target.value);
+  }; 
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -20,6 +41,8 @@ export default function AddressForm() {
             label="First name"
             fullWidth
             autoComplete="fname"
+            value={props.firstName}
+            onChange={handleChangeFirstName}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -30,6 +53,8 @@ export default function AddressForm() {
             label="Last name"
             fullWidth
             autoComplete="lname"
+            value={props.lastName}
+            onChange={handleChangeLastName}
           />
         </Grid>
         <Grid item xs={12}>
@@ -40,15 +65,8 @@ export default function AddressForm() {
             label="Address line 1"
             fullWidth
             autoComplete="billing address-line1"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="address2"
-            name="address2"
-            label="Address line 2"
-            fullWidth
-            autoComplete="billing address-line2"
+            value={props.address}
+            onChange={handleChangeAddress}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -59,12 +77,23 @@ export default function AddressForm() {
             label="City"
             fullWidth
             autoComplete="billing address-level2"
+            value={props.city}
+            onChange={handleChangeCity}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+        <TextField
+            required
+            id="zip"
+            name="zip"
+            label="Zip / Postal code"
+            fullWidth
+            autoComplete="billing postal-code"
+            value={props.zip}
+            onChange={handleChangeZip}
+          />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        {/*<Grid item xs={12} sm={6}>
           <TextField
             required
             id="zip"
@@ -84,12 +113,12 @@ export default function AddressForm() {
             autoComplete="billing country"
           />
         </Grid>
-        <Grid item xs={12}>
+         <Grid item xs={12}>
           <FormControlLabel
             control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
             label="Use this address for payment details"
           />
-        </Grid>
+        </Grid> */}
       </Grid>
     </React.Fragment>
   );

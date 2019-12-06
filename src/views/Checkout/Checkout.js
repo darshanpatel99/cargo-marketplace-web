@@ -75,6 +75,20 @@ export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [item, setItem] = useState(JSON.parse(props.location.state));
 
+  //Shipping address hooks
+  const[firstName, setFirstName] = useState('');
+  const[lastName, setLastName] = useState('');
+  const[address, setAddress] = useState('');
+  const[city, setCity] = useState('');
+  const[zip, setZip] = useState('');
+
+  //Credit card hooks
+  const[ccNumber, setCCNumber]= useState('');
+  const[ccName, setCCName]= useState('');
+  const[ccDate, setCCDate]= useState('');
+  const[ccCVC, setCCCVC]= useState('');
+
+
   const handleNext = () => {
     setActiveStep(activeStep + 1);
   };
@@ -92,9 +106,35 @@ export default function Checkout(props) {
           /> 
           )  
       case 1:
-          return <AddressForm />;
+          return( 
+          
+              <AddressForm 
+                firstName={firstName}
+                setFirstName={setFirstName}
+                lastName={lastName}
+                setLastName={setLastName}
+                address={address}
+                setAddress={setAddress}
+                city={city}
+                setCity={setCity}
+                zip={zip}
+                setZip={setZip}
+              />
+            )
       case 2:
-          return <PaymentForm />;
+          return (
+          <PaymentForm 
+            ccNumber={ccNumber}
+            setCCNumber={setCCNumber}
+            ccName={ccName}
+            setCCName={setCCName}
+            ccDate={ccDate}
+            setCCDate={setCCDate}
+            ccCVC={ccCVC}
+            setCCCVC={setCCCVC}
+          />
+            
+            )
       default:
         throw new Error('Unknown step');
     }
