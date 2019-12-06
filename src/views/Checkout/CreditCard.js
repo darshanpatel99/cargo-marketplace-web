@@ -17,7 +17,13 @@ const onSubmit = async values => {
 }
 
 
-export default function Components(props) {
+export default function CreditCard(props) {
+
+  const handleChangeNumber = event => {
+    console.log("!!!", event.target.value);
+    props.setCCNumber(event.target.value);
+  };
+
   return (
   <Styles>
     <Form
@@ -75,7 +81,7 @@ export default function Components(props) {
                 format={formatCVC}
               />
             </div>
-            {/* <div className="buttons">
+             {/* <div className="buttons">
               <button type="submit" disabled={submitting}>
                 Submit
               </button>
@@ -86,9 +92,9 @@ export default function Components(props) {
               >
                 Reset
               </button>
-            </div>
+            </div> */}
             <h2>Values</h2>
-            <pre>{JSON.stringify(values, 0, 2)}</pre> */}
+            <pre>{JSON.stringify(values, 0, 2)}</pre>
           </form>
         )
       }}
