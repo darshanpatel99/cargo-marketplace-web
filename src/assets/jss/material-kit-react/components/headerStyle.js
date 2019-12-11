@@ -146,7 +146,15 @@ const headerStyle = {
     paddingRight: "0px",
     paddingLeft: "0",
     ...transition
-  }
+  },
+
+  logoImage: {
+    //width: "250px",
+    height: "50px",
+    borderRadius: "50%",
+    //overflow: hidden,
+    marginTop: -"6px",
+  },
 };
 
 export default headerStyle;

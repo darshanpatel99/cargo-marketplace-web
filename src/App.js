@@ -13,9 +13,9 @@ import HomePage from "views/Home/Home.js";
 import ProductPage from "views/Product/ProductDetail.js";
 import SignIn from 'views/Authentication/SignIn.js';
 import Signup from 'views/Authentication/Signup.js';
-import ProtectedRoute from './components/ProtectedRoute'
-import Checkout from './views/Checkout/Checkout'
-
+import ProtectedRoute from './components/ProtectedRoute';
+import Checkout from './views/Checkout/Checkout';
+import Post from './views/PostProduct/PostProductMain.js';
 
 
 function App(props) {
@@ -34,6 +34,7 @@ const { isAuthenticated, isVerifying } = props;
         <Route path="/product" component={ProductPage} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={Signup} />
+        <Route path="/Post" component={Post} />
         <ProtectedRoute path="/checkout" component= {Checkout} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
       </Switch>
   );
