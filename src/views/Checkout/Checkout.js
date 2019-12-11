@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
@@ -14,13 +14,14 @@ import AddressForm from './AddressForm';
 //import PaymentForm from './PaymentForm';
 import PaymentForm from './CreditCard';
 import Review from './Review';
+import safeStringify from "safe-json-stringify";
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+      <Link color="inherit" href="www.cargomarketplace.ca">
+        CarGo Marketplace
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -67,22 +68,26 @@ const useStyles = makeStyles(theme => ({
 
 const steps = ['Review your order', 'Shipping address', 'Payment details' ];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-        return <Review />;   
-    case 1:
-        return <AddressForm />;
-    case 2:
-        return <PaymentForm />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
 
-export default function Checkout() {
+
+export default function Checkout(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const [item, setItem] = useState(JSON.parse(props.location.state));
+
+  //Shipping address hooks
+  const[firstName, setFirstName] = useState('');
+  const[lastName, setLastName] = useState('');
+  const[address, setAddress] = useState('');
+  const[city, setCity] = useState('');
+  const[zip, setZip] = useState('');
+
+  //Credit card hooks
+  const[ccNumber, setCCNumber]= useState('');
+  const[ccName, setCCName]= useState('');
+  const[ccDate, setCCDate]= useState('');
+  const[ccCVC, setCCCVC]= useState('');
+
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -91,6 +96,49 @@ export default function Checkout() {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+          return(
+          <Review 
+            state= {safeStringify(item)}
+          /> 
+          )  
+      case 1:
+          return( 
+          
+              <AddressForm 
+                firstName={firstName}
+                setFirstName={setFirstName}
+                lastName={lastName}
+                setLastName={setLastName}
+                address={address}
+                setAddress={setAddress}
+                city={city}
+                setCity={setCity}
+                zip={zip}
+                setZip={setZip}
+              />
+            )
+      case 2:
+          return (
+          <PaymentForm 
+            ccNumber={ccNumber}
+            setCCNumber={setCCNumber}
+            ccName={ccName}
+            setCCName={setCCName}
+            ccDate={ccDate}
+            setCCDate={setCCDate}
+            ccCVC={ccCVC}
+            setCCCVC={setCCCVC}
+          />
+            
+            )
+      default:
+        throw new Error('Unknown step');
+    }
+  }
 
   return (
     <React.Fragment>
