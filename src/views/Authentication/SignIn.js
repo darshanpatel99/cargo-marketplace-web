@@ -14,6 +14,13 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 
+//using react-firebase ui for google login
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import firebase from "firebase";
+
+
+
+
 const styles = () => ({
   "@global": {
     body: {
@@ -43,7 +50,20 @@ const styles = () => ({
 });
 
 class SignIn extends Component {
-  state = { email: "", password: "" };
+  state = { email: "", password: "", isSignedIn: false  };
+
+
+
+uiConfig = {
+  signInFlow: "popup",
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.EmailAuthProvider.PROVIDER_ID
+  ],
+  callbacks: {
+    signInSuccess: () => false
+  }
+}
 
   handleEmailChange = ({ target }) => {
     this.setState({ email: target.value });
@@ -67,6 +87,13 @@ class SignIn extends Component {
     dispatch(loginUser(email, password));
   };
 
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.setState({ isSignedIn: !!user })
+      console.log("user", user)
+    })
+  }
+
   render() {
     const { classes, loginError, isAuthenticated, isResetEmailSent, location } = this.props;
     var prevLocation='';
@@ -80,6 +107,7 @@ class SignIn extends Component {
     } else {
       return (
         <Container component="main" maxWidth="xs">
+
           <Paper className={classes.paper}>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
@@ -122,7 +150,25 @@ class SignIn extends Component {
               Sign In
             </Button>
 
-  
+      <div className="cargo-firebase-ui">
+        {this.state.isSignedIn ? (
+          <span>
+            <div>Signed In!</div>
+            <button onClick={() => firebase.auth().signOut()}>Sign out!</button>
+            <h1>Welcome {firebase.auth().currentUser.displayName}</h1>
+            <img
+              alt="profile picture"
+              src={firebase.auth().currentUser.photoURL}
+            />
+          </span>
+        ) : (
+          <StyledFirebaseAuth
+            uiConfig={this.uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+        )}
+      </div>
+
 
 
           </Paper>
