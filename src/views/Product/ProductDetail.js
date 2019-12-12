@@ -1,3 +1,4 @@
+
 import React, {useState, useEffect} from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -8,6 +9,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 //import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
+import Lightbox from "react-image-lightbox";
+
 
 // @material-ui/icons
 // core components
@@ -31,6 +34,9 @@ export default function Components(props) {
   const classes = useStyles();
   const [item, setItem] = useState(JSON.parse(props.location.state));
   const [isLoading, setIsLoading] = useState(true);
+  const [isOpen, setisOpen] = useState(false)
+  const [photoIndex, setPhotoIndex] = useState(0)
+
 
   console.log("From Product detail ==>" + JSON.stringify(item.Name));
 
@@ -63,11 +69,11 @@ export default function Components(props) {
 
                 <Grid container spacing={6} className={classNames(classes.productDetailsContainer)}>
                     <Grid item xs={6} >
-                        <Carousel autoPlay>
+                        <Carousel autoPlay >
                                 {
                                   urls.map((url, k)=>{
                                     return(
-                                      <div>
+                                      <div onClick={() => setisOpen(true)}>
                                         <img src={url} />
                                         <p className="legend">Legend 1</p>
                                       </div>
@@ -92,25 +98,22 @@ export default function Components(props) {
 
           <Footer />
 
-    {/* 
           {isOpen && (
+            <div>
               <Lightbox
-                mainSrc={images[photoIndex]}
-                nextSrc={images[(photoIndex + 1) % images.length]}
-                prevSrc={images[(photoIndex + images.length - 1) % images.length]}
-                onCloseRequest={() => this.setState({ isOpen: false })}
+                mainSrc={urls[photoIndex]}
+                nextSrc={urls[(photoIndex + 1) % urls.length]}
+                prevSrc={urls[(photoIndex + urls.length - 1) % urls.length]}
+                onCloseRequest={() => setisOpen(false)}
                 onMovePrevRequest={() =>
-                  this.setState({
-                    photoIndex: (photoIndex + images.length - 1) % images.length
-                  })
+                  setPhotoIndex((photoIndex + urls.length - 1) % urls.length)
                 }
                 onMoveNextRequest={() =>
-                  this.setState({
-                    photoIndex: (photoIndex + 1) % images.length
-                  })
+                  setPhotoIndex((photoIndex + urls.length + 1) % urls.length)
                 }
               />
-            )} */}
+              </div>
+            )}
 
         </div>
       );

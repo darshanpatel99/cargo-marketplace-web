@@ -88,13 +88,7 @@ function Components(props) {
               }
             }}
           />
-          <Button
-            color="primary"
-            target="_blank"
-            round
-            onClick = {handleLogout}
-          > Logout
-          </Button>
+
           <Button justIcon round color="white">
             <Search className={classes.searchIcon} />
           </Button>
