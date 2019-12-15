@@ -8,6 +8,7 @@
     "@material-ui/icons": "^4.5.1",
     "@progress/kendo-react-intl": "^3.7.0",
     "@progress/kendo-react-upload": "^3.7.0",
+    "bower": "^1.8.8",
     "classnames": "2.2.6",
     "final-form": "^4.18.6",
     "firebase": "^7.4.0",
