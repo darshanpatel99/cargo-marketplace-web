@@ -81,6 +81,7 @@ export default function Checkout(props) {
   const[address, setAddress] = useState('');
   const[city, setCity] = useState('');
   const[zip, setZip] = useState('');
+  const[phonenumber, setPhonenumber] = useState('');
 
   //Credit card hooks
   const[ccNumber, setCCNumber]= useState('');
@@ -119,6 +120,7 @@ export default function Checkout(props) {
                 setCity={setCity}
                 zip={zip}
                 setZip={setZip}
+                setPhonenumber= {setPhonenumber}
               />
             )
       case 2:
@@ -162,6 +164,7 @@ export default function Checkout(props) {
               </Step>
             ))}
           </Stepper>
+          
           <React.Fragment>
             {activeStep === steps.length ? (
               <React.Fragment>
