@@ -5,16 +5,21 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import App from "./App";
 import configureStore from "./configureStore";
+import ShopCaddyTheme from './ShopCaddyTheme';
+
 
 const store = configureStore();
 
 function Root() {
+
   return (
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
+    
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
+   
   );
 }
 

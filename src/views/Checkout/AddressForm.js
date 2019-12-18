@@ -27,6 +27,10 @@ export default function AddressForm(props) {
     props.setZip(event.target.value);
   }; 
 
+  const handleChangePhoneNumber = event => {
+    props.setPhonenumber(event.target.value)
+  }
+
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -91,6 +95,18 @@ export default function AddressForm(props) {
             autoComplete="billing postal-code"
             value={props.zip}
             onChange={handleChangeZip}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            required
+            id="phonenumber"
+            name="phonenumber"
+            label="Phone Number"
+            fullWidth
+            autoComplete="phonenumber"
+            value={props.phonenumber}
+            onChange={handleChangePhoneNumber}
           />
         </Grid>
         {/*<Grid item xs={12} sm={6}>

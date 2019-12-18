@@ -29,7 +29,6 @@ export default function ProductsGrid(props){
     // const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").startAt(startAt);
     // firebaseProductsRef.endAt(endAt);
     const chunk = 3; //number of products we want to get from firebase
-
     //useEffect==>component did mount
     useEffect(()=>{
       //creating the listener that will listen to the new changes to the product collection
@@ -61,7 +60,6 @@ export default function ProductsGrid(props){
 
     //Listent to the updates
      const onCollectionUpdate = (querySnapshot) =>{
-       console.log('Collection got an update');
        const products = [];
          querySnapshot.forEach((doc) => {
            const {  SellerName, AddressArray, Description, Name, Price, Thumbnail, Pictures, Category, Owner, BuyerID, Status, DeliveryProvider, DeliveryVehicle, SellerDeliveryPrice, Avability,SellerAddress, AdditionalData, } = doc.data();
@@ -89,6 +87,8 @@ export default function ProductsGrid(props){
            });
          });
 
+         
+         console.log(products)
          setItems(products)
          setIsLoading(false);
          //alert(products[0].Name);
@@ -100,7 +100,8 @@ export default function ProductsGrid(props){
      const handleLoadMore =() =>{
         //set the start at with number of products we want to laod more
         setLimit(limit+chunk);
-        console.log(limit);
+        console.log("limiiimiit" + limit);
+        
 
      }
 
@@ -122,6 +123,7 @@ export default function ProductsGrid(props){
               <Grid item spacing={3}>
                  <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
               </Grid>
+              
                );
 
                })

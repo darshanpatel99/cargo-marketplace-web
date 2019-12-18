@@ -16,6 +16,11 @@ import PaymentForm from './CreditCard';
 import Review from './Review';
 import safeStringify from "safe-json-stringify";
 
+import Header from "components/Header/Header.js";
+import HeaderLinks from "components/Header/HeaderLinks.js";
+import './../../App.css'
+
+
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -81,6 +86,7 @@ export default function Checkout(props) {
   const[address, setAddress] = useState('');
   const[city, setCity] = useState('');
   const[zip, setZip] = useState('');
+  const[phonenumber, setPhonenumber] = useState('');
 
   //Credit card hooks
   const[ccNumber, setCCNumber]= useState('');
@@ -119,6 +125,7 @@ export default function Checkout(props) {
                 setCity={setCity}
                 zip={zip}
                 setZip={setZip}
+                setPhonenumber= {setPhonenumber}
               />
             )
       case 2:
@@ -139,17 +146,27 @@ export default function Checkout(props) {
         throw new Error('Unknown step');
     }
   }
+  const { ...rest } = props;
 
   return (
+    <div>
+
+<Header
+    brand="CarGo"
+    rightLinks={
+    <HeaderLinks />}
+    fixed
+    color="transparent"
+
+    changeColorOnScroll={{
+      height: 400,
+      color: "white"
+    }}
+    {...rest}
+  />
+
     <React.Fragment>
-      <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            CarGo Marketplace
-          </Typography>
-        </Toolbar>
-      </AppBar>
+
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -162,6 +179,7 @@ export default function Checkout(props) {
               </Step>
             ))}
           </Stepper>
+          
           <React.Fragment>
             {activeStep === steps.length ? (
               <React.Fragment>
@@ -198,5 +216,6 @@ export default function Checkout(props) {
         <Copyright />
       </main>
     </React.Fragment>
+    </div>
   );
 }

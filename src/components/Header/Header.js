@@ -15,6 +15,7 @@ import Drawer from "@material-ui/core/Drawer";
 import Menu from "@material-ui/icons/Menu";
 // core components
 import styles from "assets/jss/material-kit-react/components/headerStyle.js";
+import '../../App.css'
 
 import logo from 'assets/img/retina-logo-3.png'; // Tell Webpack this JS file uses this image
 
@@ -68,6 +69,7 @@ export default function Header(props) {
 
   return (
     <AppBar className={appBarClasses}>
+      
       <Toolbar className={classes.container}>
         {leftLinks !== undefined ? brandComponent : null}
         <div className={classes.flex}>

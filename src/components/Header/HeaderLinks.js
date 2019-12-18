@@ -102,8 +102,6 @@ function HeaderLinks(props) {
         <Link to={"/signin"} className={classes.link}>
           {isLoggedIn ? (
 
-
-
             <Button
             color="primary"
             target="_blank"

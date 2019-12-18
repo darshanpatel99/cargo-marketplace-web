@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
 import { Provider, connect } from "react-redux";
 
@@ -16,7 +15,7 @@ import Signup from 'views/Authentication/Signup.js';
 import ProtectedRoute from './components/ProtectedRoute';
 import Checkout from './views/Checkout/Checkout';
 import Post from './views/PostProduct/PostProductMain.js';
-
+import Paypal from './views/Checkout/Paypal'
 
 function App(props) {
 const { isAuthenticated, isVerifying } = props;
@@ -35,6 +34,7 @@ const { isAuthenticated, isVerifying } = props;
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={Signup} />
         <Route path="/Post" component={Post} />
+        <Route path="/Paypal" component={Paypal} />
         <ProtectedRoute path="/checkout" component= {Checkout} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
       </Switch>
   );
