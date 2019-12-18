@@ -9,7 +9,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 //import Lightbox from "react-image-lightbox";
 import "react-image-lightbox/style.css";
-import Lightbox from "react-image-lightbox";
+import Lightbox from "react-image-lightbox"
+import './../../App.css';
 
 
 // @material-ui/icons
@@ -27,6 +28,7 @@ import {BeatLoader} from 'react-spinners';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Carousel } from 'react-responsive-carousel';
 import safeStringify from "safe-json-stringify";
+
 
 const useStyles = makeStyles(styles);
 
@@ -75,7 +77,6 @@ export default function Components(props) {
                                     return(
                                       <div onClick={() => setisOpen(true)}>
                                         <img src={url} />
-                                        <p className="legend">Legend 1</p>
                                       </div>
                                     );
                                   })
@@ -92,9 +93,15 @@ export default function Components(props) {
                           <Button xs={6} color="primary">Buy</Button>
                         </Link>
                         <Button xs={6} color="primary">Chat</Button>
+
+                        <div><p>Delivery Rate: Delivery available by Shop Caddy.</p>
+                              <p>Additional fees may apply. Delivery charge will be calculated during checkout process</p>
+                              <p>Local pickup available from postal code V3H1G7.</p>
+                        </div>
                     </Grid>
                 </Grid>
             </div>
+
 
           <Footer />
 

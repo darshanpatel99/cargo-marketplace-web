@@ -17,7 +17,6 @@ import Checkout from './views/Checkout/Checkout';
 import Post from './views/PostProduct/PostProductMain.js';
 import Paypal from './views/Checkout/Paypal'
 
-
 function App(props) {
 const { isAuthenticated, isVerifying } = props;
 
