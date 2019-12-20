@@ -8,7 +8,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 
 //core components
-import Button from "components/CustomButtons/Button.js";
+// import Button from "components/CustomButtons/Button.js";
+import Button from "@material-ui/core/Button";
 
 // sections for this page
 import SectionProductCard from "./Sections/SectionProductCard.js";
@@ -129,6 +130,9 @@ export default function ProductsGrid(props){
                })
              }
              <Button
+                  type="button"
+                  fullWidth
+                  variant="contained"
                   color="primary"
                   target="_blank"
                   round
