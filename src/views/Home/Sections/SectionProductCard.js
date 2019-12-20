@@ -45,7 +45,7 @@ export default function Cards(props) {
     <CardBody>
     <h4 className={classes.cardTitle}>{props.title}</h4>
     <p>{props.description}</p>
-    <Link to={{pathname:'/product', state:safeStringify(item)}} >
+    <Link to={{pathname:`/product/${item.key}`, state:safeStringify(item)}} >
       <Button color="primary">Buy</Button>, 
     </Link>
       <Button color="primary">Chat</Button>
