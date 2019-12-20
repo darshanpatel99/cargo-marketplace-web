@@ -30,7 +30,7 @@ const { isAuthenticated, isVerifying } = props;
           component={HomePage}
         />
         {/* <Route exact path="/" component={HomePage} /> */}
-        <Route path="/product" component={ProductPage} />
+        <Route path="/product/:productId" component={ProductPage} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={Signup} />
         <Route path="/Post" component={Post} />

@@ -12,6 +12,8 @@ import "react-image-lightbox/style.css";
 import Lightbox from "react-image-lightbox"
 import './../../App.css';
 
+//importing firebase
+import firebase from "../../Firebase/firebase";
 
 // @material-ui/icons
 // core components
@@ -34,28 +36,57 @@ import safeStringify from "safe-json-stringify";
 const useStyles = makeStyles(styles);
 
 export default function Components(props) {
+  const {match:{params}} = props;
   const classes = useStyles();
-  const [item, setItem] = useState(JSON.parse(props.location.state));
-  const [isLoading, setIsLoading] = useState(true);
+  console.log('Product Detail Screen');
+  const [item, setItem] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setisOpen] = useState(false)
   const [photoIndex, setPhotoIndex] = useState(0);
   const [mobileDevice, setMobileDevice] = useState(window.innerWidth);
+  
+  if(props.location.state==null){
+    console.log("The man who: "+ params.productId);
+  }
+  else{
+  setItem(JSON.parse(props.location.state));
+  }
+
 
   let layoutNumber = 6
   if(mobileDevice <= 570) {
-    layoutNumber =12;
+    layoutNumber = 12;
   } else {
     layoutNumber =6
   }
+  if(item==null){
+    console.log("Object Empty")
+  }
 
-  console.log("From Product detail ==>" + JSON.stringify(item.Name));
+    //console.log("From Product detail ==>" + JSON.stringify(item.Name));
 
-  const urls = item.Pictures; // varaible to store all the pcitures of that product
+     const urls = item.Pictures; // varaible to store all the pcitures of that product
      //useEffect==>component did mount
      useEffect(()=>{
       //creating the listener that will listen to the new changes to the product collection
-      console.log('useEffect in product detail screen');
-      setIsLoading(false);
+      console.log('useEffect in product detail screen: '+params.productId);
+
+      var productId = params.productId;
+    
+      firebase.firestore().collection('Products').doc(productId).get().then((doc)=>{
+        var data = doc.data();
+        setItem(data);
+        console.log(JSON.stringify(data));
+        setIsLoading(false);
+  
+      }).catch((exception)=>{
+        console.log('We get the following exception while fetching the product: '+ exception);
+      });
+  
+
+      
+
+      // setIsLoading(false);
 
     }, []);
 
@@ -156,9 +187,7 @@ export default function Components(props) {
                   loading={isLoading}
                 />     
               </div>
-
             <Footer />
           </div>
-            );
-      
+    );   
 }
