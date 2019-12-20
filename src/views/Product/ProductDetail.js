@@ -179,10 +179,10 @@ export default function Components(props) {
               {...rest}
             />
             
-              <div className={classNames(classes.main)}>}
-                  <BeatLoader
+              <div className={classNames(classes.main)} style={{paddingTop:'250px'}}>
+              <BeatLoader
                   sizeUnit={"px"}
-                  size={30}
+                  size={100}
                   color={'#123abc'}
                   loading={isLoading}
                 />     
