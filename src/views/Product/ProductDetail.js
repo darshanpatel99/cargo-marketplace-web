@@ -17,7 +17,8 @@ import './../../App.css';
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
-import Button from "components/CustomButtons/Button.js";
+// import Button from "components/CustomButtons/Button.js";
+import Button from "@material-ui/core/Button";
 
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -37,8 +38,15 @@ export default function Components(props) {
   const [item, setItem] = useState(JSON.parse(props.location.state));
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setisOpen] = useState(false)
-  const [photoIndex, setPhotoIndex] = useState(0)
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [mobileDevice, setMobileDevice] = useState(window.innerWidth);
 
+  let layoutNumber = 6
+  if(mobileDevice <= 570) {
+    layoutNumber =12;
+  } else {
+    layoutNumber =6
+  }
 
   console.log("From Product detail ==>" + JSON.stringify(item.Name));
 
@@ -51,7 +59,6 @@ export default function Components(props) {
 
     }, []);
 
-  
   const { ...rest } = props;
   if(isLoading==false){
       return (
@@ -69,8 +76,8 @@ export default function Components(props) {
           
             <div className={classes.container}>
 
-                <Grid container spacing={6} className={classNames(classes.productDetailsContainer)}>
-                    <Grid item xs={6} >
+                <Grid container spacing={layoutNumber} className={classNames(classes.productDetailsContainer)}>
+                    <Grid item xs={layoutNumber} >
                         <Carousel autoPlay >
                                 {
                                   urls.map((url, k)=>{
@@ -85,14 +92,14 @@ export default function Components(props) {
                             </Carousel>
                     </Grid>
 
-                    <Grid item xs={6}>
+                    <Grid item xs={layoutNumber}>
                         <h1>{item.Name}</h1>
                         <p>{item.Description}</p>
 
                         <Link to={{pathname:'/checkout', state:safeStringify(item)}}>
-                          <Button xs={6} color="primary">Buy</Button>
+                          <Button xs={layoutNumber} color="primary" type="button" fullWidth variant="contained" color="primary">Buy</Button>
                         </Link>
-                        <Button xs={6} color="primary">Chat</Button>
+                        {/* <Button xs={layoutNumber} color="primary">Chat</Button> */}
 
                         <div><p>Delivery Rate: Delivery available by Shop Caddy.</p>
                               <p>Additional fees may apply. Delivery charge will be calculated during checkout process</p>

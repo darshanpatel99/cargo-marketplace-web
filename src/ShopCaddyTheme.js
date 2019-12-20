@@ -6,7 +6,7 @@ import red from '@material-ui/core/colors/red';
 // All the following keys are optional, as default values are provided.
 const theme = createMuiTheme({
   palette: {
-    primary: indigo,
+    primary: pink,
     secondary: pink,
     error: red,
     // Used by `getContrastText()` to maximize the contrast between the background and
@@ -18,3 +18,5 @@ const theme = createMuiTheme({
     tonalOffset: 0.2,
   },
 });
+
+export default theme;
