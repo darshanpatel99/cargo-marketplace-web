@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { render } from 'react-dom'
 import Styles from './Styles'
 import { Form, Field } from 'react-final-form'
@@ -27,7 +27,15 @@ export default function CreditCard(props) {
 
   return (
   
-        <Paypal />
-  
+        <Paypal
+        firstName={props.firstName}
+        lastName={props.lastName}
+        address={props.address}
+        city={props.city}
+        zip={props.zip}
+        phonenumber= {props.phonenumber}
+        item={props.item}
+        totalFee = {props.totalFee}
+        />
 )
 }

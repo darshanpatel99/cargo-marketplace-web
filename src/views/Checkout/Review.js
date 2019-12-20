@@ -24,6 +24,11 @@ export default function Review(props) {
   var ConvenienceFee = (item.Price * (0.05)).toFixed(2);
   var TotalFee = (parseFloat(item.Price) + parseFloat(deliveryFee) + parseFloat(ConvenienceFee)).toFixed(2);
 
+  const[totalFee, setTotalFee] = useState(TotalFee);
+  props.setTotalFee(TotalFee)
+
+
+
   const products = [
     { name: item.Name, desc: item.Description, price: '$'+ item.Price },
     { name: 'Shipping', desc: '', price: '$'+ deliveryFee },

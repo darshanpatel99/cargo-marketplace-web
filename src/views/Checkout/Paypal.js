@@ -1,27 +1,63 @@
 import { PayPalButton } from "react-paypal-button-v2";
 import React from 'react';
+import firebase from '../../Firebase/firebase'
+import { connect } from "react-redux";
 
-export default function Paypal() {
+
+function Paypal(props) {
+
+  function updateFirebase(){
+    var productStatusReference = firebase.firestore().collection('Products').doc(props.item.key);
+    // console.log("\n\n\n"+ this.state.userId +"\n"+ firebaseChat.userDisplayName + "\n" + this.state.BuyerAddress+ "\n" + this.state.DeliveryFee + "\n" + Math.round(this.props.charge))
+    return productStatusReference.update({
+      Status: 'bought',
+      BuyerID: props.user.uid,
+      BuyerName: props.user.displayName,
+      BuyerAddress: props.address + props.city + props.zip + " Phone Number " + props.phonenumber,
+      //DeliveryFee: this.state.DeliveryFee,
+      TotalFee:  props.totalFee,
+      BoughtStatus: 'true',
+    })
+    // console.log('hello props ' + props.user.uid)
+  }
+
   
-    return (
-        <PayPalButton
-          amount="0.01"
-          // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-          onSuccess={(details, data) => {
-            alert("Transaction completed by " + details.payer.name.given_name);
   
-            // OPTIONAL: Call your server to save the transaction
-            return fetch("/paypal-transaction-complete", {
-              method: "post",
-              body: JSON.stringify({
-                orderId: data.orderID
-              })
-            });
-          }}
-          options={{
-            clientId: "AevAaqw4ZF7OTiJHSFhv11QAGpJHvnD7NegnLvnv1cHiFSRc-FNKUYqkeFIQ96N2jP8J6y7ilp22Rso6"
-          }}
-        />
-      );
+  return (
+    <PayPalButton
+      amount={props.totalFee}
+      // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+
+      onSuccess={(details, data) => {
+        alert("Transaction completed by " + details.payer.name.given_name);
+
+        // OPTIONAL: Call your server to save the transaction
+        // return fetch("/paypal-transaction-complete", {
+        //   method: "post",
+        //   body: JSON.stringify({
+        //     orderId: data.orderID
+        //   })
+        // });
+        updateFirebase();
+      }}
+      options={{
+        clientId: "AevAaqw4ZF7OTiJHSFhv11QAGpJHvnD7NegnLvnv1cHiFSRc-FNKUYqkeFIQ96N2jP8J6y7ilp22Rso6"
+        ,currency:"CAD"
+      }}
+    />
+  );
   
 }
+
+function mapStateToProps(state) {
+  return {
+    isLoggingIn: state.auth.isLoggingIn,
+    loginError: state.auth.loginError,
+    isAuthenticated: state.auth.isAuthenticated,
+    isResetEmailSent: state.auth.isResetEmailSent,
+    user: state.auth.user,
+    //pathName: state.from.pathname
+  };
+}
+
+export default connect(mapStateToProps)(Paypal);
