@@ -13,9 +13,17 @@ import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import AddressForm from './AddressForm';
 //import PaymentForm from './PaymentForm';
-import PaymentForm from './CreditCard';
+import CreditCard from './CreditCard';
 import Review from './Review';
 import safeStringify from "safe-json-stringify";
+import { connect } from "react-redux";
+
+
+import { handleCheckout } from '../../actions';
+
+
+//actions to update user details using redux
+
 
 import Header from "components/Header/Header.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -76,7 +84,7 @@ const steps = ['Review your order', 'Shipping address', 'Payment details' ];
 
 
 
-export default function Checkout(props) {
+function Checkout(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [item, setItem] = useState(JSON.parse(props.location.state));
@@ -88,12 +96,14 @@ export default function Checkout(props) {
   const[city, setCity] = useState('');
   const[zip, setZip] = useState('');
   const[phonenumber, setPhonenumber] = useState('');
+  const[totalFee, setTotalFee] = useState('');
+
 
   //Credit card hooks
-  const[ccNumber, setCCNumber]= useState('');
-  const[ccName, setCCName]= useState('');
-  const[ccDate, setCCDate]= useState('');
-  const[ccCVC, setCCCVC]= useState('');
+  // const[ccNumber, setCCNumber]= useState('');
+  // const[ccName, setCCName]= useState('');
+  // const[ccDate, setCCDate]= useState('');
+  // const[ccCVC, setCCCVC]= useState('');
 
 
   const handleNext = () => {
@@ -110,6 +120,8 @@ export default function Checkout(props) {
           return(
           <Review 
             state= {safeStringify(item)}
+            totalFee = {totalFee}
+            setTotalFee ={setTotalFee}
           /> 
           )  
       case 1:
@@ -126,20 +138,37 @@ export default function Checkout(props) {
                 setCity={setCity}
                 zip={zip}
                 setZip={setZip}
+                phonenumber={phonenumber}
                 setPhonenumber= {setPhonenumber}
               />
             )
       case 2:
           return (
-          <PaymentForm 
-            ccNumber={ccNumber}
-            setCCNumber={setCCNumber}
-            ccName={ccName}
-            setCCName={setCCName}
-            ccDate={ccDate}
-            setCCDate={setCCDate}
-            ccCVC={ccCVC}
-            setCCCVC={setCCCVC}
+          <CreditCard 
+            // ccNumber={ccNumber}
+            // setCCNumber={setCCNumber}
+            // ccName={ccName}
+            // setCCName={setCCName}
+            // ccDate={ccDate}
+            // setCCDate={setCCDate}
+            // ccCVC={ccCVC}
+            // setCCCVC={setCCCVC}
+            firstName={firstName}
+            setFirstName={setFirstName}
+            lastName={lastName}
+            setLastName={setLastName}
+            address={address}
+            setAddress={setAddress}
+            city={city}
+            setCity={setCity}
+            zip={zip}
+            setZip={setZip}
+            phonenumber= {phonenumber}
+            setPhonenumber= {setPhonenumber}
+            item={item}
+            setItem = {setItem}
+            totalFee = {totalFee}
+            setTotalFee ={setTotalFee}
           />
             
             )
@@ -220,3 +249,11 @@ export default function Checkout(props) {
     </div>
   );
 }
+
+function mapStateToProps(state) {
+  return {
+    number: state
+  }
+}
+
+export default connect(mapStateToProps, { handleCheckout })(Checkout);
