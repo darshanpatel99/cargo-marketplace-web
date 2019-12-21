@@ -45,14 +45,6 @@ export default function Components(props) {
   const [photoIndex, setPhotoIndex] = useState(0);
   const [mobileDevice, setMobileDevice] = useState(window.innerWidth);
   
-  if(props.location.state==null){
-    console.log("The man who: "+ params.productId);
-  }
-  else{
-  setItem(JSON.parse(props.location.state));
-  }
-
-
   let layoutNumber = 6
   if(mobileDevice <= 570) {
     layoutNumber = 12;
@@ -69,24 +61,25 @@ export default function Components(props) {
      //useEffect==>component did mount
      useEffect(()=>{
       //creating the listener that will listen to the new changes to the product collection
-      console.log('useEffect in product detail screen: '+params.productId);
-
-      var productId = params.productId;
-    
-      firebase.firestore().collection('Products').doc(productId).get().then((doc)=>{
-        var data = doc.data();
-        setItem(data);
-        console.log(JSON.stringify(data));
-        setIsLoading(false);
-  
-      }).catch((exception)=>{
-        console.log('We get the following exception while fetching the product: '+ exception);
-      });
-  
-
+          console.log('useEffect in product detail screen: '+params.productId);
+          if(props.location.state==null){
+            console.log("The man who: "+ params.productId);
+            var productId = params.productId;
+        
+          firebase.firestore().collection('Products').doc(productId).get().then((doc)=>{
+            var data = doc.data();
+            setItem(data);
+            console.log(JSON.stringify(data));
+            setIsLoading(false);
       
-
-      // setIsLoading(false);
+          }).catch((exception)=>{
+            console.log('We get the following exception while fetching the product: '+ exception);
+          });
+          }
+          else{
+          setItem(JSON.parse(props.location.state));
+          setIsLoading(false);
+          }
 
     }, []);
 
@@ -131,7 +124,7 @@ export default function Components(props) {
                           <Button xs={layoutNumber} color="primary" type="button" fullWidth variant="contained" color="primary">Buy</Button>
                         </Link>
                         {/* <Button xs={layoutNumber} color="primary">Chat</Button> */}
-
+                          <hr></hr>
                         <div><p>Delivery Rate: Delivery available by Shop Caddy.</p>
                               <p>Additional fees may apply. Delivery charge will be calculated during checkout process</p>
                               <p>Local pickup available from postal code V3H1G7.</p>
