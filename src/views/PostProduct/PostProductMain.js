@@ -15,6 +15,9 @@ import PostProductSecond from "./PostProductSecond";
 import firebase from "../../Firebase/firebase";
 import { connect } from "react-redux";
 import uuid from 'react-native-uuid';
+import { Redirect } from "react-router-dom";
+
+
 
 
 function Copyright() {
@@ -228,6 +231,8 @@ function PostProduct(props) {
     productCollectionReference.add(data);
 
     alert("Hoo ha!")
+
+    //return <Redirect  to="../../" />
   }
 
   const uploadImageToFirebase = async(blob)=>{
