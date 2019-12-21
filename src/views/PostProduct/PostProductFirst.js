@@ -189,10 +189,10 @@ export default function PostProductFirst(props) {
 
      
      
-      var mystring = file.file;
-      var myblob = new Blob([mystring], {
-          type: 'image/png'
-      });
+      // var mystring = file.file;
+      // var myblob = new Blob([mystring], {
+      //     type: 'image/png'
+      // });
 
      
 

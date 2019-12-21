@@ -200,9 +200,9 @@ function PostProduct(props) {
 
   const uploadProduct = ()=>{
      var data = {
-      Description: { description },
-      Name: { title },
-      Price: { price },
+      Description:  description ,
+      Name:  title ,
+      Price: price,
       Pictures : imageUrls,
       Thumbnail : imageUrls[0],
       Owner: userObject.uid,
