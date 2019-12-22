@@ -15,8 +15,7 @@ import PostProductSecond from "./PostProductSecond";
 import firebase from "../../Firebase/firebase";
 import { connect } from "react-redux";
 import uuid from 'react-native-uuid';
-import { Redirect } from "react-router-dom";
-
+import { createBrowserHistory } from 'history';
 
 
 
@@ -187,17 +186,18 @@ function PostProduct(props) {
     console.log("Here is data");
 
 
-   // productCollectionReference.add(data);
-    alert('Inside post product function');
+   //productCollectionReference.add(data);
+    //alert('Inside post product function');
 
+    
   }
 
   const checkData = ()=>{
-   if(blobs.length>0&&title!=""&&description!=""&&price!=""){
+   if(blobs.length>0&&title!=""&&description!=""&&price!=""&&pickupAddress!=""){
      postTheProduct();
    }
    else{
-     alert("Finish all fileds")
+     alert("Please complete all required fields (*)")
    }
   }
 
@@ -230,9 +230,11 @@ function PostProduct(props) {
     var productCollectionReference = firebase.firestore().collection('Products');
     productCollectionReference.add(data);
 
-    alert("Hoo ha!")
+    //alert("Hoo ha!");
 
-    //return <Redirect  to="../../" />
+    const history = createBrowserHistory();
+    history.goBack();
+
   }
 
   const uploadImageToFirebase = async(blob)=>{
