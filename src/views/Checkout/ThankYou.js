@@ -32,10 +32,10 @@ export default function ThankYou(props) {
                 }}
                 {...rest}
             />
-            <p>Thank You So mcuh for shopping with Shop Caddy.<br/>
-You will never get to know your order number but still because you are our customer the order Id is {orderId}</p>
+        
+        <p>Thank You So mcuh for shopping with Shop Caddy.<br/>
+        You will never get to know your order number but still because you are our customer the order Id is {orderId}</p>
         </div>
-
     );
 
 
