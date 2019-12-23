@@ -38,7 +38,7 @@ export default function Cards(props) {
   //return the card component
   return (
     <Card style={{width: "20rem"}}>
-    <Link to={{pathname:'/product', state:safeStringify(item)}} >
+    <Link to={{pathname:`/product/${item.key}`, state:safeStringify(item)}} >
     <img
       style={{height: "180px", width: "100%", display: "block"}}
       className={classes.imgCardTop}

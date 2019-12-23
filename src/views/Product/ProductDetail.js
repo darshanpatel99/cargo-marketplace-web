@@ -14,7 +14,6 @@ import './../../App.css';
 
 //importing firebase
 import firebase from "../../Firebase/firebase";
-
 // @material-ui/icons
 // core components
 import Header from "components/Header/Header.js";
