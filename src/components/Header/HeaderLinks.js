@@ -50,7 +50,7 @@ function HeaderLinks(props) {
 
   return (
     <List className={classes.list}>
-      <ListItem className={classes.listItem}>
+      {/* <ListItem className={classes.listItem}>
         <CustomDropdown
           noLiPadding
           buttonText="Filters"
@@ -72,7 +72,7 @@ function HeaderLinks(props) {
             </a>
           ]}
         />
-      </ListItem>
+      </ListItem> */}
       <ListItem className={classes.listItem}>
         <Button
           href="http://app.cargomarketplace.ca"

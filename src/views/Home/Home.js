@@ -75,7 +75,9 @@ function Components(props) {
         <HeaderLinks />}
         fixed
         color="transparent"
-        centerLinks= {<div> <CustomInput
+        centerLinks= {
+        <div> 
+          {/* <CustomInput
             white
             inputRootCustomClasses={classes.inputRootCustomClasses}
             formControlProps={{
@@ -92,8 +94,9 @@ function Components(props) {
 
           <Button justIcon round color="white">
             <Search className={classes.searchIcon} />
-          </Button>
-          </div>}
+          </Button> */}
+          </div>
+          }
         changeColorOnScroll={{
           height: 400,
           color: "white"
