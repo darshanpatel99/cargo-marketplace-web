@@ -19,6 +19,9 @@ import Button from "@material-ui/core/Button";
 import "react-dropzone-uploader/dist/styles.css";
 import Dropzone from "react-dropzone-uploader"; //https://react-dropzone-uploader.js.org/docs/quick-start
 import Input from "@material-ui/core/Input";
+import firebase from './../../Firebase/firebase'
+import Resizer from 'react-image-file-resizer';
+import ImageCompressor from './../../handlers/ImageCompressor'
 
 const fileStatuses = [
   "UploadFailed",
@@ -33,7 +36,7 @@ const fileStatuses = [
 export default function PostProductFirst(props) {
   const classes = useStyles();
   const [images, setImages] = useState([]);
-
+  
   const inputLabel = React.useRef(null);
   const [labelWidth, setLabelWidth] = React.useState(0);
   const [open, setOpen] = React.useState(false);
@@ -98,20 +101,117 @@ export default function PostProductFirst(props) {
       return { url: "https://httpbin.org/post" };
     };
 
-    const handleChangeStatus = ({ meta }, status) => {
-      console.log(status, meta);
+    const handleChangeStatus = (files, status) => {
+        if (status === 'headers_received') {
+        console.log("Metas");
+        console.log(files);
+        uploadFunc(files);
+         }   
+        else if (status === 'aborted') {
+          }
+        }
+
+
+    const uploadFunc = (file) => {
+      var newBlobs = props.blobs;
+      var width = file.meta.width;
+      var height = file.meta.height;
+
+      if(width!= undefined && height !=undefined){
+        var isValid = width>300&&height>300;
+        console.log(isValid)
+
+        if (isValid){
+            var isLandscape = width>height;
+            console.log(isLandscape)
+
+            if(isLandscape){
+                
+                var ratio = width/height;
+
+                Resizer.imageFileResizer(
+                  file.file,
+                  300, // width
+                  300/ratio, // height
+                  'JPEG',
+                  100,
+                  0,
+                  uri => {
+                    newBlobs.push(uri);
+
+                    props.setBlobs(newBlobs);
+                      console.log(uri)
+                  },
+                  'blob'
+                );
+            }
+            else{
+                if(width == height){
+                  Resizer.imageFileResizer(
+                    file.file,
+                    300, // width
+                    300, // height
+                    'JPEG',
+                    100,
+                    0,
+                    uri => {
+                      newBlobs.push(uri);
+
+                      props.setBlobs(newBlobs);
+                        console.log(uri)
+                    },
+                    'blob'
+                  );
+                }
+                else{
+
+                    var ratio = height/width
+
+                    Resizer.imageFileResizer(
+                      file.file,
+                      300/ratio, // width
+                      300, // height
+                      'JPEG',
+                      100,
+                      0,
+                      uri => {
+                        newBlobs.push(uri);
+
+                        props.setBlobs(newBlobs);
+                          console.log(uri)
+                      },
+                      'blob'
+                    );
+                }
+            }
+        }
+    }
+
+     
+     
+      // var mystring = file.file;
+      // var myblob = new Blob([mystring], {
+      //     type: 'image/png'
+      // });
+
+     
+
+      // newBlobs.push(myblob);
+
+      // props.setBlobs(newBlobs);
+      
+      
     };
 
-    const handleSubmit = (files, allFiles) => {
-      console.log(files.map(f => f.meta));
-      allFiles.forEach(f => f.remove());
-    };
+    
 
     return (
       <Dropzone
         getUploadParams={getUploadParams}
         onChangeStatus={handleChangeStatus}
-        onSubmit={handleSubmit}
+        maxFiles={6}
+        multiple={true}
+        canCancel={true}
         styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
       />
     );
