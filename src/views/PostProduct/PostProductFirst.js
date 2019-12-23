@@ -92,6 +92,7 @@ export default function PostProductFirst(props) {
   const handleChangeCategory = event => {
     props.setCategory(event.target.value);
   };
+  
   const handleChangeCondition = event => {
     props.setCondition(event.target.value);
   };

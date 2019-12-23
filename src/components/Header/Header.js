@@ -82,9 +82,11 @@ export default function Header(props) {
           )}
         </div>
         <Hidden smDown implementation="css">
-        {centerLinks}
+        {centerLinks
+        }
         </Hidden>
         <Hidden smDown implementation="css">
+
           {rightLinks}
         </Hidden>
         <Hidden mdUp>

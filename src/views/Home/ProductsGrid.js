@@ -88,16 +88,17 @@ export default function ProductsGrid(props){
              SellerAddress,
              AdditionalData,
            });
+           setItems(products)
          });
 
          var newProducts = [];
          console.log(products)
-         setItems(products)
+        // setItems(products)
          for(var k=0; k<products.length; k++){
            if(k>=oldLimit){
              newProducts.push(products[k]);
            }
-         }
+         }         
          setNewItems(newProducts);
          setIsLoading(false);
          //alert(products[0].Name);
