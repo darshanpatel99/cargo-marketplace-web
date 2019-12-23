@@ -1,10 +1,15 @@
 import { PayPalButton } from "react-paypal-button-v2";
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import firebase from '../../Firebase/firebase'
 import { connect } from "react-redux";
+import { Redirect } from 'react-router-dom';
 
 
 function Paypal(props) {
+
+  //React Hooks using Use State
+  const [paymentSuccessful, setPaymentSuccessful] =  useState(false);
+  const [orderId, setOrderId] = useState("");
 
   function updateFirebase(){
     var productStatusReference = firebase.firestore().collection('Products').doc(props.item.key);
@@ -17,8 +22,16 @@ function Paypal(props) {
       //DeliveryFee: this.state.DeliveryFee,
       TotalFee:  props.totalFee,
       BoughtStatus: 'true',
+      OrderNumber:-1,
+      OrderId:orderId,
     })
     // console.log('hello props ' + props.user.uid)
+  }
+
+  if(paymentSuccessful){
+    return (<Redirect to={{ pathname: "/thankyou",
+    state: { orderId:orderId }
+  }}/>)  
   }
 
   
@@ -38,7 +51,12 @@ function Paypal(props) {
         //     orderId: data.orderID
         //   })
         // });
+        console.log(JSON.stringify(data));
+        setOrderId(data.orderID);
+      
         updateFirebase();
+        setPaymentSuccessful(true);
+
       }}
       options={{
         clientId: "AevAaqw4ZF7OTiJHSFhv11QAGpJHvnD7NegnLvnv1cHiFSRc-FNKUYqkeFIQ96N2jP8J6y7ilp22Rso6"

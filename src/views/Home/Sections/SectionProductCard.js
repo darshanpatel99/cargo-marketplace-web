@@ -38,7 +38,7 @@ export default function Cards(props) {
   //return the card component
   return (
     <Card style={{width: "20rem"}}>
-    <Link to={{pathname:'/product', state:safeStringify(item)}} >
+    <Link to={{pathname:`/product/${item.key}`, state:safeStringify(item)}} >
     <img
       style={{height: "180px", width: "100%", display: "block"}}
       className={classes.imgCardTop}
@@ -49,8 +49,8 @@ export default function Cards(props) {
     <CardBody>
     <h4 className={classes.cardTitle}>{props.title}</h4>
     <p>{props.description}</p>
-    <Link to={{pathname:'/product', state:safeStringify(item)}} >
-      <Button color="primary" type="button" fullWidth variant="contained" color="primary">Buy</Button>, 
+    <Link to={{pathname:`/product/${item.key}`, state:safeStringify(item)}} >
+      <Button color="primary">Buy</Button>, 
     </Link>
       {/* <Button color="primary">Chat</Button> */}
     </CardBody>

@@ -101,9 +101,12 @@ uiConfig = {
         prevLocation = '/'
     } else {
         prevLocation = location.state.from.pathname
+
     }
     if (isAuthenticated) {
-      return <Redirect to={prevLocation} />;
+      return <Redirect to={{pathname: prevLocation,
+          state:this.props.location.state.item      
+        }} />;
     } else {
       return (
         <Container component="main" maxWidth="xs">

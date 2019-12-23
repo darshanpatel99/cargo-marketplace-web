@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Suspense, lazy} from "react"; //Suspence and lazy are for lazy loading in react
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react components for routing our app without refresh
@@ -26,7 +26,9 @@ export default function ProductsGrid(props){
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState([]);
+    const [newItems, setNewItems]= useState([]);
     const [limit, setLimit] = useState(1); //start from the 0 index
+    const [oldLimit, setOldLimit] = useState(0);
     // const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").startAt(startAt);
     // firebaseProductsRef.endAt(endAt);
     const chunk = 3; //number of products we want to get from firebase
@@ -48,7 +50,7 @@ export default function ProductsGrid(props){
     useEffect(()=>{
       console.log("Limit changed");
 
-      const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").limit(limit);;
+      const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber")//.limit(limit);
       //firebaseProductsRef.endAt(endAt);
       const unsubscribe = firebaseProductsRef.onSnapshot(onCollectionUpdate);
 
@@ -88,9 +90,15 @@ export default function ProductsGrid(props){
            });
          });
 
-         
+         var newProducts = [];
          console.log(products)
          setItems(products)
+         for(var k=0; k<products.length; k++){
+           if(k>=oldLimit){
+             newProducts.push(products[k]);
+           }
+         }
+         setNewItems(newProducts);
          setIsLoading(false);
          //alert(products[0].Name);
          //Function Ends
@@ -100,10 +108,9 @@ export default function ProductsGrid(props){
      //Load More Button Handler
      const handleLoadMore =() =>{
         //set the start at with number of products we want to laod more
-        setLimit(limit+chunk);
+       // setOldLimit(limit);
+        //setLimit(limit+chunk);
         console.log("limiiimiit" + limit);
-        
-
      }
 
 
@@ -129,17 +136,13 @@ export default function ProductsGrid(props){
 
                })
              }
-             <Button
-                  type="button"
-                  fullWidth
-                  variant="contained"
+             {/* <Button
                   color="primary"
                   target="_blank"
                   round
                   onClick = {handleLoadMore}>
                 Load More
-              </Button>
-
+              </Button> */}
            </Grid>
          </div>
      );

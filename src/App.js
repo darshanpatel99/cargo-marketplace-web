@@ -15,7 +15,8 @@ import Signup from 'views/Authentication/Signup.js';
 import ProtectedRoute from './components/ProtectedRoute';
 import Checkout from './views/Checkout/Checkout';
 import Post from './views/PostProduct/PostProductMain.js';
-import Paypal from './views/Checkout/Paypal'
+import Paypal from './views/Checkout/Paypal';
+import ThankYou from './views/Checkout/ThankYou';
 
 function App(props) {
 const { isAuthenticated, isVerifying } = props;
@@ -30,11 +31,12 @@ const { isAuthenticated, isVerifying } = props;
           component={HomePage}
         />
         {/* <Route exact path="/" component={HomePage} /> */}
-        <Route path="/product" component={ProductPage} />
+        <Route path="/product/:productId" component={ProductPage} />
         <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={Signup} />
         <Route path="/Post" component={Post} />
         <Route path="/Paypal" component={Paypal} />
+        <Route path="/thankyou" component={ThankYou} />
         <ProtectedRoute path="/checkout" component= {Checkout} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
       </Switch>
   );

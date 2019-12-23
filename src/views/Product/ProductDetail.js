@@ -12,7 +12,8 @@ import "react-image-lightbox/style.css";
 import Lightbox from "react-image-lightbox"
 import './../../App.css';
 
-
+//importing firebase
+import firebase from "../../Firebase/firebase";
 // @material-ui/icons
 // core components
 import Header from "components/Header/Header.js";
@@ -34,28 +35,50 @@ import safeStringify from "safe-json-stringify";
 const useStyles = makeStyles(styles);
 
 export default function Components(props) {
+  const {match:{params}} = props;
   const classes = useStyles();
-  const [item, setItem] = useState(JSON.parse(props.location.state));
-  const [isLoading, setIsLoading] = useState(true);
+  console.log('Product Detail Screen');
+  const [item, setItem] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setisOpen] = useState(false)
   const [photoIndex, setPhotoIndex] = useState(0);
   const [mobileDevice, setMobileDevice] = useState(window.innerWidth);
-
+  
   let layoutNumber = 6
   if(mobileDevice <= 570) {
-    layoutNumber =12;
+    layoutNumber = 12;
   } else {
     layoutNumber =6
   }
+  if(item==null){
+    console.log("Object Empty")
+  }
 
-  console.log("From Product detail ==>" + JSON.stringify(item.Name));
+    //console.log("From Product detail ==>" + JSON.stringify(item.Name));
 
-  const urls = item.Pictures; // varaible to store all the pcitures of that product
+     const urls = item.Pictures; // varaible to store all the pcitures of that product
      //useEffect==>component did mount
      useEffect(()=>{
       //creating the listener that will listen to the new changes to the product collection
-      console.log('useEffect in product detail screen');
-      setIsLoading(false);
+          console.log('useEffect in product detail screen: '+params.productId);
+          if(props.location.state==null){
+            console.log("The man who: "+ params.productId);
+            var productId = params.productId;
+        
+          firebase.firestore().collection('Products').doc(productId).get().then((doc)=>{
+            var data = doc.data();
+            setItem(data);
+            console.log(JSON.stringify(data));
+            setIsLoading(false);
+      
+          }).catch((exception)=>{
+            console.log('We get the following exception while fetching the product: '+ exception);
+          });
+          }
+          else{
+          setItem(JSON.parse(props.location.state));
+          setIsLoading(false);
+          }
 
     }, []);
 
@@ -100,7 +123,7 @@ export default function Components(props) {
                           <Button xs={layoutNumber} color="primary" type="button" fullWidth variant="contained" color="primary">Buy</Button>
                         </Link>
                         {/* <Button xs={layoutNumber} color="primary">Chat</Button> */}
-
+                          <hr></hr>
                         <div><p>Delivery Rate: Delivery available by Shop Caddy.</p>
                               <p>Additional fees may apply. Delivery charge will be calculated during checkout process</p>
                               <p>Local pickup available from postal code V3H1G7.</p>
@@ -136,7 +159,6 @@ export default function Components(props) {
         return(
           
             <div>
-
             <Header
               brand="CarGo"
               rightLinks={<HeaderLinks />}
@@ -148,17 +170,15 @@ export default function Components(props) {
               {...rest}
             />
             
-              <div className={classNames(classes.main)}>}
-                  <BeatLoader
+              <div className={classNames(classes.main)} style={{paddingTop:'250px'}}>
+              <BeatLoader
                   sizeUnit={"px"}
-                  size={30}
+                  size={100}
                   color={'#123abc'}
                   loading={isLoading}
                 />     
               </div>
-
             <Footer />
           </div>
-            );
-      
+    );   
 }
