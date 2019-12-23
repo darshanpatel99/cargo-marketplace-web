@@ -13,6 +13,11 @@ import Typography from "@material-ui/core/Typography";
 import PostProductFirst from "./PostProductFirst";
 import PostProductSecond from "./PostProductSecond";
 import firebase from "../../Firebase/firebase";
+import { connect } from "react-redux";
+import uuid from 'react-native-uuid';
+import { createBrowserHistory } from 'history';
+
+
 
 function Copyright() {
   return (
@@ -66,12 +71,20 @@ const useStyles = makeStyles(theme => ({
 
 const steps = [" ", " "];
 
-export default function PostProduct() {
+function PostProduct(props) {
 
+
+
+  const userObject = props.user;
+  const [userName, setuserName] = useState('');
+  const [userUid, setUid] = useState('');
+  const [imageUrls, setImageUrls]=useState([]);
+  const [countImage, setcountImage]=useState(0)
 
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   //Hooks for post product first
+  const [blobs, setBlobs] = useState([]);
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("");
@@ -95,6 +108,8 @@ export default function PostProduct() {
       case 0:
         return (
           <PostProductFirst
+            blobs = {blobs}
+            setBlobs = {setBlobs}
             title={title}
             setTitle={setTitle}
             price={price}
@@ -137,15 +152,63 @@ export default function PostProduct() {
     }
   }
 
+
+
   //post the product
-  const postTheProduct = () => {
-    var data = {
-      Description: { description },
-      Name: { title },
-      Price: { price },
-      //Pictures : this.state.downloadURLs,
-      //Thumbnail : this.state.thumbnail,
-      Owner: 'Darshan',
+  const postTheProduct = async() => {
+    setuserName(userObject.displayName);
+    console.log("Those are blobs")
+    console.log(blobs);
+    setUid(userObject.uid)
+
+    setcountImage(blobs.length)
+
+    console.log("Size of blobs")
+    console.log(countImage)
+
+
+    blobs.forEach(async (blob,k)=>{
+      await uploadImageToFirebase(blob).then((result)=>{
+ 
+      }).catch(error =>{
+        console.log(error)
+      })
+    })
+    
+    console.log(userObject.uid)
+
+    //Fuction that adds product to the database.
+    //var productCollectionReference = firebase.firestore().collection('Products');
+    //firebase.storage().ref().child('image-test-super-new/').put(blobs[0])
+
+    console.log('Product Posted');
+
+    console.log("Here is data");
+
+
+   //productCollectionReference.add(data);
+    //alert('Inside post product function');
+
+    
+  }
+
+  const checkData = ()=>{
+   if(blobs.length>0&&title!=""&&description!=""&&price!=""&&pickupAddress!=""){
+     postTheProduct();
+   }
+   else{
+     alert("Please complete all required fields (*)")
+   }
+  }
+
+  const uploadProduct = ()=>{
+     var data = {
+      Description:  description ,
+      Name:  title ,
+      Price: price,
+      Pictures : imageUrls,
+      Thumbnail : imageUrls[0],
+      Owner: userObject.uid,
       Flag: true,
       FavouriteUsers: [],
       TimeStamp: null,
@@ -153,10 +216,9 @@ export default function PostProduct() {
       Category: { category },
       Avability: { availabilty },
       Status: 'active',
-      //AddressArray: this.state.addressArray,
-      //SellerAddress:this.state.completeStringAddress,
+      SellerAddress:pickupAddress,
       BuyerID: '',
-      //SellerName: this.state.sellerName,
+      SellerName: userName,
       BuyerName: '',
       BuyerAddress: '',
       DeliveryFee: '',
@@ -165,22 +227,53 @@ export default function PostProduct() {
       OrderNumber: -1,
     }
 
-
-
-    //Fuction that adds product to the database.
     var productCollectionReference = firebase.firestore().collection('Products');
-
-    console.log('Product Posted');
-
     productCollectionReference.add(data);
-    alert('Inside post product function');
 
+    //alert("Hoo ha!");
+
+    const history = createBrowserHistory();
+    history.goBack();
+
+  }
+
+  const uploadImageToFirebase = async(blob)=>{
+    var uploadTask = firebase.storage().ref().child(uuid.v1()).put(blob);
+     
+    uploadTask.on('state_changed', function(snapshot){
+      // Observe state change events such as progress, pause, and resume
+      // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+      var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log('Upload is ' + progress + '% done');
+      switch (snapshot.state) {
+        case firebase.storage.TaskState.PAUSED: // or 'paused'
+          console.log('Upload is paused');
+          break;
+        case firebase.storage.TaskState.RUNNING: // or 'running'
+          console.log('Upload is running');
+          break;
+      }
+    }, function(error) {
+      // Handle unsuccessful uploads
+    }, function() {
+      // Handle successful uploads on complete
+      // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        console.log('File available at', downloadURL);
+        imageUrls.push(downloadURL)
+        console.log("Array size is " + imageUrls.length)
+        if(imageUrls.length == blobs.length){
+          console.log("Done")
+          uploadProduct()
+        }
+      });
+    });
   }
 
   const handleNext = () => {
     if (activeStep === steps.length - 1) {
-      alert("Hoo ha!")
-      { postTheProduct() }
+      //alert("Hoo ha!")
+      { checkData() }
     }
     else {
       setActiveStep(activeStep + 1);
@@ -253,3 +346,17 @@ export default function PostProduct() {
     </React.Fragment>
   );
 }
+
+
+function mapStateToProps(state) {
+  return {
+    isLoggingIn: state.auth.isLoggingIn,
+    loginError: state.auth.loginError,
+    isAuthenticated: state.auth.isAuthenticated,
+    isResetEmailSent: state.auth.isResetEmailSent,
+    user: state.auth.user,
+    //pathName: state.from.pathname
+  };
+}
+
+export default connect(mapStateToProps)(PostProduct)
