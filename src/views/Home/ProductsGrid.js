@@ -36,7 +36,7 @@ export default function ProductsGrid(props){
     useEffect(()=>{
       //creating the listener that will listen to the new changes to the product collection
       console.log('useEffect');
-     const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").limit(limit);
+     const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber");//.limit(limit);
       // //firebaseProductsRef.endAt(endAt);
      const unsubscribe = firebaseProductsRef.onSnapshot(onCollectionUpdate);
 
@@ -47,18 +47,18 @@ export default function ProductsGrid(props){
     }, []);
 
     //useEffect --- to listen to the the number of products we are fetching from the firestore
-    useEffect(()=>{
-      console.log("Limit changed");
+    // useEffect(()=>{
+    //   console.log("Limit changed");
 
-      const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber")//.limit(limit);
-      //firebaseProductsRef.endAt(endAt);
-      const unsubscribe = firebaseProductsRef.onSnapshot(onCollectionUpdate);
+    //   const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber")//.limit(limit);
+    //   //firebaseProductsRef.endAt(endAt);
+    //   const unsubscribe = firebaseProductsRef.onSnapshot(onCollectionUpdate);
 
-      //return the listener to the Query Snapshot
-      return ()=> unsubscribe()
+    //   //return the listener to the Query Snapshot
+    //   return ()=> unsubscribe()
 
 
-    }, [limit]);
+    // }, [limit]);
 
 
     //Listent to the updates
@@ -88,18 +88,25 @@ export default function ProductsGrid(props){
              SellerAddress,
              AdditionalData,
            });
+          //  console.log("got new product");
+          //  setItems(products);
+          //  setIsLoading(false);
+           
+           
          });
-
-         var newProducts = [];
-         console.log(products)
-         setItems(products)
-         for(var k=0; k<products.length; k++){
-           if(k>=oldLimit){
-             newProducts.push(products[k]);
-           }
-         }
-         setNewItems(newProducts);
+         console.log("got new product");
+         setItems(products);
          setIsLoading(false);
+        //  var newProducts = [];
+        //  console.log(products)
+        //  //setItems(products)
+        //  for(var k=0; k<products.length; k++){
+        //    if(k>=oldLimit){
+        //      newProducts.push(products[k]);
+        //    }
+        //  }
+        //  setNewItems(newProducts);
+        //  setIsLoading(false);
          //alert(products[0].Name);
          //Function Ends
      }

@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 export default function Review(props) {
   const classes = useStyles();
   const [item, setItem] = useState(JSON.parse(props.state));
-  var deliveryFee= 40.99;
+  var deliveryFee= 0.1;
   var ConvenienceFee = (item.Price * (0.05)).toFixed(2);
   var TotalFee = (parseFloat(item.Price) + parseFloat(deliveryFee) + parseFloat(ConvenienceFee)).toFixed(2);
 
