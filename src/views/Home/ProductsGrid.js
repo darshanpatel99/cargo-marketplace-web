@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 //core components
 // import Button from "components/CustomButtons/Button.js";
@@ -137,7 +139,7 @@ export default function ProductsGrid(props){
                items.map((item, k)=>{
                 return(
               <Grid item spacing={3}>
-                <Suspense fallback={<div>loading...</div>}>
+                <Suspense fallback={<CircularProgress />}>
                  <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
                 </Suspense>
               </Grid>

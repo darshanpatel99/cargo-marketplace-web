@@ -75,25 +75,25 @@ function Components(props) {
         <HeaderLinks />}
         fixed
         color="transparent"
-        centerLinks= {<div> <CustomInput
-            white
-            inputRootCustomClasses={classes.inputRootCustomClasses}
-            formControlProps={{
-              className: classes.formControl
-            }}
-            inputProps={{
-              placeholder: "Search",
-              inputProps: {
-                "aria-label": "Search",
-                className: classes.searchInput
-              }
-            }}
-          />
+        // centerLinks= {<div> <CustomInput
+        //     white
+        //     inputRootCustomClasses={classes.inputRootCustomClasses}
+        //     formControlProps={{
+        //       className: classes.formControl
+        //     }}
+        //     inputProps={{
+        //       placeholder: "Search",
+        //       inputProps: {
+        //         "aria-label": "Search",
+        //         className: classes.searchInput
+        //       }
+        //     }}
+        //   />
 
-          <Button justIcon round color="white">
-            <Search className={classes.searchIcon} />
-          </Button>
-          </div>}
+        //   <Button justIcon round color="white">
+        //     <Search className={classes.searchIcon} />
+        //   </Button>
+        //   </div>}
         changeColorOnScroll={{
           height: 400,
           color: "white"

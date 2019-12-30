@@ -1,4 +1,5 @@
 import { container } from "assets/jss/material-kit-react.js";
+import { InlineFunctions } from "terser";
 
 const componentsStyle = {
   container,
@@ -42,6 +43,10 @@ const componentsStyle = {
   productDetailsPrice: {
     color: "red",
     display:'inline-block',
+  },
+
+  titleAndPriceContainer: {
+    display: "inline"
   },
 
 
