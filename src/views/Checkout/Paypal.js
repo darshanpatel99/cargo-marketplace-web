@@ -59,7 +59,7 @@ function Paypal(props) {
 
       }}
       options={{
-        clientId: "AevAaqw4ZF7OTiJHSFhv11QAGpJHvnD7NegnLvnv1cHiFSRc-FNKUYqkeFIQ96N2jP8J6y7ilp22Rso6"
+        clientId: "AcBgoLpVx4aD3nSVmQ38hA4anYBQBw5bPMvaUIT5eSTZF4RZwHTllCV_Evgil96nlWhj-rZFCCPNk6mY"
         ,currency:"CAD"
       }}
     />
