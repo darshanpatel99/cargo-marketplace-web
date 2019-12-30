@@ -7,16 +7,15 @@ import CardBody from "components/Card/CardBody.js";
 // import Button from "components/CustomButtons/Button.js";
 import Button from "@material-ui/core/Button";
 
-import { LazyLoadImage } from 'react-lazy-load-image-component';
-import 'react-lazy-load-image-component/src/effects/blur.css';
-
 import { Link } from "react-router-dom";
 import safeStringify from "safe-json-stringify";
 
 
 import imagesStyles from "assets/jss/material-kit-react/imagesStyles.js";
 
-import { cardTitle } from "assets/jss/material-kit-react.js";
+// import { cardTitle } from "assets/jss/material-kit-react.js";
+// import { LazyLoadImage } from 'react-lazy-load-image-component';
+// import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const styles = {
   ...imagesStyles,
@@ -41,21 +40,16 @@ export default function Cards(props) {
   //return the card component
   return (
     <Card style={{width: "20rem"}}>
-    <Link to={{pathname:`/product/${item.key}`, state:safeStringify(item)}} >
-    <LazyLoadImage
+    <img
       style={{height: "180px", width: "100%", display: "block"}}
       className={classes.imgCardTop}
-      src={props.src}
+      src="cargo-marketplace-web/public/spinner.gif"
       alt={props.alt}
-      effect="blur"
     />
-    </Link>
     <CardBody>
-  <h4 className={classes.cardTitle}>{props.title} {props.product.Price}$</h4>
+    <h4 className={classes.cardTitle}>{props.title}</h4>
     {/* <p>{props.description}</p> */}
-    <Link to={{pathname:`/product/${item.key}`, state:safeStringify(item)}} >
       <Button color="primary">Buy</Button>, 
-    </Link>
       {/* <Button color="primary">Chat</Button> */}
     </CardBody>
   </Card>

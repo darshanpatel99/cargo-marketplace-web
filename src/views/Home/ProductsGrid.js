@@ -9,10 +9,9 @@ import Grid from '@material-ui/core/Grid';
 
 //core components
 // import Button from "components/CustomButtons/Button.js";
-import Button from "@material-ui/core/Button";
 
 // sections for this page
-import SectionProductCard from "./Sections/SectionProductCard.js";
+//import SectionProductCard from "./Sections/SectionProductCard.js";
 import styles from "assets/jss/material-kit-react/views/components.js";
 
 //importing React-Spinners
@@ -21,6 +20,8 @@ import {BeatLoader} from 'react-spinners';
 //importing firebase
 import firebase from "../../Firebase/firebase";
 const useStyles = makeStyles(styles);
+const SectionProductCard = lazy(() => import ("./Sections/SectionProductCard.js"))
+
 
 export default function ProductsGrid(props){
     const classes = useStyles();
@@ -136,7 +137,9 @@ export default function ProductsGrid(props){
                items.map((item, k)=>{
                 return(
               <Grid item spacing={3}>
+                <Suspense fallback={<div>loading...</div>}>
                  <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
+                </Suspense>
               </Grid>
               
                );
