@@ -116,7 +116,8 @@ export default function Components(props) {
                     </Grid>
 
                     <Grid item xs={layoutNumber}>
-                        <h1>{item.Name}</h1>
+                              <h1>{item.Name}</h1>
+                              <span><h1 className={classes.productDetailsPrice}>${item.Price}</h1></span>
                         <p>{item.Description}</p>
 
                         <Link to={{pathname:'/checkout', state:safeStringify(item)}}>

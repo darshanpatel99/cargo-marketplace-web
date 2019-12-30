@@ -118,7 +118,22 @@ export default function PostProductFirst(props) {
       var height = file.meta.height;
 
       if(width!= undefined && height !=undefined){
-        var isValid = width>300&&height>300;
+        var hLimit, wLimit = 0;
+
+        // if(!newBlobs.length)
+        // {
+        //   hLimit = 300;
+        //   wLimit = 300;
+        // }
+        // else{
+        //   hLimit = 700;
+        //   wLimit = 700;
+        // }
+
+        hLimit = 700;
+        wLimit = 700;
+        
+        var isValid = width>wLimit&&height>hLimit;
         console.log(isValid)
 
         if (isValid){
@@ -131,8 +146,8 @@ export default function PostProductFirst(props) {
 
                 Resizer.imageFileResizer(
                   file.file,
-                  300, // width
-                  300/ratio, // height
+                  wLimit, // width
+                  hLimit/ratio, // height
                   'JPEG',
                   100,
                   0,
@@ -149,8 +164,8 @@ export default function PostProductFirst(props) {
                 if(width == height){
                   Resizer.imageFileResizer(
                     file.file,
-                    300, // width
-                    300, // height
+                    wLimit, // width
+                    hLimit, // height
                     'JPEG',
                     100,
                     0,
@@ -169,8 +184,8 @@ export default function PostProductFirst(props) {
 
                     Resizer.imageFileResizer(
                       file.file,
-                      300/ratio, // width
-                      300, // height
+                      wLimit/ratio, // width
+                      hLimit, // height
                       'JPEG',
                       100,
                       0,
