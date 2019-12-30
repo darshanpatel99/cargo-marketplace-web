@@ -39,7 +39,10 @@ const componentsStyle = {
     justifyContent: "center"
   },
 
-
+  productDetailsPrice: {
+    color: "red",
+    display:'inline-block',
+  },
 
 
   //product details styles

@@ -120,15 +120,18 @@ export default function PostProductFirst(props) {
       if(width!= undefined && height !=undefined){
         var hLimit, wLimit = 0;
 
-        if(!newBlobs.length)
-        {
-          hLimit = 300;
-          wLimit = 300;
-        }
-        else{
-          hLimit = 700;
-          wLimit = 700;
-        }
+        // if(!newBlobs.length)
+        // {
+        //   hLimit = 300;
+        //   wLimit = 300;
+        // }
+        // else{
+        //   hLimit = 700;
+        //   wLimit = 700;
+        // }
+
+        hLimit = 700;
+        wLimit = 700;
         
         var isValid = width>wLimit&&height>hLimit;
         console.log(isValid)
