@@ -51,7 +51,7 @@ function Components(props) {
   useEffect(()=>{
     //creating the listener that will listen to the new changes to the product collection
     console.log('useEffect');
-
+ 
     //The returned function will behave as componentwillunmount
     return ()=> {}
 

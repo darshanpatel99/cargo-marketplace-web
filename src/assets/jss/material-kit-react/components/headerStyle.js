@@ -151,7 +151,7 @@ const headerStyle = {
   logoImage: {
     //width: "250px",
     height: "50px",
-    borderRadius: "50%",
+    //borderRadius: "50%",
     //overflow: hidden,
     marginTop: -"6px",
   },
