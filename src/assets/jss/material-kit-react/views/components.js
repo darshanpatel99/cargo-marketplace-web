@@ -41,7 +41,7 @@ const componentsStyle = {
   },
 
   productDetailsPrice: {
-    color: "red",
+    color: "#B12704",
     display:'inline-block',
   },
 

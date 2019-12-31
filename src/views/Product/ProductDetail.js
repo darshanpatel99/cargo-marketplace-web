@@ -118,7 +118,7 @@ export default function Components(props) {
                     <Grid item xs={layoutNumber}>
                               <div className={classes.titleAndPriceContainer}>
                                 <h1>{item.Name}</h1>
-                                <span><h3 className={classes.productDetailsPrice}>${item.Price}</h3></span>
+                                <span><h3 className={classes.productDetailsPrice}>CDN$ {item.Price}</h3></span>
                               </div>
                         <p>{item.Description}</p>
 

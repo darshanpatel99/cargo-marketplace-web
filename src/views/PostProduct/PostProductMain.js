@@ -202,7 +202,7 @@ function PostProduct(props) {
   }
 
   const uploadProduct = ()=>{
-    
+     const currentTimeStamp = Date.now();
      var data = {
       Description:  description ,
       Name:  title ,
@@ -212,7 +212,7 @@ function PostProduct(props) {
       Owner: userObject.uid,
       Flag: true,
       FavouriteUsers: [],
-      TimeStamp: null,
+      TimeStamp: currentTimeStamp,
       UserClicks: [],
       Category: { category },
       Avability: { availabilty },
