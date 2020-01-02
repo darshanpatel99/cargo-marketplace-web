@@ -15,5 +15,7 @@ import ProductPage from "views/Product/ProductDetail.js";
 
 import Root from './Root'
 import Tawk from './tawk'
+import Segment from './Segment'
+
 ReactDOM.render(<Root />, document.getElementById("root"));
 
