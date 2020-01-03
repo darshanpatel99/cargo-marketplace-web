@@ -53,6 +53,14 @@ const componentsStyle = {
   //product details styles
   productDetailsContainer: {
     marginTop: "10%",
+    marginBottom: "10%",
+
+  },
+
+  //adds 8% top margin to the pages to make it visible from header
+  pageContainer: {
+    marginTop: "8%",
+    marginBottom: "8%",
   }
 
 };
