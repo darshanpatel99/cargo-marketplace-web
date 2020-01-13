@@ -45,13 +45,13 @@ function Components(props) {
   }
   const [isLoading, setIsLoading] = useState(true);   //react hook for loading
   const [items, setItems] = useState([]) //react hook fot the list of items
- // const firebaseProductsRef = firebase.firestore().collection('Products').where('Status', '==', 'active');
+  //const firebaseProductsRef = firebase.firestore().collection('Products').where('Status', '==', 'active');
 
   //useEffect==>component did mount
   useEffect(()=>{
     //creating the listener that will listen to the new changes to the product collection
     console.log('useEffect');
-
+ 
     //The returned function will behave as componentwillunmount
     return ()=> {}
 

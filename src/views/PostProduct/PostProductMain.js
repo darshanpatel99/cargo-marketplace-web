@@ -202,6 +202,7 @@ function PostProduct(props) {
   }
 
   const uploadProduct = ()=>{
+    
      var data = {
       Description:  description ,
       Name:  title ,

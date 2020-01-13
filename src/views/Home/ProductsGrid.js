@@ -9,10 +9,9 @@ import Grid from '@material-ui/core/Grid';
 
 //core components
 // import Button from "components/CustomButtons/Button.js";
-import Button from "@material-ui/core/Button";
 
 // sections for this page
-import SectionProductCard from "./Sections/SectionProductCard.js";
+//import SectionProductCard from "./Sections/SectionProductCard.js";
 import styles from "assets/jss/material-kit-react/views/components.js";
 
 //importing React-Spinners
@@ -21,6 +20,8 @@ import {BeatLoader} from 'react-spinners';
 //importing firebase
 import firebase from "../../Firebase/firebase";
 const useStyles = makeStyles(styles);
+const SectionProductCard = lazy(() => import ("./Sections/SectionProductCard.js"))
+
 
 export default function ProductsGrid(props){
     const classes = useStyles();
@@ -36,7 +37,7 @@ export default function ProductsGrid(props){
     useEffect(()=>{
       //creating the listener that will listen to the new changes to the product collection
       console.log('useEffect');
-     const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").limit(limit);
+     const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber");//.limit(limit);
       // //firebaseProductsRef.endAt(endAt);
      const unsubscribe = firebaseProductsRef.onSnapshot(onCollectionUpdate);
 
@@ -47,18 +48,18 @@ export default function ProductsGrid(props){
     }, []);
 
     //useEffect --- to listen to the the number of products we are fetching from the firestore
-    useEffect(()=>{
-      console.log("Limit changed");
+    // useEffect(()=>{
+    //   console.log("Limit changed");
 
-      const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber")//.limit(limit);
-      //firebaseProductsRef.endAt(endAt);
-      const unsubscribe = firebaseProductsRef.onSnapshot(onCollectionUpdate);
+    //   const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber")//.limit(limit);
+    //   //firebaseProductsRef.endAt(endAt);
+    //   const unsubscribe = firebaseProductsRef.onSnapshot(onCollectionUpdate);
 
-      //return the listener to the Query Snapshot
-      return ()=> unsubscribe()
+    //   //return the listener to the Query Snapshot
+    //   return ()=> unsubscribe()
 
 
-    }, [limit]);
+    // }, [limit]);
 
 
     //Listent to the updates
@@ -88,19 +89,25 @@ export default function ProductsGrid(props){
              SellerAddress,
              AdditionalData,
            });
-           setItems(products)
+          //  console.log("got new product");
+          //  setItems(products);
+          //  setIsLoading(false);
+           
+           
          });
-
-         var newProducts = [];
-         console.log(products)
-        // setItems(products)
-         for(var k=0; k<products.length; k++){
-           if(k>=oldLimit){
-             newProducts.push(products[k]);
-           }
-         }         
-         setNewItems(newProducts);
+         console.log("got new product");
+         setItems(products);
          setIsLoading(false);
+        //  var newProducts = [];
+        //  console.log(products)
+        //  //setItems(products)
+        //  for(var k=0; k<products.length; k++){
+        //    if(k>=oldLimit){
+        //      newProducts.push(products[k]);
+        //    }
+        //  }
+        //  setNewItems(newProducts);
+        //  setIsLoading(false);
          //alert(products[0].Name);
          //Function Ends
      }
@@ -130,7 +137,9 @@ export default function ProductsGrid(props){
                items.map((item, k)=>{
                 return(
               <Grid item spacing={3}>
+                <Suspense fallback={<div>loading...</div>}>
                  <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
+                </Suspense>
               </Grid>
               
                );
