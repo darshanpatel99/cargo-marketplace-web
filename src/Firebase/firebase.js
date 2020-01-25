@@ -40,6 +40,11 @@ export const storage = baseStorage;
 
 console.log('Firebase initialized');
 
+// async function getProducts () {
+//   let productsArray=[];
+//   console.log('Firebase getProducts function')
+
+// }
 
 export default firebase;
 

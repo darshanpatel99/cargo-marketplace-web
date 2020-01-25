@@ -25,8 +25,9 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import SectionProductCard from "./Sections/SectionProductCard.js";
 import styles from "assets/jss/material-kit-react/views/components.js";
-import { connect } from "react-redux";
+import { connect, useSelector, useDispatch } from "react-redux";
 import {logoutUser} from '../../actions'
+import {getProducts} from '../../actions/getProducts'
 
 
 import ProductsGrid from "views/Home/ProductsGrid.js"
@@ -65,6 +66,17 @@ function Components(props) {
 // }
 // }, []);
 
+
+// const Main = () => {
+//   const getProductsSelector = useSelector((state) => state.posts)
+//   const dispatch = useDispatch();
+//   const getProductsAction = () => dispatch(getProducts());
+//   useEffect(() => {
+//     getProductsAction();
+//   }, [])
+// }
+
+//Main();
 
   const { ...rest } = props;
   return (

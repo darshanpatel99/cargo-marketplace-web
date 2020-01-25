@@ -26,10 +26,13 @@ const SectionProductCard = lazy(() => import ("./Sections/SectionProductCard.js"
 
 
 export default function ProductsGrid(props){
+
+  
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState([]);
-    const [newItems, setNewItems]= useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(10);
     const [limit, setLimit] = useState(1); //start from the 0 index
     const [oldLimit, setOldLimit] = useState(0);
     // const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").startAt(startAt);
@@ -63,6 +66,8 @@ export default function ProductsGrid(props){
 
     // }, [limit]);
 
+
+  
 
     //Listent to the updates
      const onCollectionUpdate = (querySnapshot) =>{
@@ -122,6 +127,8 @@ export default function ProductsGrid(props){
         //setLimit(limit+chunk);
         console.log("limiiimiit" + limit);
      }
+
+     
 
 
 
