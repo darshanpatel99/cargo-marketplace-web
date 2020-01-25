@@ -53,6 +53,10 @@ export default function PostProductFirst(props) {
   // const [depth, setDepth] = React.useState();
   // const [brand, setBrand] = React.useState();
 
+  const handleBlobsChange = event => {
+    props.setBlobs(event.target.value);
+  }
+
   const handleChangeBrand = event => {
     props.setBrand(event.target.value);
   };
@@ -96,132 +100,155 @@ export default function PostProductFirst(props) {
     props.setCondition(event.target.value);
   };
 
-  const Standard = () => {
-    const getUploadParams = () => {
-      return { url: "https://httpbin.org/post" };
-    };
+  const getUploadParams = () => {
+    return { url: "https://httpbin.org/post" };
+  };
 
-    const handleChangeStatus = (files, status) => {
-        if (status === 'headers_received') {
+  const handleChangeStatus = (files, status) => {
+      if (status === 'headers_received') {
         console.log("Metas");
         console.log(files);
         uploadFunc(files);
-         }   
-        else if (status === 'aborted') {
-          }
-        }
+       }   
+      else if (status === 'aborted') {
+      
+      }
+      }
 
-
-    const uploadFunc = (file) => {
-      var newBlobs = props.blobs;
-      var width = file.meta.width;
-      var height = file.meta.height;
-
-      if(width!= undefined && height !=undefined){
-        var hLimit, wLimit = 0;
-
-        // if(!newBlobs.length)
-        // {
-        //   hLimit = 300;
-        //   wLimit = 300;
-        // }
-        // else{
-        //   hLimit = 700;
-        //   wLimit = 700;
-        // }
-
-        hLimit = 700;
-        wLimit = 700;
-        
-        var isValid = width>wLimit&&height>hLimit;
-        console.log(isValid)
-
-        if (isValid){
-            var isLandscape = width>height;
-            console.log(isLandscape)
-
-            if(isLandscape){
-                
-                var ratio = width/height;
-
-                Resizer.imageFileResizer(
-                  file.file,
-                  wLimit, // width
-                  hLimit/ratio, // height
-                  'JPEG',
-                  100,
-                  0,
-                  uri => {
-                    newBlobs.push(uri);
-
-                    props.setBlobs(newBlobs);
-                      console.log(uri)
-                  },
-                  'blob'
-                );
-            }
-            else{
-                if(width == height){
+      const uploadFunc = (file) => {
+        //var newBlobs = props.blobs;
+        var newBlobs = props.blobs;
+        var width = file.meta.width;
+        var height = file.meta.height;
+  
+        if(width!= undefined && height !=undefined){
+          var hLimit, wLimit = 0;
+  
+          // if(!newBlobs.length)
+          // {
+          //   hLimit = 300;
+          //   wLimit = 300;
+          // }
+          // else{
+          //   hLimit = 700;
+          //   wLimit = 700;
+          // }
+  
+          hLimit = 700;
+          wLimit = 700;
+          
+          var isValid = width>wLimit && height>hLimit;
+          console.log(isValid)
+  
+          if (isValid){
+              var isLandscape = width>height;
+              console.log(isLandscape)
+  
+              if(isLandscape){
+                  
+                  var ratio = width/height;
+  
                   Resizer.imageFileResizer(
                     file.file,
                     wLimit, // width
-                    hLimit, // height
+                    hLimit/ratio, // height
                     'JPEG',
                     100,
                     0,
                     uri => {
                       newBlobs.push(uri);
-
+  
                       props.setBlobs(newBlobs);
-                        console.log(uri)
+                      console.log(uri)
                     },
                     'blob'
                   );
-                }
-                else{
-
-                    var ratio = height/width
-
+              }
+              else{
+                  if(width == height){
                     Resizer.imageFileResizer(
                       file.file,
-                      wLimit/ratio, // width
+                      wLimit, // width
                       hLimit, // height
                       'JPEG',
                       100,
                       0,
                       uri => {
                         newBlobs.push(uri);
-
+  
                         props.setBlobs(newBlobs);
                           console.log(uri)
                       },
                       'blob'
                     );
-                }
-            }
-        }
-    }
+                  }
+                  else{
+  
+                      var ratio = height/width
+  
+                      Resizer.imageFileResizer(
+                        file.file,
+                        wLimit/ratio, // width
+                        hLimit, // height
+                        'JPEG',
+                        100,
+                        0,
+                        uri => {
+                          newBlobs.push(uri);
+  
+                          props.setBlobs(newBlobs);
+                            console.log(uri)
+                        },
+                        'blob'
+                      );
+                  }
+              }
+          } else {
+            var ratio = height/width
+  
+            Resizer.imageFileResizer(
+              file.file,
+              wLimit/ratio, // width
+              hLimit, // height
+              'JPEG',
+              100,
+              0,
+              uri => {
+                newBlobs.push(uri);
 
-     
-     
-      // var mystring = file.file;
-      // var myblob = new Blob([mystring], {
-      //     type: 'image/png'
-      // });
+                props.setBlobs(newBlobs);
+                  console.log(uri)
+              },
+              'blob'
+            );
+          }
+      }
 
-     
-
-      // newBlobs.push(myblob);
-
-      // props.setBlobs(newBlobs);
-      
-      
-    };
 
     
 
-    return (
-      <Dropzone
+    // return (
+    //   <Dropzone
+    //     getUploadParams={getUploadParams}
+    //     onChangeStatus={handleChangeStatus}
+    //     maxFiles={6}
+    //     multiple={true}
+    //     canCancel={true}
+    //     styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
+    //   />
+    // );
+  };
+
+
+
+
+
+  return (
+    <React.Fragment>
+      <Grid container spacing={2}>
+        <Grid item xs={12} container>
+          {/* <Standard /> */}
+           <Dropzone
         getUploadParams={getUploadParams}
         onChangeStatus={handleChangeStatus}
         maxFiles={6}
@@ -229,14 +256,7 @@ export default function PostProductFirst(props) {
         canCancel={true}
         styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
       />
-    );
-  };
 
-  return (
-    <React.Fragment>
-      <Grid container spacing={2}>
-        <Grid item xs={12} container>
-          <Standard />
         </Grid>
 
         <Grid item xs={12} sm={6}>

@@ -32,7 +32,7 @@ var devConfig = {
 
 //We have to initialize firebase before doing anything with it
 //firebase.initializeApp(devConfig);
-export const myFirebase = firebase.initializeApp(devConfig);
+export const myFirebase = firebase.initializeApp(config);
 const baseDb = myFirebase.firestore();
 const baseStorage = myFirebase.storage();
 export const db = baseDb;
@@ -40,6 +40,11 @@ export const storage = baseStorage;
 
 console.log('Firebase initialized');
 
+// async function getProducts () {
+//   let productsArray=[];
+//   console.log('Firebase getProducts function')
+
+// }
 
 export default firebase;
 

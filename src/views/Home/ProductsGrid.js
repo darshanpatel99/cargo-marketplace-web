@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 //core components
 // import Button from "components/CustomButtons/Button.js";
@@ -24,10 +26,13 @@ const SectionProductCard = lazy(() => import ("./Sections/SectionProductCard.js"
 
 
 export default function ProductsGrid(props){
+
+  
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState([]);
-    const [newItems, setNewItems]= useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(10);
     const [limit, setLimit] = useState(1); //start from the 0 index
     const [oldLimit, setOldLimit] = useState(0);
     // const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").startAt(startAt);
@@ -37,7 +42,7 @@ export default function ProductsGrid(props){
     useEffect(()=>{
       //creating the listener that will listen to the new changes to the product collection
       console.log('useEffect');
-     const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber");//.limit(limit);
+     const firebaseProductsRef = firebase.firestore().collection('Products').where('Status', '==', "active").orderBy("TimeStamp").limit(40)
       // //firebaseProductsRef.endAt(endAt);
      const unsubscribe = firebaseProductsRef.onSnapshot(onCollectionUpdate);
 
@@ -61,6 +66,8 @@ export default function ProductsGrid(props){
 
     // }, [limit]);
 
+
+  
 
     //Listent to the updates
      const onCollectionUpdate = (querySnapshot) =>{
@@ -121,6 +128,8 @@ export default function ProductsGrid(props){
         console.log("limiiimiit" + limit);
      }
 
+     
+
 
 
      const { ...rest } = props;
@@ -137,7 +146,7 @@ export default function ProductsGrid(props){
                items.map((item, k)=>{
                 return(
               <Grid item spacing={3}>
-                <Suspense fallback={<div>loading...</div>}>
+                <Suspense fallback={<CircularProgress />}>
                  <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
                 </Suspense>
               </Grid>
