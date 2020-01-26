@@ -124,7 +124,16 @@ function Checkout(props) {
   };
 
   const handleBack = () => {
-    setActiveStep(activeStep - 1);
+
+    if(activeStep === steps.length - 3){
+      const history = createBrowserHistory();
+      history.replace("/product/" + this.state.key);
+      window.location.reload();
+    }
+    else{
+      setActiveStep(activeStep - 1);
+    }
+
   };
 
   const handleBackFirst = () => {
@@ -244,24 +253,27 @@ function Checkout(props) {
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
-                {activeStep === 0 && (
+                {/* {activeStep === 0 && (
                     <Button onClick={handleBackFirst} className={classes.button}>
                       Back
                     </Button>
-                  )}
-                  {activeStep !== 0 && (
+                  )} */}
+                  {/* {activeStep !== 0 && ( */}
                     <Button onClick={handleBack} className={classes.button}>
                       Back
                     </Button>
-                  )}
+                  
+
+                  {activeStep !== steps.length - 1 && (
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? '' : 'Next'}
+                    Next
                   </Button>
+                  )}
                 </div>
               </React.Fragment>
             )}
