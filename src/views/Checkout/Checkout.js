@@ -17,7 +17,7 @@ import CreditCard from './CreditCard';
 import Review from './Review';
 import safeStringify from "safe-json-stringify";
 import { connect } from "react-redux";
-
+import { createBrowserHistory } from 'history';
 
 import { handleCheckout } from '../../actions';
 
@@ -109,11 +109,28 @@ function Checkout(props) {
 
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+
+    if(activeStep === steps.length - 2){
+      if (firstName != '' && lastName != '' && address != '' && city != '' && zip != '' && phonenumber != '' ){
+        setActiveStep(activeStep + 1);
+      }
+      else{
+        alert('Please fill required inputs')
+      }
+    }
+    if(activeStep === steps.length - 3){
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
+  };
+
+  const handleBackFirst = () => {
+    const history = createBrowserHistory();
+    history.replace("/product/" + item.key);
+    window.location.reload();
   };
 
   const getStepContent = (step) => {
@@ -227,6 +244,11 @@ function Checkout(props) {
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
+                {activeStep === 0 && (
+                    <Button onClick={handleBackFirst} className={classes.button}>
+                      Back
+                    </Button>
+                  )}
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
                       Back
@@ -238,7 +260,7 @@ function Checkout(props) {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    {activeStep === steps.length - 1 ? '' : 'Next'}
                   </Button>
                 </div>
               </React.Fragment>
