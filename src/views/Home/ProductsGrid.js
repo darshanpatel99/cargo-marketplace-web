@@ -10,6 +10,9 @@ import Grid from '@material-ui/core/Grid';
 //core components
 // import Button from "components/CustomButtons/Button.js";
 
+//importing flatlist from flatlist-react which have the same functionality flatlist in react-native
+import FlatList from 'flatlist-react';
+
 // sections for this page
 //import SectionProductCard from "./Sections/SectionProductCard.js";
 import styles from "assets/jss/material-kit-react/views/components.js";
@@ -19,8 +22,9 @@ import {BeatLoader} from 'react-spinners';
 
 //importing firebase
 import firebase from "../../Firebase/firebase";
+import SectionProductCard from "./Sections/SectionProductCard.js";
 const useStyles = makeStyles(styles);
-const SectionProductCard = lazy(() => import ("./Sections/SectionProductCard.js"))
+//const SectionProductCard = lazy(() => import ("./Sections/SectionProductCard.js"))
 
 
 export default function ProductsGrid(props){
@@ -28,7 +32,7 @@ export default function ProductsGrid(props){
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState([]);
     const [newItems, setNewItems]= useState([]);
-    const [limit, setLimit] = useState(1); //start from the 0 index
+    const [limit, setLimit] = useState(3); //start from the 0 index
     const [oldLimit, setOldLimit] = useState(0);
     // const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").startAt(startAt);
     // firebaseProductsRef.endAt(endAt);
@@ -37,7 +41,7 @@ export default function ProductsGrid(props){
     useEffect(()=>{
       //creating the listener that will listen to the new changes to the product collection
       console.log('useEffect');
-     const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber");//.limit(limit);
+     const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").limit(limit);
       // //firebaseProductsRef.endAt(endAt);
      const unsubscribe = firebaseProductsRef.onSnapshot(onCollectionUpdate);
 
@@ -63,9 +67,9 @@ export default function ProductsGrid(props){
 
 
     //Listent to the updates
-     const onCollectionUpdate = (querySnapshot) =>{
+     const onCollectionUpdate =(querySnapshot) =>{
        const products = [];
-         querySnapshot.forEach((doc) => {
+       querySnapshot.forEach((doc) => {
            const {  SellerName, AddressArray, Description, Name, Price, Thumbnail, Pictures, Category, Owner, BuyerID, Status, DeliveryProvider, DeliveryVehicle, SellerDeliveryPrice, Avability,SellerAddress, AdditionalData, } = doc.data();
              // console.log(typeof Pictures['0']);
            products.push({
@@ -90,8 +94,29 @@ export default function ProductsGrid(props){
              AdditionalData,
            });
           //  console.log("got new product");
-          //  setItems(products);
-          //  setIsLoading(false);
+          // setItems(products);
+          // setIsLoading(false);
+          renderProduct({
+            key: doc.id,
+            doc,
+            Name,
+            Description,
+            Owner,
+            Price,
+            Thumbnail,
+            Pictures,
+            Category,
+            AddressArray,
+            BuyerID,
+            Status,
+            SellerName,
+            DeliveryProvider,
+            DeliveryVehicle,
+            SellerDeliveryPrice,
+            Avability,
+            SellerAddress,
+            AdditionalData,
+          });
            
            
          });
@@ -125,27 +150,36 @@ export default function ProductsGrid(props){
 
      const { ...rest } = props;
 
+
+     //function to render the product card
+     const renderProduct=(item, idx)=>{
+
+      return(
+        // <Suspense fallback={<div>loading...</div>}>
+          <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
+      // </Suspense> 
+      );
+     }
+
      //When we got all the products
      if(isLoading==false){
 
        return(
+         
          <div className={classNames(classes.main, classes.mainRaised)}>
            <Grid container spacing={3} className={classNames(classes.mainContainerGrid)}>
 
-             {
-               //for loop to iterate over each item and creating a carg for it.
-               items.map((item, k)=>{
-                return(
-              <Grid item spacing={3}>
-                <Suspense fallback={<div>loading...</div>}>
-                 <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
-                </Suspense>
-              </Grid>
-              
-               );
+             <FlatList 
+                list = {items}
+                renderItem ={ renderProduct
+                //   <Grid item spacing={3}>
+                // <Suspense fallback={<div>loading...</div>}>
+                //  <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
+                //     </Suspense>
+                //   </Grid>
+                }
+              />  
 
-               })
-             }
              {/* <Button
                   color="primary"
                   target="_blank"
