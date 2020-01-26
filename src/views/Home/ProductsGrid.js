@@ -8,7 +8,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
 
 //core components
-// import Button from "components/CustomButtons/Button.js";
+import Button from "components/CustomButtons/Button.js";
 
 //importing flatlist from flatlist-react which have the same functionality flatlist in react-native
 import FlatList from 'flatlist-react';
@@ -32,7 +32,7 @@ export default function ProductsGrid(props){
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState([]);
     const [newItems, setNewItems]= useState([]);
-    const [limit, setLimit] = useState(3); //start from the 0 index
+    const [limit, setLimit] = useState(props.limit); //start from the 0 index
     const [oldLimit, setOldLimit] = useState(0);
     // const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").startAt(startAt);
     // firebaseProductsRef.endAt(endAt);
@@ -93,31 +93,6 @@ export default function ProductsGrid(props){
              SellerAddress,
              AdditionalData,
            });
-          //  console.log("got new product");
-          // setItems(products);
-          // setIsLoading(false);
-          renderProduct({
-            key: doc.id,
-            doc,
-            Name,
-            Description,
-            Owner,
-            Price,
-            Thumbnail,
-            Pictures,
-            Category,
-            AddressArray,
-            BuyerID,
-            Status,
-            SellerName,
-            DeliveryProvider,
-            DeliveryVehicle,
-            SellerDeliveryPrice,
-            Avability,
-            SellerAddress,
-            AdditionalData,
-          });
-           
            
          });
          console.log("got new product");
@@ -179,14 +154,15 @@ export default function ProductsGrid(props){
                 //   </Grid>
                 }
               />  
-
-             {/* <Button
-                  color="primary"
-                  target="_blank"
-                  round
-                  onClick = {handleLoadMore}>
-                Load More
-              </Button> */}
+            <Link to={"/shopnow"} className={classes.link}>
+              <Button
+                    color="primary"
+                    target="_blank"
+                    round
+                    onClick = {handleLoadMore}>
+                  Shop Now
+                </Button>
+              </Link>
            </Grid>
          </div>
      );

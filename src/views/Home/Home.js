@@ -10,7 +10,6 @@ import Search from "@material-ui/icons/Search";
 
 import Grid from '@material-ui/core/Grid';
 
-// @material-ui/icons
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
@@ -70,7 +69,7 @@ function Components(props) {
   return (
     <div>
       <Header
-        brand="CarGo"
+        brand="ShopCaddy"
         rightLinks={
         <HeaderLinks />}
         fixed
@@ -118,7 +117,7 @@ function Components(props) {
         </div>
 
       </Parallax>
-      <ProductsGrid/>
+      <ProductsGrid limit={3}/>
 
       <Footer />
     </div>
