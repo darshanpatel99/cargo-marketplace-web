@@ -17,7 +17,9 @@ import Checkout from './views/Checkout/Checkout';
 import Post from './views/PostProduct/PostProductMain.js';
 import Paypal from './views/Checkout/Paypal';
 import ThankYou from './views/Checkout/ThankYou';
-import Products from './views/Products/Products'
+import Products from './views/Products/Products';
+
+import firebase from "./Firebase/firebase";
 
 function App(props) {
 const { isAuthenticated, isVerifying } = props;

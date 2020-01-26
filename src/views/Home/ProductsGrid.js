@@ -38,6 +38,7 @@ export default function ProductsGrid(props){
     // firebaseProductsRef.endAt(endAt);
     const chunk = 3; //number of products we want to get from firebase
     //useEffect==>component did mount
+ 
     useEffect(()=>{
       //creating the listener that will listen to the new changes to the product collection
       console.log('useEffect');
@@ -130,9 +131,11 @@ export default function ProductsGrid(props){
      const renderProduct=(item, idx)=>{
 
       return(
-        // <Suspense fallback={<div>loading...</div>}>
+        <Suspense fallback={<div>
           <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
-      // </Suspense> 
+        </div>}>
+          <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
+      </Suspense> 
       );
      }
 
