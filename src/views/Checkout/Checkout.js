@@ -38,6 +38,7 @@ function Copyright() {
         CarGo Marketplace
       </Link>{' '}
       {new Date().getFullYear()}
+      
       {'.'}
     </Typography>
   );

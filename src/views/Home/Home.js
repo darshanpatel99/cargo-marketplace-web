@@ -10,7 +10,6 @@ import Search from "@material-ui/icons/Search";
 
 import Grid from '@material-ui/core/Grid';
 
-// @material-ui/icons
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
@@ -82,11 +81,33 @@ function Components(props) {
   return (
     <div>
       <Header
-        brand="CarGo"
+        brand="ShopCaddy"
         rightLinks={
         <HeaderLinks />}
         fixed
         color="transparent"
+        centerLinks= {
+        <div> 
+          {/* <CustomInput
+            white
+            inputRootCustomClasses={classes.inputRootCustomClasses}
+            formControlProps={{
+              className: classes.formControl
+            }}
+            inputProps={{
+              placeholder: "Search",
+              inputProps: {
+                "aria-label": "Search",
+                className: classes.searchInput
+              }
+            }}
+          />
+
+          <Button justIcon round color="white">
+            <Search className={classes.searchIcon} />
+          </Button> */}
+          </div>
+          }
         // centerLinks= {<div> <CustomInput
         //     white
         //     inputRootCustomClasses={classes.inputRootCustomClasses}
@@ -127,7 +148,7 @@ function Components(props) {
         </div>
 
       </Parallax>
-      <ProductsGrid/>
+      <ProductsGrid limit={3}/>
 
       <Footer />
     </div>

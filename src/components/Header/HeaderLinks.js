@@ -50,8 +50,8 @@ function HeaderLinks(props) {
 
   return (
     <List className={classes.list}>
-      <ListItem className={classes.listItem}>
-        {/* <CustomDropdown
+      {/* <ListItem className={classes.listItem}>
+        <CustomDropdown
           noLiPadding
           buttonText="Filters"
           buttonProps={{
@@ -71,9 +71,9 @@ function HeaderLinks(props) {
               Documentation
             </a>
           ]}
-        /> */}
-      </ListItem>
-      {/* <ListItem className={classes.listItem}>
+        />
+      </ListItem> */}
+      <ListItem className={classes.listItem}>
         <Button
           href="http://app.cargomarketplace.ca"
           color="transparent"
@@ -83,13 +83,13 @@ function HeaderLinks(props) {
           <AndroidOutlinedIcon className={classes.icons} />
           <AppleIcon className={classes.icons} /> Download App
         </Button>
-      </ListItem> */}
+      </ListItem>
       <ListItem className={classes.listItem}>
       <Link to={"/post"} className={classes.link}>
 
         <Button
           color="transparent"
-          target="_blank"
+          target="_blank"k
           className={classes.navLink}
         >
         <AddAPhotoIcon className={classes.icons}/>

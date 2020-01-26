@@ -10,7 +10,10 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 
 
 //core components
-// import Button from "components/CustomButtons/Button.js";
+import Button from "components/CustomButtons/Button.js";
+
+//importing flatlist from flatlist-react which have the same functionality flatlist in react-native
+import FlatList from 'flatlist-react';
 
 // sections for this page
 //import SectionProductCard from "./Sections/SectionProductCard.js";
@@ -21,8 +24,9 @@ import {BeatLoader} from 'react-spinners';
 
 //importing firebase
 import firebase from "../../Firebase/firebase";
+import SectionProductCard from "./Sections/SectionProductCard.js";
 const useStyles = makeStyles(styles);
-const SectionProductCard = lazy(() => import ("./Sections/SectionProductCard.js"))
+//const SectionProductCard = lazy(() => import ("./Sections/SectionProductCard.js"))
 
 
 export default function ProductsGrid(props){
@@ -31,18 +35,20 @@ export default function ProductsGrid(props){
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState([]);
+    const [newItems, setNewItems]= useState([]);
+    const [limit, setLimit] = useState(props.limit); //start from the 0 index
     const [currentPage, setCurrentPage] = useState(1);
     const [postsPerPage, setPostsPerPage] = useState(10);
-    const [limit, setLimit] = useState(1); //start from the 0 index
     const [oldLimit, setOldLimit] = useState(0);
     // const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").startAt(startAt);
     // firebaseProductsRef.endAt(endAt);
     const chunk = 3; //number of products we want to get from firebase
     //useEffect==>component did mount
+ 
     useEffect(()=>{
       //creating the listener that will listen to the new changes to the product collection
       console.log('useEffect');
-     const firebaseProductsRef = firebase.firestore().collection('Products').where('Status', '==', "active").orderBy("TimeStamp").limit(40)
+     const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").limit(limit);
       // //firebaseProductsRef.endAt(endAt);
      const unsubscribe = firebaseProductsRef.onSnapshot(onCollectionUpdate);
 
@@ -70,9 +76,9 @@ export default function ProductsGrid(props){
   
 
     //Listent to the updates
-     const onCollectionUpdate = (querySnapshot) =>{
+     const onCollectionUpdate =(querySnapshot) =>{
        const products = [];
-         querySnapshot.forEach((doc) => {
+       querySnapshot.forEach((doc) => {
            const {  SellerName, AddressArray, Description, Name, Price, Thumbnail, Pictures, Category, Owner, BuyerID, Status, DeliveryProvider, DeliveryVehicle, SellerDeliveryPrice, Avability,SellerAddress, AdditionalData, } = doc.data();
              // console.log(typeof Pictures['0']);
            products.push({
@@ -96,10 +102,6 @@ export default function ProductsGrid(props){
              SellerAddress,
              AdditionalData,
            });
-          //  console.log("got new product");
-          //  setItems(products);
-          //  setIsLoading(false);
-           
            
          });
          console.log("got new product");
@@ -134,34 +136,46 @@ export default function ProductsGrid(props){
 
      const { ...rest } = props;
 
+
+     //function to render the product card
+     const renderProduct=(item, idx)=>{
+
+      return(
+        <Suspense fallback={<div>
+          <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
+        </div>}>
+          <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
+      </Suspense> 
+      );
+     }
+
      //When we got all the products
      if(isLoading==false){
 
        return(
+         
          <div className={classNames(classes.main, classes.mainRaised)}>
            <Grid container spacing={3} className={classNames(classes.mainContainerGrid)}>
 
-             {
-               //for loop to iterate over each item and creating a carg for it.
-               items.map((item, k)=>{
-                return(
-              <Grid item spacing={3}>
-                <Suspense fallback={<CircularProgress />}>
-                 <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
-                </Suspense>
-              </Grid>
-              
-               );
-
-               })
-             }
-             {/* <Button
-                  color="primary"
-                  target="_blank"
-                  round
-                  onClick = {handleLoadMore}>
-                Load More
-              </Button> */}
+             <FlatList 
+                list = {items}
+                renderItem ={ renderProduct
+                //   <Grid item spacing={3}>
+                // <Suspense fallback={<div>loading...</div>}>
+                //  <SectionProductCard xs={3} title={item.Name} description={item.Description} src={item.Thumbnail} alt="Product Image" product={item}/>
+                //     </Suspense>
+                //   </Grid>
+                }
+              />  
+            <Link to={"/shopnow"} className={classes.link}>
+              <Button
+                    color="primary"
+                    target="_blank"
+                    round
+                    onClick = {handleLoadMore}>
+                  Shop Now
+                </Button>
+              </Link>
            </Grid>
          </div>
      );

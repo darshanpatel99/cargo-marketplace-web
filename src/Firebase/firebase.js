@@ -31,7 +31,19 @@ var devConfig = {
 
 //We have to initialize firebase before doing anything with it
 //firebase.initializeApp(devConfig);
-export const myFirebase = firebase.initializeApp(config);
+export const myFirebase = firebase.initializeApp(devConfig);
+firebase.firestore().enablePersistence()
+.catch(function(err) {
+    if (err.code == 'failed-precondition') {
+        // Multiple tabs open, persistence can only be enabled
+        // in one tab at a a time.
+        // ...
+    } else if (err.code == 'unimplemented') {
+        // The current browser does not support all of the
+        // features required to enable persistence
+        // ...
+    }
+});
 const baseDb = myFirebase.firestore();
 const baseStorage = myFirebase.storage();
 export const db = baseDb;

@@ -17,6 +17,9 @@ import Checkout from './views/Checkout/Checkout';
 import Post from './views/PostProduct/PostProductMain.js';
 import Paypal from './views/Checkout/Paypal';
 import ThankYou from './views/Checkout/ThankYou';
+import Products from './views/Products/Products';
+
+import firebase from "./Firebase/firebase";
 import About from './views/Pages/About';
 import NotFound from './views/Pages/NotFound'
 
@@ -39,6 +42,7 @@ const { isAuthenticated, isVerifying } = props;
         <Route path="/Post" component={Post} />
         <Route path="/Paypal" component={Paypal} />
         <Route path="/thankyou" component={ThankYou} />
+        <Route path="/shopnow" component={Products}/>
         <Route path="/about" component={About} />
 
         <ProtectedRoute path="/checkout" component= {Checkout} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
