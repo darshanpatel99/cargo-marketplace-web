@@ -39,7 +39,7 @@ export default function Components(props) {
   const classes = useStyles();
   console.log('Product Detail Screen');
   const [item, setItem] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setisOpen] = useState(false)
   const [photoIndex, setPhotoIndex] = useState(0);
   const [mobileDevice, setMobileDevice] = useState(window.innerWidth);
