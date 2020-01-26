@@ -25,6 +25,7 @@ import firebase from '../../Firebase/firebase.js';
 
 import HeaderLinks from "../../components/Header/HeaderLinks.js";
 import Header from "../../components/Header/Header";
+import Footer from "components/Footer/Footer.js";
 
 
 //firebase signup create user account
@@ -127,6 +128,7 @@ function SignUp(props){
   //firebase.auth().createUserWithEmailAndPassword("dddddd@gmail.com", "sweetpassword")
 
   if(redirect){
+
     return (
      <Redirect to="/signin" />
     );
@@ -237,15 +239,15 @@ function SignUp(props){
         </form>
       </div>
       <Box mt={5}>
-        <Copyright />
+        {/* <Copyright /> */}
       </Box>
     </Container>
+    <Footer />
     </div>
     </div>
 
 
-  );
-          }
+  );}
 
 }
 

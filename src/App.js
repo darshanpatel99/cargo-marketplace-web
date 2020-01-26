@@ -17,7 +17,8 @@ import Checkout from './views/Checkout/Checkout';
 import Post from './views/PostProduct/PostProductMain.js';
 import Paypal from './views/Checkout/Paypal';
 import ThankYou from './views/Checkout/ThankYou';
-import About from './views/Pages/About'
+import About from './views/Pages/About';
+import NotFound from './views/Pages/NotFound'
 
 function App(props) {
 const { isAuthenticated, isVerifying } = props;
@@ -41,6 +42,7 @@ const { isAuthenticated, isVerifying } = props;
         <Route path="/about" component={About} />
 
         <ProtectedRoute path="/checkout" component= {Checkout} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
+        <Route path="*" component={NotFound} />
       </Switch>
   );
 }
