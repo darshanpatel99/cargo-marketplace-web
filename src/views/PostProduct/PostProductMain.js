@@ -17,6 +17,11 @@ import { connect } from "react-redux";
 import uuid from 'react-native-uuid';
 import { createBrowserHistory } from 'history';
 
+import Header from "components/Header/Header.js";
+import HeaderLinks from "components/Header/HeaderLinks.js";
+import Footer from "components/Footer/Footer.js";
+
+
 
 
 function Copyright() {
@@ -288,13 +293,20 @@ function PostProduct(props) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            CarGo Marketplace
-          </Typography>
-        </Toolbar>
-      </AppBar>
+
+      <Header
+          brand="CarGo"
+          rightLinks={
+          <HeaderLinks />}
+          fixed
+          color="transparent"
+          changeColorOnScroll={{
+            height: 400,
+            color: "white"
+          }}
+          // {...rest}
+        />
+
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
@@ -342,8 +354,9 @@ function PostProduct(props) {
               )}
           </React.Fragment>
         </Paper>
-        <Copyright />
+        {/* <Copyright /> */}
       </main>
+      <Footer />
     </React.Fragment>
   );
 }
