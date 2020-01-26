@@ -247,8 +247,7 @@ function SignUp(props){
     </div>
 
 
-  );
-          }
+  );}
 
 }
 
