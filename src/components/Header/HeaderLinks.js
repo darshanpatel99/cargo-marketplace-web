@@ -89,7 +89,7 @@ function HeaderLinks(props) {
 
         <Button
           color="transparent"
-          target="_blank"
+          target="_blank"k
           className={classes.navLink}
         >
         <AddAPhotoIcon className={classes.icons}/>

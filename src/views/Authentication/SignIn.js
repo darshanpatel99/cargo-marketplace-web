@@ -5,6 +5,10 @@ import { loginUser, forgotUserPassword } from "../../actions";
 import { withStyles } from "@material-ui/styles";
 import { Link } from "react-router-dom";
 
+import Header from "components/Header/Header.js";
+import HeaderLinks from "components/Header/HeaderLinks.js";
+import Footer from "components/Footer/Footer.js";
+
 
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -37,7 +41,7 @@ const styles = () => ({
   avatar: {
     marginLeft: "auto",
     marginRight: "auto",
-    backgroundColor: "#f50057"
+    backgroundColor: "#FFA105"
   },
   form: {
     marginTop: 1
@@ -58,11 +62,12 @@ uiConfig = {
   signInFlow: "popup",
   signInOptions: [
     firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-    firebase.auth.EmailAuthProvider.PROVIDER_ID
+    
   ],
   callbacks: {
-    signInSuccess: () => false
+    signInSuccess: () => false,
   }
+  
 }
 
   handleEmailChange = ({ target }) => {
@@ -109,6 +114,19 @@ uiConfig = {
         }} />;
     } else {
       return (
+        <div>
+        <Header
+          brand="CarGo"
+          rightLinks={
+          <HeaderLinks />}
+          fixed
+          color="transparent"
+          changeColorOnScroll={{
+            height: 400,
+            color: "white"
+          }}
+          // {...rest}
+        />
         <Container component="main" maxWidth="xs">
 
           <Paper className={classes.paper}>
@@ -153,7 +171,10 @@ uiConfig = {
               Sign In
             </Button>
 
+          <div>Or</div>
+
       <div className="cargo-firebase-ui">
+
         {this.state.isSignedIn ? (
           <span>
             <div>Signed In!</div>
@@ -215,6 +236,8 @@ uiConfig = {
 
         
         </Container>
+        <Footer />
+        </div>
       );
     }
   }

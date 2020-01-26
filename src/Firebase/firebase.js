@@ -1,5 +1,4 @@
 import * as firebase from 'firebase';
-import firestore from 'firebase/firestore'
 
 // This firebase.js keeps all the fuctions we need to work with firebase like
 // pushing product to firebase, deleting item,changing item, authenticating people etc.
@@ -52,6 +51,11 @@ export const storage = baseStorage;
 
 console.log('Firebase initialized');
 
+// async function getProducts () {
+//   let productsArray=[];
+//   console.log('Firebase getProducts function')
+
+// }
 
 export default firebase;
 

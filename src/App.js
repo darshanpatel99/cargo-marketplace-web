@@ -20,6 +20,8 @@ import ThankYou from './views/Checkout/ThankYou';
 import Products from './views/Products/Products';
 
 import firebase from "./Firebase/firebase";
+import About from './views/Pages/About';
+import NotFound from './views/Pages/NotFound'
 
 function App(props) {
 const { isAuthenticated, isVerifying } = props;
@@ -41,7 +43,10 @@ const { isAuthenticated, isVerifying } = props;
         <Route path="/Paypal" component={Paypal} />
         <Route path="/thankyou" component={ThankYou} />
         <Route path="/shopnow" component={Products}/>
+        <Route path="/about" component={About} />
+
         <ProtectedRoute path="/checkout" component= {Checkout} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />
+        <Route path="*" component={NotFound} />
       </Switch>
   );
 }

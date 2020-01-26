@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 
 //core components
 import Button from "components/CustomButtons/Button.js";
@@ -28,11 +30,15 @@ const useStyles = makeStyles(styles);
 
 
 export default function ProductsGrid(props){
+
+  
     const classes = useStyles();
     const [isLoading, setIsLoading] = useState(true);
     const [items, setItems] = useState([]);
     const [newItems, setNewItems]= useState([]);
     const [limit, setLimit] = useState(props.limit); //start from the 0 index
+    const [currentPage, setCurrentPage] = useState(1);
+    const [postsPerPage, setPostsPerPage] = useState(10);
     const [oldLimit, setOldLimit] = useState(0);
     // const firebaseProductsRef = firebase.firestore().collection('Products').where('OrderNumber', '<', 0).orderBy("OrderNumber").startAt(startAt);
     // firebaseProductsRef.endAt(endAt);
@@ -66,6 +72,8 @@ export default function ProductsGrid(props){
 
     // }, [limit]);
 
+
+  
 
     //Listent to the updates
      const onCollectionUpdate =(querySnapshot) =>{
@@ -121,6 +129,8 @@ export default function ProductsGrid(props){
         //setLimit(limit+chunk);
         console.log("limiiimiit" + limit);
      }
+
+     
 
 
 

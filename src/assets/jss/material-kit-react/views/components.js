@@ -1,4 +1,5 @@
 import { container } from "assets/jss/material-kit-react.js";
+import { InlineFunctions } from "terser";
 
 const componentsStyle = {
   container,
@@ -40,14 +41,26 @@ const componentsStyle = {
   },
 
   productDetailsPrice: {
-    color: "red",
+    color: "#B12704",
     display:'inline-block',
+  },
+
+  titleAndPriceContainer: {
+    display: "inline"
   },
 
 
   //product details styles
   productDetailsContainer: {
     marginTop: "10%",
+    marginBottom: "10%",
+
+  },
+
+  //adds 8% top margin to the pages to make it visible from header
+  pageContainer: {
+    marginTop: "8%",
+    marginBottom: "8%",
   }
 
 };

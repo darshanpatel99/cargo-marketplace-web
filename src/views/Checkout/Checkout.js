@@ -17,7 +17,7 @@ import CreditCard from './CreditCard';
 import Review from './Review';
 import safeStringify from "safe-json-stringify";
 import { connect } from "react-redux";
-
+import { createBrowserHistory } from 'history';
 
 import { handleCheckout } from '../../actions';
 
@@ -52,6 +52,8 @@ const useStyles = makeStyles(theme => ({
     width: 'auto',
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
+    marginTop: theme.spacing(18),
+    marginBottom: theme.spacing(18),
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       width: 600,
       marginLeft: 'auto',
@@ -108,11 +110,37 @@ function Checkout(props) {
 
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+
+    if(activeStep === steps.length - 2){
+      if (firstName != '' && lastName != '' && address != '' && city != '' && zip != '' && phonenumber != '' ){
+        setActiveStep(activeStep + 1);
+      }
+      else{
+        alert('Please fill required inputs')
+      }
+    }
+    if(activeStep === steps.length - 3){
+      setActiveStep(activeStep + 1);
+    }
   };
 
   const handleBack = () => {
-    setActiveStep(activeStep - 1);
+
+    if(activeStep === steps.length - 3){
+      const history = createBrowserHistory();
+      history.replace("/product/" + this.state.key);
+      window.location.reload();
+    }
+    else{
+      setActiveStep(activeStep - 1);
+    }
+
+  };
+
+  const handleBackFirst = () => {
+    const history = createBrowserHistory();
+    history.replace("/product/" + item.key);
+    window.location.reload();
   };
 
   const getStepContent = (step) => {
@@ -226,19 +254,27 @@ function Checkout(props) {
               <React.Fragment>
                 {getStepContent(activeStep)}
                 <div className={classes.buttons}>
-                  {activeStep !== 0 && (
+                {/* {activeStep === 0 && (
+                    <Button onClick={handleBackFirst} className={classes.button}>
+                      Back
+                    </Button>
+                  )} */}
+                  {/* {activeStep !== 0 && ( */}
                     <Button onClick={handleBack} className={classes.button}>
                       Back
                     </Button>
-                  )}
+                  
+
+                  {activeStep !== steps.length - 1 && (
                   <Button
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    Next
                   </Button>
+                  )}
                 </div>
               </React.Fragment>
             )}

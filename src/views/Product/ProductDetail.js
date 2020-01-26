@@ -39,7 +39,7 @@ export default function Components(props) {
   const classes = useStyles();
   console.log('Product Detail Screen');
   const [item, setItem] = useState({});
-    const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setisOpen] = useState(false)
   const [photoIndex, setPhotoIndex] = useState(0);
   const [mobileDevice, setMobileDevice] = useState(window.innerWidth);
@@ -116,8 +116,10 @@ export default function Components(props) {
                     </Grid>
 
                     <Grid item xs={layoutNumber}>
-                              <h1>{item.Name}</h1>
-                              <span><h1 className={classes.productDetailsPrice}>${item.Price}</h1></span>
+                              <div className={classes.titleAndPriceContainer}>
+                                <h1>{item.Name}</h1>
+                                <span><h3 className={classes.productDetailsPrice}>CDN$ {item.Price}</h3></span>
+                              </div>
                         <p>{item.Description}</p>
 
                         <Link to={{pathname:'/checkout', state:safeStringify(item)}}>
