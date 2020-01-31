@@ -167,15 +167,11 @@ export default function ProductsGrid(props){
                 //   </Grid>
                 }
               />  
+            <div className="makeStyles-card-317" style={{width: "50%", height: "25px"}} >
             <Link to={"/shopnow"} className={classes.link}>
-              <Button
-                    color="primary"
-                    target="_blank"
-                    round
-                    onClick = {handleLoadMore}>
-                  Shop Now
-                </Button>
-              </Link>
+                Load More ...
+            </Link>
+            </div>
            </Grid>
          </div>
      );

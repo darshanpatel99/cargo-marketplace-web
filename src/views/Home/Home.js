@@ -27,12 +27,11 @@ import styles from "assets/jss/material-kit-react/views/components.js";
 import { connect, useSelector, useDispatch } from "react-redux";
 import {logoutUser} from '../../actions'
 import {getProducts} from '../../actions/getProducts'
+import { Card } from 'react-bootstrap';
 
-
-import ProductsGrid from "views/Home/ProductsGrid.js"
 
 //importing firebase
-import firebase from "../../Firebase/firebase";
+import {FirestoreCollection} from 'react-firestore';
 const useStyles = makeStyles(styles);
 
 function Components(props) {
@@ -84,49 +83,14 @@ function Components(props) {
         brand="ShopCaddy"
         rightLinks={
         <HeaderLinks />}
-        fixed
+        
         color="transparent"
         centerLinks= {
         <div> 
-          {/* <CustomInput
-            white
-            inputRootCustomClasses={classes.inputRootCustomClasses}
-            formControlProps={{
-              className: classes.formControl
-            }}
-            inputProps={{
-              placeholder: "Search",
-              inputProps: {
-                "aria-label": "Search",
-                className: classes.searchInput
-              }
-            }}
-          />
 
-          <Button justIcon round color="white">
-            <Search className={classes.searchIcon} />
-          </Button> */}
           </div>
           }
-        // centerLinks= {<div> <CustomInput
-        //     white
-        //     inputRootCustomClasses={classes.inputRootCustomClasses}
-        //     formControlProps={{
-        //       className: classes.formControl
-        //     }}
-        //     inputProps={{
-        //       placeholder: "Search",
-        //       inputProps: {
-        //         "aria-label": "Search",
-        //         className: classes.searchInput
-        //       }
-        //     }}
-        //   />
 
-        //   <Button justIcon round color="white">
-        //     <Search className={classes.searchIcon} />
-        //   </Button>
-        //   </div>}
         changeColorOnScroll={{
           height: 400,
           color: "white"
@@ -148,8 +112,38 @@ function Components(props) {
         </div>
 
       </Parallax>
-      <ProductsGrid limit={3}/>
+      {/* <ProductsGrid limit={3}/> */}
 
+      <FirestoreCollection
+        path="Products"
+        limit={4}
+        // sort="publishedDate:desc,authorName"
+        render={({ isLoading, data }) => {
+          return isLoading ? (
+            // <Loading />
+            <p>Loading...</p>
+          ) : (
+            <div className="products-grid-wrapper">
+              <h1>ShopCaddy's Latest Furniture</h1>
+              <Grid  container spacing={3} justify="center" direction="row" alignItems="center">
+
+                {data.map(product => (
+
+                    <SectionProductCard title={product.Name} description={product.Description} src={product.Thumbnail} alt="Product Image" product={product}/>
+                  
+                  
+                ))}
+
+              </Grid>
+              
+            </div>
+
+          );
+        }}
+/>
+        <div class="load-more-wrapper">
+          <a href="/catalog"><span>Load More</span></a>
+        </div>
       <Footer />
     </div>
   );

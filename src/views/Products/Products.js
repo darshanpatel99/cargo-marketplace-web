@@ -4,13 +4,14 @@ import React, {useState, useEffect} from 'react';
 // core components
 import Header from "components/Header/Header.js";
 import Footer from "components/Footer/Footer.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
+import Grid from '@material-ui/core/Grid';
 
-import Parallax from "components/Parallax/Parallax.js";
+
 
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
+
+import {FirestoreCollection} from 'react-firestore';
 
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.js";
@@ -18,7 +19,6 @@ import SectionProductCard from "../Home/Sections/SectionProductCard.js";
 import styles from "assets/jss/material-kit-react/views/components.js";
 import { connect } from "react-redux";
 import {logoutUser} from '../../actions'
-import ProductsGrid from "views/Home/ProductsGrid.js"
 
 const useStyles = makeStyles(styles);
 
@@ -32,7 +32,6 @@ export default function Products(props){
           brand="CarGo"
           rightLinks={
           <HeaderLinks />}
-          fixed
           color="transparent"
           centerLinks= {
           <div> 
@@ -62,12 +61,40 @@ export default function Products(props){
           }}
           {...rest}
         />
-        <div style={{marginTop:250, marginBottom:250}}>
-        <ProductsGrid limit={10}/>
-        </div>
+
+
+<FirestoreCollection
+        path="Products"
+        // sort="publishedDate:desc,authorName"
+        render={({ isLoading, data }) => {
+          return isLoading ? (
+            // <Loading />
+            <p>Loading...</p>
+          ) : (
+            <div className="products-grid-wrapper">
+              
+              <Grid  container spacing={3} justify="center" direction="row" alignItems="center">
+
+                {data.map(product => (
+
+                    <SectionProductCard title={product.Name} description={product.Description} src={product.Thumbnail} alt="Product Image" product={product}/>
+                  
+                  
+                ))}
+
+              </Grid>
+              
+            </div>
+
+          );
+        }}
+/>
+
+
         <Footer />
 
         </div>
+
 
 
 
@@ -76,13 +103,3 @@ export default function Products(props){
 
 
 }
-
-// function mapStateToProps(state) {
-//     return {
-//       isLoggingOut: state.auth.isLoggingOut,
-//       logoutError: state.auth.logoutError,
-//       user: state.auth.user
-//     };
-//   }
-
-//   export default connect(mapStateToProps)(Components);
