@@ -1,3 +1,7 @@
+#root {
+    background-color: #fff;
+}
+
 .makeStyles-layout-2 {
     margin-top: 150px;
 }
@@ -17,6 +21,67 @@
 .makeStyles-logoImage-28 {
     border-radius: 0 !important;
 }
+
+.lazy-load-image-loaded {
+    display: block !important;
+}
+
+.products-grid-wrapper {
+    width: 90%;
+    margin: auto;
+}
+
+/* Load More button animated */
+
+.load-more-wrapper{
+    /* position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    margin: auto;
+  }
+  
+  .load-more-wrapper a{
+    margin: auto;
+    display: block;
+    width: 200px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+    font-family: sans-serif;
+    text-decoration: none;
+    color: #333;
+    border: 2px solid #333;
+    letter-spacing: 2px;
+    text-align: center;
+    position: relative;
+    transition: all .35s;
+  }
+  
+  .load-more-wrapper a span{
+    position: relative;
+    z-index: 2;
+  }
+  
+  .load-more-wrapper a:after{
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #FFA105;
+    transition: all .35s;
+  }
+  
+  .load-more-wrapper a:hover{
+    color: #fff;
+  }
+  
+  .load-more-wrapper a:hover:after{
+    width: 100%;
+  }
+
 
 /* 
 .MuiButton-root {

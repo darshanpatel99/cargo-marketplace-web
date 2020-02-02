@@ -42,7 +42,7 @@ const { isAuthenticated, isVerifying } = props;
         <Route path="/Post" component={Post} />
         <Route path="/Paypal" component={Paypal} />
         <Route path="/thankyou" component={ThankYou} />
-        <Route path="/shopnow" component={Products}/>
+        <Route path="/catalog" component={Products}/>
         <Route path="/about" component={About} />
 
         <ProtectedRoute path="/checkout" component= {Checkout} isAuthenticated={isAuthenticated} isVerifying={isVerifying} />

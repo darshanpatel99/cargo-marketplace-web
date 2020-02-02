@@ -8,6 +8,8 @@ import configureStore from "./configureStore";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 
+import { FirestoreProvider } from 'react-firestore';
+import firebase from "../src/Firebase/firebase";
 
 // All the following keys are optional, as default values are provided.
 const theme = createMuiTheme({
@@ -25,7 +27,9 @@ function Root() {
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <Router>
-          <App />
+          <FirestoreProvider firebase={firebase}>
+            <App />
+          </FirestoreProvider>
         </Router>
       </Provider>
     </ThemeProvider>

@@ -6,6 +6,8 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 // import Button from "components/CustomButtons/Button.js";
 import Button from "@material-ui/core/Button";
+import Grid from '@material-ui/core/Grid';
+
 
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -40,11 +42,12 @@ export default function Cards(props) {
 
   //return the card component
   return (
-    <Card style={{width: "20rem"}}>
+    <Grid item xs={6} sm={3}>
+    <Card >
     <Link to={{pathname:`/product/${item.key}`, state:safeStringify(item)}} >
     <LazyLoadImage
-      style={{height: "180px", width: "100%", display: "block"}}
-      className={classes.imgCardTop}
+      style={{height: "180px", width: "100%"}}
+      
       src={props.src}
       alt={props.alt}
       effect="blur"
@@ -59,5 +62,6 @@ export default function Cards(props) {
       {/* <Button color="primary">Chat</Button> */}
     </CardBody>
   </Card>
+  </Grid>
 );
 }
